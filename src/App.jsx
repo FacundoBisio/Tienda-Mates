@@ -4,7 +4,6 @@ import Header from './components/Header';
 import Accordion from './components/Accordion';
 import TailwindModal from './components/EmailModal';
 import ProductSection from './components/ProductSection';
-import { RedesSociales } from './components/icons.jsx';
 import  CartSidebar  from './components/CartSidebar';
 import { useState } from 'react';
 import { CartIcon } from './components/icons.jsx';
