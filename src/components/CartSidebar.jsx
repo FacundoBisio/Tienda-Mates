@@ -13,13 +13,14 @@ const CartSidebar = ({ isOpen, onClose }) => {
   const generarMensajeWhatsApp = () => {
     const mensaje = cartItems
       .map((item) => `${item.name} x${item.quantity} - $${(item.price * item.quantity).toFixed(2)}`)
-      .join('\n');
-
-    const totalTexto = `\n\nTotal: $${total.toFixed(2)}`;
+      .join('%0A'); // salto de línea
+  
+    const totalTexto = `%0A%0ATotal: $${total.toFixed(2)}`;
     const url = `https://wa.me/5493513662570?text=${encodeURIComponent(
       `Hola, quiero hacer el siguiente pedido:\n${mensaje}${totalTexto}`
     )}`;
-    window.open(url, '_blank');
+    toast.success("Redirigiendo a WhatsApp...");
+    window.open(url, '_blank');    
   };
 
   useEffect(() => {
