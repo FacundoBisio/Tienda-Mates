@@ -1,6 +1,6 @@
 // File: src/components/ProductCard.jsx
 import React from "react";
-import { AddToCartIcon } from "./icons.jsx";
+import { AddToCartIcon } from "./Icons.jsx";
 import { useCart } from '../context/Cart.jsx';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
