@@ -5,14 +5,14 @@ const productsData = {
         id: 'camionero-1',
         name: 'Camionero Criollo Con Base',
         price: '15000',
-        image: '/images/CamioneroCriolloConBase.png',
+        image: '/images/CamioneroCriolloConBase.webp',
         href: 'CamioneroCriolloConBase'
       },
       {
         id: 'camionero-2',
         name: 'Camionero De Algarrobo',
         price: '15000',
-        image: '/images/CamioneroDeAlgarrobo.png',
+        image: '/images/CamioneroDeAlgarrobo.webp',
         href: 'CamioneroDeAlgarrobo'
       }
     ],
@@ -20,22 +20,22 @@ const productsData = {
       {
         id: 'imperial-1',
         name: 'Imperial',
-        price: '17000',
-        image: '/images/Imperial.png',
+        price: '27000',
+        image: '/images/Imperial.webp',
         href: 'Imperial'
       },
       {
         id: 'imperial-2',
         name: 'Imperial Algarrobo',
         price: '20000',
-        image: '/images/ImperialAlgarrobo.png',
+        image: '/images/ImperialAlgarrobo.webp',
         href: 'ImperialAlgarrobo'
       },
       {
         id: 'imperial-3',
         name: 'Imperial Cincelado Con Bolitas',
         price: '35000',
-        image: '/images/ImperialCinceladoConBolitas.png',
+        image: '/images/ImperialCinceladoConBolitas.webp',
         href: 'ImperialCinceladoConBolitas'
       }
     ],
@@ -44,28 +44,28 @@ const productsData = {
         id: 'torpedo-1',
         name: 'Torpedo Cincelado',
         price: '25000',
-        image: '/images/TorpedoCincelado.png',
+        image: '/images/TorpedoCincelado.webp',
         href: 'TorpedoCincelado'
       },
       {
         id: 'torpedo-2',
         name: 'Torpedo Cincelado Con Bolitas',
         price: '35000',
-        image: '/images/TorpedoCinceladoConBolitas.png',
+        image: '/images/TorpedoCinceladoConBolitas.webp',
         href: 'TorpedoCinceladoConBolitas'
       },
       {
         id: 'torpedo-3',
         name: 'Torpedo Con Base Cuero',
         price: '30000',
-        image: '/images/TorpedoConBaseCuero.png',
+        image: '/images/TorpedoConBaseCuero.webp',
         href: 'TorpedoConBaseCuero'
       },
       {
         id: 'torpedo-4',
         name: 'Torpedo Cuero Crudo',
         price: '40000',
-        image: '/images/TorpedoCueroCrudo.png',
+        image: '/images/TorpedoCueroCrudo.webp',
         href: 'TorpedoCueroCrudo'
       }
     ]

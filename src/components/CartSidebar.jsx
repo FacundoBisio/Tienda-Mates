@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useCart } from '../context/Cart';
-import { ClearCartIcon } from './icons';
+import { ClearCartIcon } from './icons.jsx';
 
 const CartSidebar = ({ isOpen, onClose }) => {
   const { cartItems, removeFromCart, clearCart } = useCart();
