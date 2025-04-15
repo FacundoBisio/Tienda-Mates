@@ -73,37 +73,54 @@ const productsData = {
   TERMOS: [
     {
       id: 'termo-1',
-      name: 'Termo Stanley 1L',
+      name: 'Termo Media Manija 1L',
       price: '15000',
-      image: '/termo-stanley.jpg'
-    },
-    {
-      id: 'termo-2',
-      name: 'Termo Acero',
-      price: '30000',
-      image: '/termo-acero.jpg'
+      image: '/images/mediamanija.webp'
     }
   ],
   YERBAS: [
     {
       id: 'yerba-1',
-      name: 'Yerba Playadito',
-      price: '4000',
-      image: '/yerba-playadito.jpg'
+      name: 'Yerba Playadito 1kg',
+      price: '4500',
+      image: '/images/Playadito.webp'
     },
     {
       id: 'yerba-2',
       name: 'Yerba Canarias 1kg',
       price: '9000',
-      image: '/yerba-amanda.jpg'
+      image: '/images/Canarias.webp'
     },
     {
       id: 'yerba-3',
       name: 'Yerba Baldo 1kg',
       price: '10000',
-      image: '/yerba-amanda.jpg'
+      image: '/images/Baldo.webp'
+    }
+  ],
+  BOMBILLAS: [
+    {
+      id: 'bombilla-1',
+      name: 'Bombilla Pico de loro',
+      price: '7000',
+      image: '/images/Bombilla.webp'
+    }
+  ],
+  ACCESORIOS: [
+    {
+      id: 'accesorios-1',
+      name: 'Yerberas',
+      price: '4000',
+      image: '/images/yerberas.webp'
+    },
+    {
+      id: 'accesorios-2',
+      name: 'Canastas',
+      price: '30000',
+      image: '/images/canastas.webp'
     }
   ]
+
 };
 
 export default productsData;

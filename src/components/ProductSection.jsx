@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import productsData from '../data/productsData';
-import ProductCard from './ProductCard'; 
+import ProductCard from './ProductCard';
 import { Button } from "@material-tailwind/react";
-
 
 const categories = Object.keys(productsData);
 
@@ -21,13 +20,17 @@ const ProductSection = () => {
     const data = productsData[selectedCategory];
 
     if (selectedCategory === 'MATES' && typeof data === 'object') {
-      if (!selectedSub) return null;
+      const allProducts = !selectedSub
+        ? Object.values(data).flat()
+        : data[selectedSub];
 
       return (
         <>
-          <h4 className="text-2xl font-semibold mb-4">{selectedSub}</h4>
+          {selectedSub && (
+            <h4 className="text-2xl justify-center font-semibold mb-4">{selectedSub}</h4>
+          )}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {data[selectedSub].map((prod, idx) => (
+            {allProducts.map((prod, idx) => (
               <ProductCard key={idx} product={prod} />
             ))}
           </div>
@@ -49,17 +52,20 @@ const ProductSection = () => {
   };
 
   return (
-    <section id="productos" className="py-24 px-6 bg-gradient-to-t from-gray-50 from-10% via-30% to-gray-200 to-90%">
+    <section id="productos" className="py-24 px-6 bg-gradient-to-t from-gray-50 via-30% to-gray-200">
       <div className="max-w-6xl mx-auto text-center">
         <h3 className="text-3xl font-bold mb-4">NUESTROS PRODUCTOS</h3>
         <p className="text-lg mb-10 text-left">Elegí tu categoría y descubrí nuestros productos</p>
 
+        {/* Categorías con grid (no centrado) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
           {categories.map((cat) => {
             const backgroundImages = {
               MATES: '/images/mates.jpg',
               TERMOS: '/images/termos.jpg',
               YERBAS: '/images/yerbas.jpg',
+              BOMBILLAS: '/images/bombillas.webp',
+              ACCESORIOS: '/images/yerberas.webp',
             };
 
             const bgPosition = cat === 'TERMOS' ? 'top center' : 'center';
@@ -67,7 +73,6 @@ const ProductSection = () => {
             return (
               <button
                 key={cat}
-                id="producto-scroll"
                 onClick={() => {
                   handleCategoryClick(cat);
                   setTimeout(() => {
@@ -89,14 +94,13 @@ const ProductSection = () => {
           })}
         </div>
 
-
         {selectedCategory === 'MATES' && (
-          <div className="flex flex-wrap gap-3 justify-center mb-10">
+          <div className="flex flex-wrap gap-3 justify-center mb-10" id="producto-scroll">
             {Object.keys(productsData.MATES).map((sub) => (
               <button
                 key={sub}
                 onClick={() => setSelectedSub(sub)}
-                className={`px-4 py-2 rounded-lg border text-sm animate-pulse ${
+                className={`px-4 py-2 rounded-lg border text-sm ${
                   selectedSub === sub
                     ? 'bg-orange-900 text-white border-orange-400'
                     : 'bg-white text-orange-900 border-orange-400'
