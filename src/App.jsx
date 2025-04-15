@@ -29,8 +29,8 @@ function App() {
       >
         <div className="text-white bg-opacity-50 p-10 mx-10 rounded-xl text-center fade-in">
           <h2 className="text-4xl font-bold ">Bienvenido a nuestra tienda</h2>
-          <p className="text-lg mb-10">Compartí momentos con el mejor sabor</p>
-          <a href="#productos" className="btn btn-outline-light hover:font-semibold hover:border-orange-600 text-white px-6 py-3 rounded-lg hover:bg-orange-700 transition">Ver productos</a>
+          <p className="text-lg mb-10">Creá momentos únicos con nuestros mates.</p>
+          <a href="#productos" className="btn btn-outline-light hover:font-semibold hover:border-orange-600 text-white px-6 py-3 rounded-lg hover:bg-orange-700">Ver productos</a>
         </div>
       </section>
 

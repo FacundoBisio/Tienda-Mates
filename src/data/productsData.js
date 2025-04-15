@@ -104,6 +104,12 @@ const productsData = {
       name: 'Bombilla Pico de loro',
       price: '7000',
       image: '/images/Bombilla.webp'
+    },    
+    {
+      id: 'bombilla-2',
+      name: 'Bombillon trenzado',
+      price: '17000',
+      image: '/images/Bombillon.webp'
     }
   ],
   ACCESORIOS: [
