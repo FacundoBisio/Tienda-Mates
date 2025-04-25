@@ -11,6 +11,7 @@
     "@emailjs/browser": "^4.4.1",
     "@material-tailwind/react": "^2.1.10",
     "bootstrap": "^5.3.5",
+    "flowbite": "^3.1.2",
     "framer-motion": "^12.6.3",
     "iconoir-react": "^7.10.1",
     "lucide-react": "^0.487.0",

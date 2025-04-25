@@ -1,6 +1,6 @@
 // File: src/components/ProductCard.jsx
 import React from "react";
-import { AddToCartIcon } from "./Icons.jsx";
+import { Add } from "./Icons.jsx";
 import { useCart } from '../context/Cart.jsx';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -40,22 +40,22 @@ const ProductCard = ({ product }) => {
   const formattedPrice = isNaN(price) ? "$0.00" : `$${price.toFixed(2)}`;
 
   return (
-    <div className="relative bg-orange-100 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+    <div className="relative bg-yellow-50 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
       <img
         src={product.image}
         alt={product.name}
         className="w-full h-56 bg-white object-cover"
       />
       <div className="p-4 text-left">
-        <h5 className="text-lg font-semibold">{product.name}</h5>
-        <p className="text-orange-500 font-bold">{formattedPrice}</p>
+        <h5 className="text-[#2E1300] text-lg font-semibold">{product.name}</h5>
+        <p className="text-[#2E1300] font-bold">{formattedPrice}</p>
       </div>
       <div className="absolute bottom-2 right-2">
         <button
-          className="p-2 bg-orange-600 text-white rounded-full hover:bg-orange-800 transition-colors"
+          className="bg-text-white rounded-full hover:bg-orange-800 transition duration-700 hover:animate-spin shadow-none hover:shadow-lg"
           onClick={handleAdd}
         >
-          <AddToCartIcon />
+          <Add />
         </button>
       </div>
     </div>

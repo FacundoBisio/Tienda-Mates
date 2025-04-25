@@ -1,6 +1,6 @@
 const productsData = {
   MATES: {
-    CAMIONEROS: [
+    Camioneros: [
       {
         id: 'camionero-1',
         name: 'Camionero Criollo Con Base',
@@ -16,7 +16,7 @@ const productsData = {
         href: 'CamioneroDeAlgarrobo'
       }
     ],
-    IMPERIALES: [
+    Imperiales: [
       {
         id: 'imperial-1',
         name: 'Imperial',
@@ -39,7 +39,7 @@ const productsData = {
         href: 'ImperialCinceladoConBolitas'
       }
     ],
-    TORPEDOS: [
+    Torpedos: [
       {
         id: 'torpedo-1',
         name: 'Torpedo Cincelado',
@@ -124,6 +124,15 @@ const productsData = {
       name: 'Canastas',
       price: '30000',
       image: '/images/canastas.webp'
+    }
+  ]
+  ,
+  COMBOS: [
+    {
+      id: 'combo-1',
+      name: 'Consultanos por combos',
+      price: '$$$$',
+      image: '/images/combos.webp'
     }
   ]
 

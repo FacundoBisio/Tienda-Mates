@@ -1,9 +1,9 @@
-// components/TailwindModal.jsx
+// components/EmailModal.jsx
 import React, { useState, useRef } from 'react';
 import emailjs from '@emailjs/browser';
 import { CheckCircle } from 'lucide-react';
 
-const TailwindModal = () => {
+export const EmailModal = () => {
   const [showModal, setShowModal] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
@@ -125,4 +125,4 @@ const TailwindModal = () => {
   );
 };
 
-export default TailwindModal;
+export default EmailModal;

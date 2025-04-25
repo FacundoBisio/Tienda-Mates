@@ -14,6 +14,10 @@ const items = [
     title: '¿Cómo cuidar tu mate?',
     content: 'Te recomendamos después de usarlo, vaciá la yerba y dejalo secar boca abajo. No lo dejes húmedo mucho tiempo. En mates de calabaza, evitá mojar la parte exterior. Y si es de acero o vidrio, lavalo con agua tibia y secá bien.',
   },
+  {
+    title: '¿Todos los mates son iguales?',
+    content: '¡No todos! Debido a que el trabajo de todos nuestros mates es 100% artesanal, no existen dos unidades iguales. Además, en los mates de calabaza, al realizarse sobre un fruto natural, los tamaños y formas varían constantemente.',
+  },
 ];
 
 const Accordion = () => {
@@ -28,17 +32,17 @@ const Accordion = () => {
       {items.map((item, index) => {
         const isOpen = activeIndex === index;
         return (
-          <div key={index} className="border rounded overflow-hidden transition-all">
+          <div key={index} className="border rounded overflow-hidden transition-all" id='faq'>
             <button
               onClick={() => toggle(index)}
-              className="w-full flex justify-between items-center px-6 py-4 bg-orange-200 hover:bg-orange-300 text-left font-semibold transition"
+              className="w-full flex justify-between items-center px-6 py-4 bg-yellow-100 hover:bg-[#692904] hover:text-[#FFDE45] text-left font-semibold transition"
             >
               <span>{item.title}</span>
               <span className="text-xl">{isOpen ? '−' : '+'}</span>
             </button>
             <div
-              className={`transition-all duration-500 ease-in-out overflow-hidden ${
-                isOpen ? 'max-h-40 opacity-100 py-4 px-6' : 'max-h-0 opacity-0 py-0 px-6'
+              className={`transition-all duration-500 ease-in-out overflow-hidden bg-[#692904] ${
+                isOpen ? 'max-h-auto opacity-100 py-4 px-6' : 'max-h-0 opacity-0 py-0 px-6'
               } bg-white text-gray-700`}
             >
               <p>{item.content}</p>

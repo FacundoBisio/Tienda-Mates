@@ -40,7 +40,7 @@ const CartSidebar = ({ isOpen, onClose }) => {
       )}
 
       <div
-        className={`fixed top-0 right-0 h-full w-80 bg-orange-800 text-white rounded-lg shadow-lg z-50 transform transition-transform duration-300 ${
+        className={`fixed top-0 right-0 h-full w-80 bg-[#692904] text-white rounded-lg shadow-lg z-50 transform transition-transform duration-300 ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
         onClick={(e) => e.stopPropagation()}
