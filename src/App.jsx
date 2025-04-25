@@ -6,6 +6,7 @@ import ProductSection from './components/ProductSection';
 import  CartSidebar  from './components/CartSidebar';
 import { useState } from 'react';
 import { CartIcon } from './components/Icons.jsx';
+import { useCart } from './context/Cart';
 import { ToastContainer } from 'react-toastify';
 import Footer from './components/Footer.jsx';
 
@@ -13,6 +14,8 @@ import Footer from './components/Footer.jsx';
 
 function App() {
   const [isCartOpen, setCartOpen] = useState(false);
+  const { cartItems } = useCart();
+  const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
   return (
     <div className="bg-gray-100 text-gray-800">
@@ -41,7 +44,14 @@ function App() {
           onClick={() => setCartOpen(true)}
           className="fixed top-4 right-4 bg-transparent text-white font-semibold px-2 py-3 z-50"
         >
-          <CartIcon />
+          <div className="relative">
+            <CartIcon />
+            {totalItems > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                {totalItems}
+              </span>
+            )}
+          </div>
         </button>
         <CartSidebar isOpen={isCartOpen} onClose={() => setCartOpen(false)} />
       </div>

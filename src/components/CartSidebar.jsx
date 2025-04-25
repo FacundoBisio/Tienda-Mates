@@ -3,7 +3,7 @@ import { useCart } from '../context/Cart';
 import { ClearCartIcon } from './Icons.jsx';
 
 const CartSidebar = ({ isOpen, onClose }) => {
-  const { cartItems, removeFromCart, clearCart } = useCart();
+  const { cartItems, removeFromCart, clearCart, updateQuantity } = useCart();
 
   const total = cartItems.reduce(
     (acc, item) => acc + (parseFloat(item.price) || 0) * item.quantity,
@@ -32,12 +32,12 @@ const CartSidebar = ({ isOpen, onClose }) => {
 
   return (
     <>
-      {isOpen && (
-        <div
-          className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40"
-          onClick={onClose}
-        ></div>
-      )}
+    {isOpen && (
+      <div
+        className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-40"
+        onClick={onClose}
+      ></div>
+    )}
 
       <div
         className={`fixed top-0 right-0 h-full w-80 bg-[#692904] text-white rounded-lg shadow-lg z-50 transform transition-transform duration-300 ${
@@ -60,30 +60,62 @@ const CartSidebar = ({ isOpen, onClose }) => {
             <p className="text-gray-200 flex-grow">Tu carrito está vacío</p>
           ) : (
             <>
-              <ul className="flex-grow overflow-y-auto pr-2">
-                {cartItems.map((item) => (
-                  <li
-                    key={item.id}
-                    className="mb-3 flex justify-between items-center border-b pb-2"
-                  >
-                    <div>
-                      <p className="font-medium">{item.name}</p>
-                      <p className="text-sm text-gray-200">x{item.quantity}</p>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-sm font-bold text-white">
-                        ${(item.price * item.quantity).toFixed(2)}
-                      </p>
+            <ul className="flex-grow overflow-y-auto pr-2">
+              {cartItems.map((item) => (
+                <li
+                  key={item.id}
+                  className="mb-4 flex items-center border-b pb-4 gap-4"
+                >
+                  {/* Imagen del producto */}
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="w-24 h-24 object-cover rounded"
+                  />
+
+                  {/* Info del producto */}
+                  <div className="flex flex-col flex-grow">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <p className="font-medium">{item.name}</p>
+                        {/* Si tu producto tiene talla o algo adicional lo podés agregar acá */}
+                        {/* <p className="text-xs text-gray-300">(S)</p> */}
+                      </div>
                       <button
                         onClick={() => removeFromCart(item.id)}
-                        className="text-red-500 hover:underline text-xs mt-1"
+                        className="text-red-500 hover:underline text-xs"
                       >
                         <ClearCartIcon />
                       </button>
                     </div>
-                  </li>
-                ))}
-              </ul>
+
+                    {/* Precio */}
+                    <p className="text-sm font-bold mt-2 text-white">
+                      ${(item.price * item.quantity).toFixed(2)}
+                    </p>
+
+                    {/* Botones de cantidad */}
+                    <div className="flex items-center mt-2 bg-white rounded-full w-fit px-2 py-1">
+                      <button
+                        onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                        className="text-black text-lg font-bold px-2"
+                      >
+                        -
+                      </button>
+                      <span className="text-black px-2">{item.quantity}</span>
+                      <button
+                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                        className="text-black text-lg font-bold px-2"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+
+
               <div className="mt-4">
                 <div className="font-semibold mb-2 text-lg">
                   Total: ${total.toFixed(2)}
