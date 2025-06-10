@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
+// src/components/ProductSection.jsx
+import React, { useState, useContext } from 'react';
 import productsData from '../data/productsData';
 import ProductCard from './ProductCard';
 import { Button } from "@material-tailwind/react";
+import CartProvider, { useCart } from '../context/Cart'; // Importas el Provider por defecto
+import { CartContext } from '../context/Cart'; // Importas el contexto
 
 const categories = Object.keys(productsData);
 
-const ProductSection = () => {
+const ProductSection = () => { // **Esta es la función del componente**
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSub, setSelectedSub] = useState(null);
   const [openDropdown, setOpenDropdown] = useState(false);
+  const { allProducts } = useContext(CartContext); 
 
   const categoryTitles = {
     MATES: "mates artesanales",
@@ -24,43 +28,52 @@ const ProductSection = () => {
     setSelectedSub(null);
   };
 
+  const getProductWithUpdatedStock = (product) => {
+    if (!selectedCategory) return product;
+    const data = allProducts[selectedCategory];
+    if (selectedCategory === 'MATES' && typeof data === 'object') {
+      const list = !selectedSub ? Object.values(data).flat() : data[selectedSub];
+      return list.find(p => p.id === product.id) || product;
+    }
+    if (Array.isArray(data)) {
+      return data.find(p => p.id === product.id) || product;
+    }
+    return product;
+  };
+
   const renderProducts = () => {
     if (!selectedCategory) return null;
 
-    const data = productsData[selectedCategory];
+    const originalData = productsData[selectedCategory];
+    let currentProducts = [];
 
-    if (selectedCategory === 'MATES' && typeof data === 'object') {
-      const allProducts = !selectedSub
-        ? Object.values(data).flat()
-        : data[selectedSub];
-
-      return (
-        <>
-          {selectedSub && (
-            <h4 className="text-2xl justify-center font-semibold mb-4">{selectedSub}</h4>
-          )}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {allProducts.map((prod, idx) => (
-              <ProductCard key={idx} product={prod} />
-            ))}
-          </div>
-        </>
-      );
+    if (selectedCategory === 'MATES' && typeof originalData === 'object') {
+      currentProducts = !selectedSub ? Object.values(originalData).flat() : originalData[selectedSub];
+    } else if (Array.isArray(originalData)) {
+      currentProducts = originalData;
     }
 
-    if (Array.isArray(data)) {
-      return (
+    return (
+      <>
+        {selectedSub && (
+          <h4 className="text-2xl justify-center font-semibold mb-4">{selectedSub}</h4>
+        )}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {data.map((prod, idx) => (
-            <ProductCard key={idx} product={prod} />
-          ))}
+          {currentProducts.map((prod, idx) => {
+            const updatedProduct = getProductWithUpdatedStock(prod);
+            return (
+              <ProductCard
+                key={idx}
+                product={{ ...updatedProduct, category: selectedCategory, catKey: selectedSub || selectedCategory }}
+              />
+            );
+          })}
         </div>
-      );
-    }
-
-    return null;
+      </>
+    );
   };
 
+  // **El 'return' debe estar dentro de la función ProductSection:**
   return (
     <section id="productos" className="py-24 px-6 bg-white">
       <div className="max-w-6xl mx-auto text-center">
@@ -106,58 +119,58 @@ const ProductSection = () => {
         </div>
 
         {selectedCategory === 'MATES' && (
-        <div className="flex flex-col sm:flex-row justify-between items-center mb-10 px-4" id="producto-scroll">
-          <h3 className="text-3xl font-bold text-[#2E1300] mb-4 sm:mb-0">Todos nuestros productos</h3>
+          <div className="flex flex-col sm:flex-row justify-between items-center mb-10 px-4" id="producto-scroll">
+            <h3 className="text-3xl font-bold text-[#2E1300] mb-4 sm:mb-0">Todos nuestros productos</h3>
 
-          {/* Dropdown Tailwind */}
-          <div className="relative inline-block text-left">
-            <button
-              onClick={() => setOpenDropdown(!openDropdown)}
-              className="inline-flex justify-center items-center gap-2 px-4 py-2 text-sm font-medium text-[#2E1300] bg-white border border-gray-300 rounded-md shadow hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#692904]"
-            >
-              {selectedSub || "Destacados"}
-              <svg
-                className={`w-4 h-4 transition-transform ${openDropdown ? "rotate-180" : ""}`}
-                viewBox="0 0 20 20"
-                fill="currentColor"
+            {/* Dropdown Tailwind */}
+            <div className="relative inline-block text-left">
+              <button
+                onClick={() => setOpenDropdown(!openDropdown)}
+                className="inline-flex justify-center items-center gap-2 px-4 py-2 text-sm font-medium text-[#2E1300] bg-white border border-gray-300 rounded-md shadow hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#692904]"
               >
-                <path d="M5.516 7.548a.5.5 0 01.707 0L10 11.325l3.777-3.777a.5.5 0 11.707.707l-4.13 4.13a.5.5 0 01-.707 0l-4.13-4.13a.5.5 0 010-.707z" />
-              </svg>
-            </button>
+                {selectedSub || "Destacados"}
+                <svg
+                  className={`w-4 h-4 transition-transform ${openDropdown ? "rotate-180" : ""}`}
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path d="M5.516 7.548a.5.5 0 01.707 0L10 11.325l3.777-3.777a.5.5 0 11.707.707l-4.13 4.13a.5.5 0 01-.707 0l-4.13-4.13a.5.5 0 010-.707z" />
+                </svg>
+              </button>
 
-            {openDropdown && (
-              <div className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 ">
-                <div className="py-1">
-                  {Object.keys(productsData.MATES).map((sub) => (
-                    <button
-                      key={sub}
-                      onClick={() => {
-                        setSelectedSub(sub);
-                        setOpenDropdown(false);
-                      }}
-                      className="w-full text-left block px-4 py-2 text-sm text-[#2E1300] hover:bg-gray-200 "
-                    >
-                      {sub}
-                    </button>
-                  ))}
+              {openDropdown && (
+                <div className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 ">
+                  <div className="py-1">
+                    {Object.keys(productsData.MATES).map((sub) => (
+                      <button
+                        key={sub}
+                        onClick={() => {
+                          setSelectedSub(sub);
+                          setOpenDropdown(false);
+                        }}
+                        className="w-full text-left block px-4 py-2 text-sm text-[#2E1300] hover:bg-gray-200 "
+                      >
+                        {sub}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {selectedCategory && selectedCategory !== 'MATES' && (
-        <div className="flex justify-center items-center mb-10 px-4" id="producto-scroll">
-          <h3 className="text-3xl font-bold text-[#2E1300] text-center">
-            Todos nuestros {categoryTitles[selectedCategory] || selectedCategory.toLowerCase()}
-          </h3>
-        </div>
-      )}
+        {selectedCategory && selectedCategory !== 'MATES' && (
+          <div className="flex justify-center items-center mb-10 px-4" id="producto-scroll">
+            <h3 className="text-3xl font-bold text-[#2E1300] text-center">
+              Todos nuestros {categoryTitles[selectedCategory] || selectedCategory.toLowerCase()}
+            </h3>
+          </div>
+        )}
         {renderProducts()}
       </div>
     </section>
   );
-};
+}; // **Aquí termina la función del componente**
 
 export default ProductSection;
