@@ -5,7 +5,7 @@ const productsData = {
       {
         id: 'camionero-1',
         name: 'Camionero Criollo Con Base',
-        price: '19999',
+        price: '17999',
         image: '/images/CamioneroCriolloConBase.webp',
         href: 'CamioneroCriolloConBase',
         stock: 0
@@ -13,7 +13,7 @@ const productsData = {
       {
         id: 'camionero-2',
         name: 'Camionero De Algarrobo',
-        price: '19999',
+        price: '17999',
         image: '/images/CamioneroDeAlgarrobo.webp',
         href: 'CamioneroDeAlgarrobo',
         stock: 0
@@ -73,23 +73,23 @@ const productsData = {
       {
         id: 'torpedo-2',
         name: 'Torpedo Cincelado Con Bolitas',
-        price: '41999',
+        price: '39500',
         image: '/images/TorpedoCinceladoConBolitas.webp',
         href: 'TorpedoCinceladoConBolitas',
         stock: 1
       },
       {
         id: 'torpedo-3',
-        name: 'Torpedo Con Base Cincelado',
-        price: '41999',
+        name: 'Torpedo base redonda Cuero Labrado',
+        price: '34999',
         image: '/images/TorpedoConBaseCueroTrabajado.webp',
         href: 'TorpedoConBaseCueroTrabajado',
         stock: 1
       },
       {
         id: 'torpedo-4',
-        name: 'Torpedo Con Base',
-        price: '41999',
+        name: 'Torpedo base redonda Virola Cincelada',
+        price: '36999',
         image: '/images/TorpedoConBaseCincelado.webp',
         href: 'TorpedoConBaseCincelado',
         stock: 1
@@ -97,7 +97,7 @@ const productsData = {
       {
         id: 'torpedo-5',
         name: 'Torpedo Cuero Crudo',
-        price: '39999',
+        price: '41999',
         image: '/images/TorpedoCueroCrudo.webp',
         href: 'TorpedoCueroCrudo',
         stock: 1
@@ -124,14 +124,14 @@ const productsData = {
     {
       id: 'yerba-2',
       name: 'Yerba Canarias 1kg',
-      price: '9000',
+      price: '10000',
       image: '/images/Canarias.webp',
       stock: 5
     },
     {
       id: 'yerba-3',
       name: 'Yerba Baldo 1kg',
-      price: '10000',
+      price: '10800',
       image: '/images/Baldo.webp',
       stock: 5
     }
@@ -146,8 +146,22 @@ const productsData = {
     },
     {
       id: 'bombilla-2',
-      name: 'Bombillon trenzado',
-      price: '17000',
+      name: 'Bombilla Trenzada',
+      price: '8000',
+      image: '/images/BombillaTrenzada.webp',
+      stock: 5
+    },
+    {
+      id: 'bombilla-3',
+      name: 'Bombilla con Apliques',
+      price: '8000',
+      image: '/images/BombillaApliques.webp',
+      stock: 5
+    },
+    {
+      id: 'bombilla-4',
+      name: 'Bombillon Trenzado',
+      price: '22500',
       image: '/images/Bombillon.webp',
       stock: 1
     }
@@ -161,9 +175,9 @@ const productsData = {
       stock: 5
     },
     {
-      id: 'accesorios-2',
-      name: 'Canastas',
-      price: '30000',
+      id: 'accesorios-3',
+      name: 'Canasta de Cuero',
+      price: '40000',
       image: '/images/canastas.webp',
       stock: 2
     }
