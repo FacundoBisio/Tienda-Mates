@@ -1,3 +1,4 @@
+// src/components/CartSidebar.jsx
 import React, { useEffect } from 'react';
 import { useCart } from '../context/Cart';
 import { ClearCartIcon } from './Icons.jsx';
