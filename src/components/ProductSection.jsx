@@ -73,7 +73,6 @@ const ProductSection = () => { // **Esta es la función del componente**
     );
   };
 
-  // **El 'return' debe estar dentro de la función ProductSection:**
   return (
     <section id="productos" className="py-24 px-6 bg-white">
       <div className="max-w-6xl mx-auto text-center">

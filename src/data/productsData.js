@@ -5,7 +5,7 @@ const productsData = {
       {
         id: 'camionero-1',
         name: 'Camionero Criollo Con Base',
-        price: '17999',
+        price: '19500',
         image: '/images/mates/camioneros/CamioneroCriolloConBase.webp',
         href: 'CamioneroCriolloConBase',
         stock: 0
@@ -23,7 +23,7 @@ const productsData = {
       {
         id: 'imperial-1',
         name: 'Imperial',
-        price: '29999',
+        price: '31999',
         image: '/images/mates/imperiales/Imperial.webp',
         href: 'Imperial',
         stock: 4
@@ -39,7 +39,7 @@ const productsData = {
       {
         id: 'imperial-3',
         name: 'Imperial Con Base',
-        price: '34999',
+        price: '35999',
         image: '/images/mates/imperiales/ImperialConBase.webp',
         href: 'ImperialConBase',
         stock: 2
@@ -47,7 +47,7 @@ const productsData = {
       {
         id: 'imperial-4',
         name: 'Imperial Cincelado Con Bolitas',
-        price: '41999',
+        price: '44999',
         image: '/images/mates/imperiales/ImperialCinceladoConBolitas.webp',
         href: 'ImperialCinceladoConBolitas',
         stock: 2
@@ -73,7 +73,7 @@ const productsData = {
       {
         id: 'torpedo-2',
         name: 'Torpedo Cincelado Con Bolitas',
-        price: '39500',
+        price: '39999',
         image: '/images/mates/torpedos/TorpedoCinceladoConBolitas.webp',
         href: 'TorpedoCinceladoConBolitas',
         stock: 1
@@ -107,9 +107,16 @@ const productsData = {
   TERMOS: [
     {
       id: 'termo-1',
-      name: 'Termo Media Manija 1L Plateado/Negro',
-      price: '25000',
+      name: 'Termo Media Manija 1L Plateado',
+      price: '24000',
       image: '/images/termos/mediamanija.webp',
+      stock: 3
+    },
+    {
+      id: 'termo-2',
+      name: 'Termo Media Manija 1L Total Black',
+      price: '26000',
+      image: '/images/termos/termoNegro.webp',
       stock: 3
     }
   ],
@@ -257,7 +264,7 @@ const productsData = {
     {
       id: 'accesorios-1',
       name: 'Yerberas',
-      price: '4000',
+      price: '5000',
       image: '/images/accesorios/Yerbera.webp',
       stock: 5
     },
