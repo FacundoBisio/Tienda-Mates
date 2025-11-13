@@ -37,7 +37,9 @@ const ProductCard = ({ product }) => {
   };
 
   const price = parseFloat(product.price);
-  const formattedPrice = isNaN(price) ? "$0.00" : `$${price.toFixed(2)}`;
+  const formattedPrice = isNaN(price)
+  ? "$0"
+  : `$${Number.isInteger(price) ? price : price.toFixed(2)}`;
 
   return (
     <div className="relative bg-yellow-50 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">

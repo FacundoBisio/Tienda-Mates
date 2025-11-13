@@ -31,7 +31,7 @@ const productsData = {
       {
         id: 'imperial-2',
         name: 'Imperial Algarrobo',
-        price: '23999',
+        price: '24999',
         image: '/images/mates/imperiales/ImperialAlgarrobo.webp',
         href: 'ImperialAlgarrobo',
         stock: 2
@@ -131,7 +131,7 @@ const productsData = {
     {
       id: 'yerba-3',
       name: 'Yerba Baldo 1kg',
-      price: '10000',
+      price: '11000',
       image: '/images/yerbas/Baldo.webp',
       stock: 5
     }
@@ -139,7 +139,7 @@ const productsData = {
     {
       id: 'yerba-4',
       name: 'Yerba Baldo 500g',
-      price: '5500',
+      price: '6000',
       image: '/images/yerbas/baldo500.webp',
       stock: 5
     }
@@ -147,7 +147,7 @@ const productsData = {
     {
       id: 'yerba-5',
       name: 'Yerba Baldo 5kg',
-      price: '46000',
+      price: '48000',
       image: '/images/yerbas/baldo5kg.webp',
       stock: 5
     }
