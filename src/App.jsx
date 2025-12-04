@@ -1,29 +1,22 @@
-import React from 'react';
+// src/App.jsx
+import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Accordion from './components/Accordion';
 import ProductSection from './components/ProductSection';
-import  CartSidebar  from './components/CartSidebar';
-import { useState } from 'react';
+import CartSidebar from './components/CartSidebar';
 import { CartIcon } from './components/Icons.jsx';
 import { useCart } from './context/Cart';
 import { ToastContainer } from 'react-toastify';
 import Footer from './components/Footer.jsx';
+import PrivacyPolicy from './components/PrivacyPolicy';
+import ProductDetail from './components/ProductDetail';
 
-
-
-function App() {
-  const [isCartOpen, setCartOpen] = useState(false);
-  const { cartItems } = useCart();
-  const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
-
+// Componente para la página de inicio (lo que ya tenías)
+const Home = () => {
   return (
-    <div className="bg-gray-100 text-gray-800">
-      {/* Toast notifications */}
-      <ToastContainer className="py-20" />
-      {/* Header section */}
-      <Header />
-      
+    <>
       {/* Background image section */}
       <section
         id="inicio"
@@ -37,8 +30,52 @@ function App() {
         </div>
       </section>
 
+      {/* Sección "Sobre Nosotros" AGREGADA PARA ADSENSE */}
+      <section id="nosotros" className="py-16 px-6 bg-[#f9f9f9] text-center">
+        <div className="max-w-4xl mx-auto">
+          <h3 className="text-3xl font-bold text-[#692904] mb-6">Pasión por el Mate</h3>
+          <p className="text-lg text-gray-700 mb-4">
+            En <strong>FFMates</strong> nos dedicamos a ofrecer productos de la más alta calidad para los amantes de esta tradición sudamericana. 
+            Cada uno de nuestros mates es seleccionado cuidadosamente, priorizando materiales nobles como la calabaza brasileña, el cuero vacuno legítimo y el acero inoxidable de grado alimenticio.
+          </p>
+          <p className="text-lg text-gray-700">
+            Creemos que un buen mate no es solo un recipiente, sino un compañero de momentos. Por eso, trabajamos con artesanos locales para brindarte piezas únicas, desde los clásicos camioneros hasta los elegantes imperiales cincelados a mano.
+          </p>
+        </div>
+      </section>
 
-      {/* Carrito section */}
+      {/* Products section */}
+      <ProductSection />
+
+      <section className="py-10 px-6 bg-white">
+        <div className="max-w-4xl mx-auto">
+          <p className="text-lg font-semibold text-left text-[#2E1300]">Preguntas frecuentes</p>
+          <p className="text-lg mb-10 text-left">¿Necesitas ayuda? Aquí puedes encontrar las preguntas más frecuentes.</p>
+          <Accordion />
+        </div>
+      </section>
+    </>
+  );
+};
+
+function App() {
+  const [isCartOpen, setCartOpen] = useState(false);
+  const { cartItems } = useCart();
+  const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+
+  return (
+    <div className="bg-gray-100 text-gray-800">
+      <ToastContainer className="py-20" />
+      <Header />
+      
+      {/* Definición de Rutas */}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/politica-de-privacidad" element={<PrivacyPolicy />} />
+        <Route path="/producto/:id" element={<ProductDetail />} />
+      </Routes>
+
+      {/* Carrito global */}
       <div>
         <button
           onClick={() => setCartOpen(true)}
@@ -56,19 +93,6 @@ function App() {
         <CartSidebar isOpen={isCartOpen} onClose={() => setCartOpen(false)} />
       </div>
 
-      {/* Products section */}
-      <ProductSection />
-
-      <section className="py-10 px-6 bg-white">
-        <div className="max-w-4xl mx-auto">
-        <p className="text-lg font-semibold text-left text-[#2E1300]">Preguntas frecuentes</p>
-        <p className="text-lg mb-10 text-left">¿Necesitas ayuda? Aquí puedes encontrar las preguntas más frecuentes.</p>
-          <Accordion />
-        </div>
-      </section>
-
-
-      {/* Contact section */}
       <Footer />
     </div>
   );

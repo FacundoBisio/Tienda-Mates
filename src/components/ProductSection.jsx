@@ -1,18 +1,29 @@
 // src/components/ProductSection.jsx
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import productsData from '../data/productsData';
 import ProductCard from './ProductCard';
 import { Button } from "@material-tailwind/react";
-import CartProvider, { useCart } from '../context/Cart'; // Importas el Provider por defecto
-import { CartContext } from '../context/Cart'; // Importas el contexto
+import { CartContext } from '../context/Cart';
 
 const categories = Object.keys(productsData);
 
-const ProductSection = () => { // **Esta es la función del componente**
+const ProductSection = () => { 
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSub, setSelectedSub] = useState(null);
   const [openDropdown, setOpenDropdown] = useState(false);
   const { allProducts } = useContext(CartContext); 
+
+  // --- CORRECCIÓN: El useEffect va ACÁ, en el cuerpo principal del componente ---
+  useEffect(() => {
+    if (window.location.hash === '#productos') {
+      const element = document.getElementById('productos');
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    }
+  }, []); // Se ejecuta una sola vez al montar el componente
 
   const categoryTitles = {
     MATES: "mates artesanales",
@@ -53,10 +64,12 @@ const ProductSection = () => { // **Esta es la función del componente**
       currentProducts = originalData;
     }
 
+    // --- ACÁ NO DEBE IR EL useEffect ---
+
     return (
       <>
         {selectedSub && (
-          <h4 className="text-2xl justify-center font-semibold mb-4">{selectedSub}</h4>
+          <h4 className="text-2xl justify-center font-semibold mb-4 text-[#2E1300]">{selectedSub}</h4>
         )}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {currentProducts.map((prod, idx) => {
@@ -79,8 +92,8 @@ const ProductSection = () => { // **Esta es la función del componente**
         <h3 className="text-3xl font-bold text-[#2E1300]">NUESTROS PRODUCTOS</h3>
         <p className="text-lg mb-5 text-center text-[#2E1300]">Elegí tu categoría y descubrí nuestros productos</p>
 
-        {/* Categorías con grid (no centrado) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+        {/* Categorías */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
           {categories.map((cat) => {
             const backgroundImages = {
               MATES: '/images/mates.webp',
@@ -98,6 +111,7 @@ const ProductSection = () => { // **Esta es la función del componente**
                 key={cat}
                 onClick={() => {
                   handleCategoryClick(cat);
+                  // Pequeño hack para asegurar que el scroll ocurra después de renderizar
                   setTimeout(() => {
                     document.getElementById('producto-scroll')?.scrollIntoView({ behavior: 'smooth' });
                   }, 100);
@@ -121,7 +135,7 @@ const ProductSection = () => { // **Esta es la función del componente**
           <div className="flex flex-col sm:flex-row justify-between items-center mb-10 px-4" id="producto-scroll">
             <h3 className="text-3xl font-bold text-[#2E1300] mb-4 sm:mb-0">Todos nuestros productos</h3>
 
-            {/* Dropdown Tailwind */}
+            {/* Dropdown */}
             <div className="relative inline-block text-left">
               <button
                 onClick={() => setOpenDropdown(!openDropdown)}
@@ -170,6 +184,6 @@ const ProductSection = () => { // **Esta es la función del componente**
       </div>
     </section>
   );
-}; // **Aquí termina la función del componente**
+};
 
 export default ProductSection;
