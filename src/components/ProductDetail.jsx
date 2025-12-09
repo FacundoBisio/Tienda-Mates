@@ -99,8 +99,8 @@ const ProductDetail = () => {
       
       {/* 1. SEO DINÁMICO CON HELMET */}
       <Helmet>
-        <title>{product.name} | FFMates</title>
-        <meta name="description" content={product.description || `Comprá ${product.name} al mejor precio en FFMates. Calidad artesanal asegurada.`} />
+        <title>FFMATES | {product.name}</title>
+        <meta name="description" content={product.description || `Comprá ${product.name} al mejor precio en FFMates. Calidad asegurada.`} />
         
         {/* Open Graph (WhatsApp / Facebook) */}
         <meta property="og:title" content={product.name} />

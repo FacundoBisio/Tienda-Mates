@@ -3,45 +3,38 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import productsData from '../data/productsData'; 
 
-// BUENA PRÁCTICA: Usar variable de entorno si existe, sino fallback
 const GOOGLE_SHEET_URL = import.meta.env?.VITE_GOOGLE_SHEET_URL || `https://docs.google.com/spreadsheets/d/e/2PACX-1vSAay1X8MYjlrX4_YJpKz-ieLNhBJGMcCi40BTTMhjo7XADQ5wAybhbkqiE7RoMKutMGd_zfpPlzgMf/pub?gid=1640561616&single=true&output=csv&_t=${new Date().getTime()}`;
 
-// 1. Crear el contexto
 const CartContext = createContext();
 
-// 2. Hook personalizado para usar el contexto
 export const useCart = () => useContext(CartContext);
 
-// 3. Proveedor del contexto
 export const CartProvider = ({ children }) => {
-  const [allProducts, setAllProducts] = useState({}); // Inicialmente vacío
+  const [allProducts, setAllProducts] = useState({});
   const [cartItems, setCartItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // --- Efecto para cargar el stock desde Google Sheets ---
+  // --- Carga Inicial ---
   useEffect(() => {
     const fetchAndUpdateStock = async () => {
       try {
         setIsLoading(true);
         const response = await fetch(GOOGLE_SHEET_URL);
-        if (!response.ok) throw new Error('Error conectando con la hoja de stock.');
+        if (!response.ok) throw new Error('Error conectando stock.');
         
         const csvText = await response.text();
         const stockMap = new Map();
-        
-        // Parseo simple de CSV (omitiendo cabecera)
         csvText.trim().split('\n').slice(1).forEach(row => {
           const [id, name, stock] = row.split(',');
-          // Aseguramos que id y stock existan antes de guardar
           if (id && stock !== undefined) {
             stockMap.set(id.trim(), parseInt(stock.trim(), 10));
           }
         });
 
-        // OPTIMIZACIÓN: structuredClone es nativo y más rápido que JSON.parse/stringify
+        // Clonado eficiente
         const updatedData = structuredClone(productsData);
 
-        // Lógica de actualización recursiva para recorrer categorías y subcategorías
+        // Helper recursivo para actualizar stock inicial
         const updateCategory = (items) => {
           if (Array.isArray(items)) {
             return items.map(item => ({
@@ -62,8 +55,7 @@ export const CartProvider = ({ children }) => {
         setAllProducts(finalProducts);
 
       } catch (error) {
-        console.error("Error al cargar el stock:", error);
-        toast.error("Hubo un error al cargar el stock. Se usarán datos locales.", { autoClose: 3000 });
+        console.error("Error stock:", error);
         setAllProducts(productsData);
       } finally {
         setIsLoading(false);
@@ -73,19 +65,17 @@ export const CartProvider = ({ children }) => {
     fetchAndUpdateStock();
   }, []);
 
-  // --- Persistencia del carrito en localStorage ---
+  // --- Persistencia ---
   useEffect(() => {
     const storedCart = localStorage.getItem('cartItems');
-    if (storedCart) {
-      setCartItems(JSON.parse(storedCart));
-    }
+    if (storedCart) setCartItems(JSON.parse(storedCart));
   }, []);
 
   useEffect(() => {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
   }, [cartItems]);
 
-  // --- Helper recursivo para buscar producto en la estructura anidada ---
+  // --- Helper de Búsqueda ---
   const findProduct = (data, id) => {
     for (const key in data) {
       if (Array.isArray(data[key])) {
@@ -102,13 +92,12 @@ export const CartProvider = ({ children }) => {
   // --- Funciones del Carrito ---
 
   const addToCart = (product) => {
-    // Verificamos stock contra el estado actual 'allProducts' (memoria)
     const productInStock = findProduct(allProducts, product.id);
     const currentInCart = cartItems.find(item => item.id === product.id);
     const quantityInCart = currentInCart ? currentInCart.quantity : 0;
 
-    // Si hay stock disponible (stock real - lo que ya tengo en el carrito)
-    if (productInStock && (productInStock.stock - quantityInCart) > 0) {
+    if (productInStock && (productInStock.stock > 0)) {
+      // 1. Agregar al carrito
       setCartItems(prev => {
         const existing = prev.find(item => item.id === product.id);
         if (existing) {
@@ -119,7 +108,17 @@ export const CartProvider = ({ children }) => {
           return [...prev, { ...product, quantity: 1 }];
         }
       });
-      // Nota: No mostramos toast aquí porque ya lo haces en ProductCard.jsx
+
+      // 2. ACTUALIZACIÓN VISUAL DEL STOCK (Esto es lo que faltaba para que "baje")
+      setAllProducts(prev => {
+        const newData = structuredClone(prev); // Usamos structuredClone que es nativo y seguro
+        const itemToUpdate = findProduct(newData, product.id);
+        if (itemToUpdate) {
+            itemToUpdate.stock = itemToUpdate.stock - 1; // Restamos visualmente
+        }
+        return newData;
+      });
+
     } else {
       toast.error(`No hay suficiente stock disponible para ${product.name}`, {
         autoClose: 2000,
@@ -129,10 +128,30 @@ export const CartProvider = ({ children }) => {
   };
   
   const removeFromCart = (id) => {
-    setCartItems(prev => prev.filter(item => item.id !== id));
+    const itemToRemove = cartItems.find(item => item.id === id);
+    if(itemToRemove) {
+        setCartItems(prev => prev.filter(item => item.id !== id));
+        
+        // Devolvemos el stock visualmente
+        setAllProducts(prev => {
+            const newData = structuredClone(prev);
+            const itemToUpdate = findProduct(newData, id);
+            if (itemToUpdate) itemToUpdate.stock += itemToRemove.quantity;
+            return newData;
+        });
+    }
   };
 
   const clearCart = () => {
+    // Devolvemos todo el stock visualmente antes de limpiar
+    setAllProducts(prev => {
+        const newData = structuredClone(prev);
+        cartItems.forEach(cartItem => {
+            const itemToUpdate = findProduct(newData, cartItem.id);
+            if (itemToUpdate) itemToUpdate.stock += cartItem.quantity;
+        });
+        return newData;
+    });
     setCartItems([]);
   };
 
@@ -142,13 +161,27 @@ export const CartProvider = ({ children }) => {
       return;
     }
 
+    const itemInCart = cartItems.find(item => item.id === id);
     const productInStock = findProduct(allProducts, id);
     
-    // Verificamos si hay stock suficiente para la NUEVA cantidad total deseada
-    if (productInStock && productInStock.stock >= newQuantity) {
+    // Calculamos la diferencia
+    const currentQty = itemInCart ? itemInCart.quantity : 0;
+    const diff = newQuantity - currentQty; 
+
+    // Si queremos agregar (diff > 0), revisamos si hay stock REMANENTE en allProducts
+    // Si queremos restar (diff < 0), siempre se puede
+    if (diff < 0 || (productInStock && productInStock.stock >= diff)) {
       setCartItems(prev => prev.map(item => item.id === id ? { ...item, quantity: newQuantity } : item));
+      
+      // Actualizamos stock visual
+      setAllProducts(prev => {
+        const newData = structuredClone(prev);
+        const itemToUpdate = findProduct(newData, id);
+        if (itemToUpdate) itemToUpdate.stock -= diff;
+        return newData;
+      });
     } else {
-      toast.warn(`Solo hay ${productInStock?.stock || 0} unidades disponibles de este producto.`);
+      toast.warn(`Solo quedan ${productInStock?.stock} unidades.`);
     }
   };
 
@@ -160,8 +193,8 @@ export const CartProvider = ({ children }) => {
         removeFromCart,
         clearCart,
         updateQuantity,
-        allProducts, // Data completa con stock actualizado
-        isLoading,   // Estado de carga para usar en la UI
+        allProducts,
+        isLoading,
       }}
     >
       {children}
@@ -169,6 +202,5 @@ export const CartProvider = ({ children }) => {
   );
 };
 
-// 4. Exportaciones finales
 export { CartContext }; 
 export default CartProvider;

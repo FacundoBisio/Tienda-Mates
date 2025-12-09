@@ -133,7 +133,7 @@ const ProductSection = () => {
 
         {selectedCategory === 'MATES' && (
           <div className="flex flex-col sm:flex-row justify-between items-center mb-10 px-4" id="producto-scroll">
-            <h3 className="text-3xl font-bold text-[#2E1300] mb-4 sm:mb-0">Todos nuestros productos</h3>
+            <h3 className="text-3xl font-bold text-[#2E1300] mt-4 mb-4 sm:mb-0">Todos nuestros productos</h3>
 
             {/* Dropdown */}
             <div className="relative inline-block text-left">
@@ -174,7 +174,7 @@ const ProductSection = () => {
         )}
 
         {selectedCategory && selectedCategory !== 'MATES' && (
-          <div className="flex justify-center items-center mb-10 px-4" id="producto-scroll">
+          <div className="flex justify-center items-center mt-6 mb-10 px-4" id="producto-scroll">
             <h3 className="text-3xl font-bold text-[#2E1300] text-center">
               Todos nuestros {categoryTitles[selectedCategory] || selectedCategory.toLowerCase()}
             </h3>

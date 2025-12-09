@@ -1,9 +1,8 @@
 import React from 'react';
 import { RedesSociales } from './Icons.jsx';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { Link } from 'react-router-dom';
 
-export default function Footer() {
-
+const Footer = () => {
   return (
     <>
     <section className="bg-[#FFDE45] py-5 text-center text-[#692904]" id='contacto'>
@@ -20,9 +19,10 @@ export default function Footer() {
         {/* Columna 2: Navegación */}
         <div className="col-md-4 mb-4 mb-md-0 d-flex flex-column gap-2 text-center hover:text-[#2E1300] font-semibold">
             <a href="#inicio">Inicio</a>
-            <a href="#productos">Productos</a>
             <a href="#nosotros">Nosotros</a>
+            <a href="#productos">Productos</a>
             <a href="#contacto">Contacto</a>
+            <Link to="/politica-de-privacidad">Privacidad</Link>
         </div>
 
         {/* Columna 3: Redes */}
@@ -38,7 +38,21 @@ export default function Footer() {
     </section>
     <footer className="bg-[#FFDE45] py-4 text-center">
             <p className="text-[#2E1300] font-semibold">&copy; {new Date().getFullYear()} FFMATES. Todos los derechos reservados.</p>
+            <div className="mt-2 flex items-center justify-center gap-1 text-[#2E1300]">
+            <span>Desarrollado con 🧉 por</span>
+            <a 
+                href="https://www.linkedin.com/in/facundo-bisio-25a104247/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="font-bold text-[#2E1300] hover:text-[#692904] transition"
+            >
+                Facundo Bisio
+            </a>
+            </div>
     </footer>
     </>
+
   );
-}
+};
+
+export default Footer;
