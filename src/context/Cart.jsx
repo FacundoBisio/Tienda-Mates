@@ -1,136 +1,79 @@
 // src/context/Cart.jsx
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import productsData from '../data/productsData'; 
 
-const GOOGLE_SHEET_URL = `https://docs.google.com/spreadsheets/d/e/2PACX-1vSAay1X8MYjlrX4_YJpKz-ieLNhBJGMcCi40BTTMhjo7XADQ5wAybhbkqiE7RoMKutMGd_zfpPlzgMf/pub?gid=1640561616&single=true&output=csv&_t=${new Date().getTime()}`;
+// BUENA PRÁCTICA: Usar variable de entorno si existe, sino fallback
+const GOOGLE_SHEET_URL = import.meta.env?.VITE_GOOGLE_SHEET_URL || `https://docs.google.com/spreadsheets/d/e/2PACX-1vSAay1X8MYjlrX4_YJpKz-ieLNhBJGMcCi40BTTMhjo7XADQ5wAybhbkqiE7RoMKutMGd_zfpPlzgMf/pub?gid=1640561616&single=true&output=csv&_t=${new Date().getTime()}`;
 
+// 1. Crear el contexto
 const CartContext = createContext();
 
+// 2. Hook personalizado para usar el contexto
 export const useCart = () => useContext(CartContext);
 
-// --- Función Auxiliar para la lógica de actualización ---
-// Esta función recorre tu objeto de productos anidado y actualiza el stock
-const updateStockInData = (data, stockMap) => {
-  const updatedData = JSON.parse(JSON.stringify(data)); // Copia profunda para no mutar el original
-
-  Object.keys(updatedData).forEach(categoryKey => {
-    const category = updatedData[categoryKey];
-    if (Array.isArray(category)) { // Caso: TERMOS, YERBAS, etc.
-      category.forEach(product => {
-        // Usa product.id.toString() para asegurar consistencia si los IDs son números en tu JSON y strings en la hoja.
-        if (stockMap.has(product.id.toString())) {
-          product.stock = stockMap.get(product.id.toString());
-        }
-      });
-    } else if (typeof category === 'object' && category !== null) { // Caso: MATES
-      Object.keys(category).forEach(subCategoryKey => {
-        const subCategory = category[subCategoryKey];
-        if (Array.isArray(subCategory)) {
-          subCategory.forEach(product => {
-            // Usa product.id.toString()
-            if (stockMap.has(product.id.toString())) {
-              product.stock = stockMap.get(product.id.toString());
-            }
-          });
-        }
-      });
-    }
-  });
-  return updatedData;
-};
-
-
+// 3. Proveedor del contexto
 export const CartProvider = ({ children }) => {
-  const [allProducts, setAllProducts] = useState({});
+  const [allProducts, setAllProducts] = useState({}); // Inicialmente vacío
   const [cartItems, setCartItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Efecto para cargar el stock desde Google Sheets al iniciar
-useEffect(() => {
-  const fetchAndUpdateStock = async () => {
-    try {
-      const response = await fetch(GOOGLE_SHEET_URL);
-      if (!response.ok) {
-        throw new Error('No se pudo conectar con la base de datos de stock.');
-      }
-      const csvText = await response.text();
-
-      const stockMap = new Map();
-      const rows = csvText.trim().split('\n').slice(1); // Omitimos la cabecera
-      rows.forEach(row => {
-        const [id, name, stock] = row.split(',');
-        if (id && stock !== undefined) {
-          stockMap.set(id.trim(), parseInt(stock.trim(), 10));
-        }
-      });
-
-      // Función para actualizar el stock en productsData
-      const updateStockInData = (data, stockMap) => {
-        const updatedData = {};
-
-        Object.entries(data).forEach(([category, items]) => {
-          if (Array.isArray(items)) {
-            // Categoría plana como TERMOS, YERBAS, etc.
-            updatedData[category] = items.map(item => ({
-              ...item,
-              stock: stockMap.has(item.id) ? stockMap.get(item.id) : item.stock
-            }));
-          } else {
-            // Subcategorías como MATES -> Camioneros, Imperiales, etc.
-            updatedData[category] = {};
-            Object.entries(items).forEach(([subCategory, subItems]) => {
-              updatedData[category][subCategory] = subItems.map(item => ({
-                ...item,
-                stock: stockMap.has(item.id) ? stockMap.get(item.id) : item.stock
-              }));
-            });
+  // --- Efecto para cargar el stock desde Google Sheets ---
+  useEffect(() => {
+    const fetchAndUpdateStock = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch(GOOGLE_SHEET_URL);
+        if (!response.ok) throw new Error('Error conectando con la hoja de stock.');
+        
+        const csvText = await response.text();
+        const stockMap = new Map();
+        
+        // Parseo simple de CSV (omitiendo cabecera)
+        csvText.trim().split('\n').slice(1).forEach(row => {
+          const [id, name, stock] = row.split(',');
+          // Aseguramos que id y stock existan antes de guardar
+          if (id && stock !== undefined) {
+            stockMap.set(id.trim(), parseInt(stock.trim(), 10));
           }
         });
 
-        return updatedData;
-      };
+        // OPTIMIZACIÓN: structuredClone es nativo y más rápido que JSON.parse/stringify
+        const updatedData = structuredClone(productsData);
 
-      const updatedProducts = updateStockInData(productsData, stockMap);
-      setAllProducts(updatedProducts);
+        // Lógica de actualización recursiva para recorrer categorías y subcategorías
+        const updateCategory = (items) => {
+          if (Array.isArray(items)) {
+            return items.map(item => ({
+              ...item,
+              stock: stockMap.has(String(item.id)) ? stockMap.get(String(item.id)) : item.stock
+            }));
+          } else if (typeof items === 'object' && items !== null) {
+            const newObj = {};
+            Object.keys(items).forEach(key => {
+              newObj[key] = updateCategory(items[key]);
+            });
+            return newObj;
+          }
+          return items;
+        };
 
-    } catch (error) {
-      console.error("Error al cargar el stock desde Google Sheets:", error);
-      toast.error("Hubo un error al cargar el stock. Se usarán datos locales.", { autoClose: 3000 });
-      setAllProducts(productsData);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+        const finalProducts = updateCategory(updatedData);
+        setAllProducts(finalProducts);
 
-  fetchAndUpdateStock();
-}, []);
-
-const findProductAndUpdateInMemory = (productsData, productId, action) => {
-  for (const categoryKey in productsData) {
-    const category = productsData[categoryKey];
-    if (Array.isArray(category)) {
-      const product = category.find(p => p.id === productId);
-      if (product) {
-        action(product);
-        return;
+      } catch (error) {
+        console.error("Error al cargar el stock:", error);
+        toast.error("Hubo un error al cargar el stock. Se usarán datos locales.", { autoClose: 3000 });
+        setAllProducts(productsData);
+      } finally {
+        setIsLoading(false);
       }
-    } else if (typeof category === 'object' && category !== null) {
-      for (const subCategoryKey in category) {
-        const subCategory = category[subCategoryKey];
-        const product = subCategory.find(p => p.id === productId);
-        if (product) {
-          action(product);
-          return;
-        }
-      }
-    }
-  }
-};
+    };
 
+    fetchAndUpdateStock();
+  }, []);
 
-  // Al cargar el componente, recupera el carrito del localStorage
+  // --- Persistencia del carrito en localStorage ---
   useEffect(() => {
     const storedCart = localStorage.getItem('cartItems');
     if (storedCart) {
@@ -138,63 +81,34 @@ const findProductAndUpdateInMemory = (productsData, productId, action) => {
     }
   }, []);
 
-  // Guarda allProducts y cartItems en localStorage cada vez que cambian
-  useEffect(() => {
-    // Solo guardar si no estamos en la fase de carga inicial
-    // y si allProducts ya ha sido poblado (no es un objeto vacío inicial)
-    if (!isLoading && Object.keys(allProducts).length > 0) {
-      localStorage.setItem('productos', JSON.stringify(allProducts));
-    }
-  }, [allProducts, isLoading]);
-
   useEffect(() => {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
   }, [cartItems]);
 
-  // Función para encontrar un producto en la estructura de datos anidada
-  const findProductAndUpdate = (productId, action) => {
-    const updatedProducts = JSON.parse(JSON.stringify(allProducts));
-    let productFound = null;
-
-    for (const categoryKey in updatedProducts) {
-      const category = updatedProducts[categoryKey];
-      if (Array.isArray(category)) {
-        const product = category.find(p => p.id === productId);
-        if (product) {
-          action(product);
-          productFound = product;
-          break;
-        }
-      } else if (typeof category === 'object' && category !== null) {
-        for (const subCategoryKey in category) {
-          const subCategory = category[subCategoryKey];
-          const product = subCategory.find(p => p.id === productId);
-          if (product) {
-            action(product);
-            productFound = product;
-            break;
-          }
-        }
+  // --- Helper recursivo para buscar producto en la estructura anidada ---
+  const findProduct = (data, id) => {
+    for (const key in data) {
+      if (Array.isArray(data[key])) {
+        const found = data[key].find(p => p.id === id);
+        if (found) return found;
+      } else if (typeof data[key] === 'object') {
+        const found = findProduct(data[key], id);
+        if (found) return found;
       }
-      if (productFound) break;
     }
-    
-    if (productFound) {
-      setAllProducts(updatedProducts);
-    }
-    return productFound;
+    return null;
   };
 
-  const addToCart = (product) => {
-    let stockSuficiente = false;
-    findProductAndUpdate(product.id, (p) => {
-      if (p.stock > 0) {
-        p.stock--;
-        stockSuficiente = true;
-      }
-    });
+  // --- Funciones del Carrito ---
 
-    if (stockSuficiente) {
+  const addToCart = (product) => {
+    // Verificamos stock contra el estado actual 'allProducts' (memoria)
+    const productInStock = findProduct(allProducts, product.id);
+    const currentInCart = cartItems.find(item => item.id === product.id);
+    const quantityInCart = currentInCart ? currentInCart.quantity : 0;
+
+    // Si hay stock disponible (stock real - lo que ya tengo en el carrito)
+    if (productInStock && (productInStock.stock - quantityInCart) > 0) {
       setCartItems(prev => {
         const existing = prev.find(item => item.id === product.id);
         if (existing) {
@@ -205,33 +119,20 @@ const findProductAndUpdateInMemory = (productsData, productId, action) => {
           return [...prev, { ...product, quantity: 1 }];
         }
       });
+      // Nota: No mostramos toast aquí porque ya lo haces en ProductCard.jsx
     } else {
-      toast(
-        <div className="flex items-center gap-2 text-white font-medium">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5"><path fillRule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.5 9.75a.75.75 0 00-1.5 0v1.5a.75.75 0 001.5 0V12zm3 0a.75.75 0 00-1.5 0v1.5a.75.75 0 001.5 0V12z" clipRule="evenodd" /></svg>
-          No hay suficiente stock disponible para {product.name}
-        </div>,
-        { className: "rounded bg-red-600 text-white text-sm", icon: false, autoClose: 2000, hideProgressBar: true, closeButton: false }
-      );
+      toast.error(`No hay suficiente stock disponible para ${product.name}`, {
+        autoClose: 2000,
+        hideProgressBar: true,
+      });
     }
   };
   
   const removeFromCart = (id) => {
-    const productToRemove = cartItems.find(item => item.id === id);
-    if (productToRemove) {
-      findProductAndUpdate(id, p => {
-        p.stock += productToRemove.quantity;
-      });
-      setCartItems(prev => prev.filter(item => item.id !== id));
-    }
+    setCartItems(prev => prev.filter(item => item.id !== id));
   };
 
   const clearCart = () => {
-    cartItems.forEach(item => {
-      findProductAndUpdate(item.id, p => {
-        p.stock += item.quantity;
-      });
-    });
     setCartItems([]);
   };
 
@@ -241,60 +142,15 @@ const findProductAndUpdateInMemory = (productsData, productId, action) => {
       return;
     }
 
-    const itemInCart = cartItems.find(item => item.id === id);
-    if (!itemInCart) return;
-
-    const diff = newQuantity - itemInCart.quantity;
-    let stockSuficiente = false;
+    const productInStock = findProduct(allProducts, id);
     
-    // Obtener el producto actual antes de intentar actualizar el stock
-    let productInStore = null; 
-    findProductAndUpdate(id, p => {
-      productInStore = p; // Asignar el producto encontrado a la variable
-      if (p.stock >= diff) {
-        p.stock -= diff;
-        stockSuficiente = true;
-      }
-    });
-
-    if (stockSuficiente && productInStore) {
+    // Verificamos si hay stock suficiente para la NUEVA cantidad total deseada
+    if (productInStock && productInStock.stock >= newQuantity) {
       setCartItems(prev => prev.map(item => item.id === id ? { ...item, quantity: newQuantity } : item));
     } else {
-        // Si no hay stock, revertimos el cambio visualmente
-        // Asegurarse de que el producto existe antes de intentar revertir el stock.
-        if (productInStore) { 
-          findProductAndUpdate(id, p => { p.stock += diff; });
-        }
-        alert(`No hay suficiente stock para agregar más ${itemInCart.name}`);
+      toast.warn(`Solo hay ${productInStock?.stock || 0} unidades disponibles de este producto.`);
     }
   };
-
-  // Muestra un mensaje de carga mientras se obtienen los datos
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-screen bg-[#FFDE45]">
-        <div className="flex flex-col items-center">
-          <p className="py-5 text-2xl font-bold text-[#692904]">Cargando productos...</p>
-          {/* Aquí es donde se elimina el atributo 'jsx' */}
-          <div className="loader"></div>
-        </div>
-        <style>{`
-          .loader {
-            border: 8px solid #f3f3f3; /* Light grey */
-            border-top: 8px solid #692904; /* Blue */
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 2s linear infinite;
-          }
-          @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-          }
-        `}</style>
-      </div>
-    );
-  }
 
   return (
     <CartContext.Provider
@@ -304,12 +160,15 @@ const findProductAndUpdateInMemory = (productsData, productId, action) => {
         removeFromCart,
         clearCart,
         updateQuantity,
-        allProducts,
+        allProducts, // Data completa con stock actualizado
+        isLoading,   // Estado de carga para usar en la UI
       }}
     >
       {children}
     </CartContext.Provider>
   );
 };
+
+// 4. Exportaciones finales
 export { CartContext }; 
 export default CartProvider;

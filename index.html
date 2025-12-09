@@ -1,37 +1,47 @@
 <!DOCTYPE html>
-<html>
-    <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6BXVVQHB38"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-6BXVVQHB38');
-    </script>
-
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
     <title>FFMates | Venta de Mates Artesanales, Imperiales y Torpedos</title>
     <meta name="description" content="Tienda online de mates artesanales en Argentina. Encontrá mates imperiales, camioneros, torpedos cincelados, bombillas de alpaca y las mejores yerbas importadas. Envíos a todo el país." />
     <meta name="keywords" content="mates, mate imperial, mate torpedo, bombillas, yerba mate, uruguaya, argentina, artesanales, cuero" />
-    <meta charset='UTF-8' />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Facundo Bisio" />
+
     <link rel="icon" href="/Logo.png" sizes="any" type="image/x-icon" />
-    <meta name="description" content="Tienda de mates personalizados y artesanales" />
-    <meta property="og:title" content="Tienda de Mates" />
-    <meta property="og:description" content="Pedí tu mate personalizado y contactanos por WhatsApp" />
+    <link rel="manifest" href="/manifest.json" />
+    
+    <link rel="apple-touch-icon" href="/Logo.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    
+    <meta name="theme-color" content="#692904" />
+
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="FFMates" />
+    <meta property="og:title" content="FFMates - Tienda de Mates" />
+    <meta property="og:description" content="Pedí tu mate personalizado y contactanos por WhatsApp. Envíos a todo el país." />
     <meta property="og:image" content="/tu-imagen-compartir.png" />
     <meta property="og:url" content="https://tienda-mates.vercel.app" />
+    <meta property="og:site_name" content="FFMates" />
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6BXVVQHB38"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-6BXVVQHB38');
+    </script>
+
     <meta name="google-adsense-account" content="ca-pub-8733421112963155">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8733421112963155" crossorigin="anonymous"></script>
-
-    </head>
-    <body>
-        <div id='root'></div>
-        <script type='module' src='/src/main.jsx'></script>
-        <script src="/node_modules/flowbite/dist/flowbite.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    </body>
+  </head>
+  <body>
+    <div id="root"></div>
+    
+    <script type="module" src="/src/main.jsx"></script>
+    
+    <script src="/node_modules/flowbite/dist/flowbite.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>
