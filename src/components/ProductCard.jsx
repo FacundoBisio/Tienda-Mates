@@ -37,12 +37,12 @@ const ProductCard = ({ product }) => {
   return (
     <div className="group relative bg-yellow-50 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col">
       
-      {/* 1. IMAGEN CON ZOOM AL HACER HOVER */}
+      {/* 1. IMAGEN: El zoom ahora solo ocurre en desktop (md:) */}
       <Link to={`/producto/${product.href || product.id}`} className="block h-56 overflow-hidden relative shrink-0">
         <img
           src={product.image}
           alt={product.name}
-          className="w-full h-full bg-white object-cover transition-transform duration-500 group-hover:scale-110"
+          className="w-full h-full bg-white object-cover transition-transform duration-500 md:group-hover:scale-110"
         />
       </Link>
 
@@ -61,15 +61,13 @@ const ProductCard = ({ product }) => {
         </div>
       </div>
 
-      {/* 3. BOTÓN FLOTANTE (Estilo Original Restaurado) */}
+      {/* 3. BOTÓN FLOTANTE */}
       <div className="absolute bottom-2 right-2 z-20">
         <button
           disabled={product.stock <= 0}
-          // ESTAS SON LAS CLASES EXACTAS DE TU PRIMER ENVÍO
           className={`${product.stock <= 0 ? 'opacity-50 cursor-not-allowed' : 'bg-white hover:bg-orange-800 hover:animate-spin shadow-none hover:shadow-lg cursor-pointer'} rounded-full transition duration-700`}
           onClick={handleAdd}
         >
-          {/* Componente original sin props de color, usará el amarillo por defecto si así estaba */}
           <Add />
         </button>
       </div>
