@@ -41,7 +41,7 @@ const Home = () => {
       <section id="nosotros" className="bg-orange-50 py-16 px-6 rounded-3xl my-12 mx-auto max-w-6xl">
         {/* CAMBIO ACÁ: mb-16 para dar más aire abajo del título */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-3xl font-bold text-[#692904] mb-4">Más que un Mate, una Tradición</h2>
+          <h2 className="text-3xl font-bold text-[#2E1300] mb-4">Más que un Mate, una Tradición</h2>
           <p className="text-gray-700 text-lg leading-relaxed">
             En <span className="font-bold text-[#692904]">FFMates</span> creemos que un buen mate no es solo un recipiente, sino un compañero de momentos.
           </p>
@@ -103,7 +103,7 @@ function App() {
   const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
   return (
-    <div className="bg-gray-100 text-gray-800 relative">
+    <div className="bg-white text-gray-800 relative">
       <ToastContainer className="py-20" />
       <Header />
       
