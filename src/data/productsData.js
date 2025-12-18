@@ -8,7 +8,7 @@ const productsData = {
         price: '19500',
         image: '/images/mates/camioneros/CamioneroCriolloConBase.webp',
         href: 'CamioneroCriolloConBase',
-        description: 'Mate estilo camionero criollo, fabricado con calabaza seleccionada de pared gruesa y forrado en cuero de alta calidad. Incluye base reforzada de 4 patas para mayor estabilidad.',
+        description: 'Mate estilo camionero criollo, fabricado con calabaza seleccionada de pared gruesa y forrado en cuero de alta calidad. Incluye base reforzada para mayor estabilidad.',
         stock: 0
       },
       {
@@ -28,7 +28,7 @@ const productsData = {
         price: '31999',
         image: '/images/mates/imperiales/Imperial.webp',
         href: 'Imperial',
-        description: 'El clásico Mate Imperial. Calabaza brasilera de primera calidad, forrado en cuero vacuno y virola de alpaca cincelada. Un mate que combina elegancia y tradición.',
+        description: 'El clásico Mate Imperial. Calabaza brasilera de primera calidad, forrado en cuero vacuno y virola de alpaca. Un mate que combina elegancia y tradición.',
         stock: 4
       },
       {
