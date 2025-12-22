@@ -229,7 +229,7 @@ const productsData = {
       price: '6000',
       image: '/images/yerbas/libre.webp',
       description: 'Yerba mate elaborada pensando en un público joven. Sabor fresco y energizante.',
-      stock: 5
+      stock: 0
     },
     {
       id: 'yerba-14',
