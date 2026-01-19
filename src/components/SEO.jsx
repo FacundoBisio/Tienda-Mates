@@ -24,6 +24,7 @@ const SEO = ({
     <Helmet>
       {/* Standard Metadata */}
       <title>{metaTitle}</title>
+      <meta name="robots" content="index, follow" />
       <meta name="description" content={metaDescription} />
       {keywords && <meta name="keywords" content={keywords} />}
       <link rel="canonical" href={metaUrl} />
