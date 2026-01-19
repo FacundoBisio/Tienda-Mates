@@ -16,12 +16,29 @@ import Footer from './components/Footer.jsx';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import ProductDetail from './components/ProductDetail';
 import WhatsAppButton from './components/WhatsAppButton';
+
 import { useCart } from './context/Cart';
+import SEO from './components/SEO';
 
 // Componente para la página de inicio
 const Home = () => {
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "FFMates",
+    "url": "https://tienda-mates.vercel.app",
+    "logo": "https://tienda-mates.vercel.app/Logo.png",
+    "description": "Tienda de mates artesanales y accesorios en Argentina.",
+  };
+
   return (
     <>
+      <SEO 
+        title="Inicio"
+        description="Tienda online de mates artesanales en Argentina. Encontrá mates imperiales, camioneros, torpedos cincelados, bombillas de alpaca y las mejores yerbas importadas."
+        keywords="mates, mate imperial, mate torpedo, bombillas, yerba mate, uruguaya, argentina, artesanales, cuero, tienda de mates"
+        schema={organizationSchema}
+      />
       {/* Background image section */}
       <section
         id="inicio"

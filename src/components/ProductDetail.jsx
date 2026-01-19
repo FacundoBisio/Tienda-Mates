@@ -4,7 +4,8 @@ import { Add } from "./Icons";
 import { useCart } from '../context/Cart';
 import { toast } from 'react-toastify'; 
 import 'react-toastify/dist/ReactToastify.css';
-import { Helmet } from 'react-helmet';
+
+import SEO from './SEO';
 
 const ProductDetail = () => {
   const { id } = useParams(); 
@@ -97,21 +98,17 @@ const ProductDetail = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-28 px-6">
       
-      {/* 1. SEO DINÁMICO CON HELMET */}
-      <Helmet>
-        <title>FFMATES | {product.name}</title>
-        <meta name="description" content={product.description || `Comprá ${product.name} al mejor precio en FFMates. Calidad asegurada.`} />
-        
-        {/* Open Graph (WhatsApp / Facebook) */}
-        <meta property="og:title" content={product.name} />
-        <meta property="og:description" content="¡Mirá este producto increíble! Hacé clic para ver el precio y detalles." />
-        <meta property="og:image" content={`https://tienda-mates.vercel.app${product.image}`} />
-        <meta property="og:url" content={window.location.href} />
-        <meta property="og:type" content="product" />
-      </Helmet>
-
-      {/* 2. DATOS ESTRUCTURADOS (JSON-LD) */}
-      <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
+      {/* 1. SEO DINÁMICO CON COMPONENTE REUTILIZABLE */}
+      <SEO
+        title={product.name}
+        description={product.description || `Comprá ${product.name} al mejor precio en FFMates. Calidad asegurada.`}
+        image={product.image}
+        type="product"
+        schema={{
+          ...structuredData,
+          "sku": product.id, // Adding SKU if available or ID
+        }}
+      />
 
       <div className="max-w-6xl mx-auto">
         <Link to="/#productos" className="inline-flex items-center text-[#692904] font-semibold hover:text-orange-600 mb-8 transition-colors">

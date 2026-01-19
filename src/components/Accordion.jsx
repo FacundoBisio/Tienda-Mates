@@ -1,5 +1,6 @@
 // components/Accordion.jsx
 import React, { useState, useRef, useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 
 const items = [
   {
@@ -20,8 +21,23 @@ const items = [
   },
 ];
 
+
+
 const Accordion = () => {
   const [activeIndex, setActiveIndex] = useState(null);
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": items.map(item => ({
+      "@type": "Question",
+      "name": item.title,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.content
+      }
+    }))
+  };
 
   const toggle = (index) => {
     setActiveIndex(activeIndex === index ? null : index);
@@ -29,6 +45,9 @@ const Accordion = () => {
 
   return (
     <div className="space-y-2">
+      <Helmet>
+        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
+      </Helmet>
       {items.map((item, index) => {
         const isOpen = activeIndex === index;
         return (
