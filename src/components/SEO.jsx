@@ -11,11 +11,11 @@ const SEO = ({
   schema 
 }) => {
   const siteUrl = 'https://tienda-mates.vercel.app';
-  const defaultTitle = 'FFMates - Tienda de Mates Artesanales';
-  const defaultDescription = 'Tienda online de mates artesanales en Argentina. Encontrá mates imperiales, camioneros, torpedos y las mejores yerbas.';
+  const defaultTitle = 'FFMATES | Tienda de mates, yerbas y accesorios';
+  const defaultDescription = 'Tienda de mates artesanales en Argentina. Encontrá mates imperiales, camioneros y bombillas de alpaca. Envíos seguros a todo el país. ¡Comprá online hoy!';
   const defaultImage = `${siteUrl}/mate.png`;
 
-  const metaTitle = title ? `${title} | FFMates` : defaultTitle;
+  const metaTitle = title ? `${title} | FFMATES` : defaultTitle;
   const metaDescription = description || defaultDescription;
   const metaImage = image ? (image.startsWith('http') ? image : `${siteUrl}${image}`) : defaultImage;
   const metaUrl = url || siteUrl;

@@ -85,13 +85,15 @@ const ProductDetail = () => {
     "name": product.name,
     "image": `https://tienda-mates.vercel.app${product.image}`,
     "description": product.description || "Producto artesanal de FFMates",
-    "brand": { "@type": "Brand", "name": "FFMates" },
+    "brand": { "@type": "Brand", "name": "FFMATES" },
+    "sku": product.id,
     "offers": {
       "@type": "Offer",
       "url": window.location.href,
       "priceCurrency": "ARS",
       "price": product.price,
-      "availability": product.stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock"
+      "availability": product.stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+      "priceValidUntil": new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0] // Válido por 1 año
     }
   };
 
@@ -101,16 +103,20 @@ const ProductDetail = () => {
       {/* 1. SEO DINÁMICO CON COMPONENTE REUTILIZABLE */}
       <SEO
         title={product.name}
-        description={product.description || `Comprá ${product.name} al mejor precio en FFMates. Calidad asegurada.`}
+        description={`Comprá ${product.name} online. ${product.description ? product.description.substring(0, 100) + '...' : 'Calidad premium y envío a todo el país.'} Precio: ${formattedPrice}.`}
         image={product.image}
         type="product"
-        schema={{
-          ...structuredData,
-          "sku": product.id, // Adding SKU if available or ID
-        }}
+        schema={structuredData}
       />
 
       <div className="max-w-6xl mx-auto">
+        {/* Breadcrumb Visual */}
+        <nav className="text-sm text-gray-500 mb-4" aria-label="Breadcrumb">
+           <Link to="/" className="hover:text-[#692904]">Inicio</Link> 
+           <span className="mx-2">›</span>
+           <span className="text-gray-800 font-medium">{product.name}</span>
+        </nav>
+
         <Link to="/#productos" className="inline-flex items-center text-[#692904] font-semibold hover:text-orange-600 mb-8 transition-colors">
           <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -165,6 +171,14 @@ const ProductDetail = () => {
                   {product.stock > 0 ? "AGREGAR AL CARRITO" : "SIN STOCK DISPONIBLE"}
                 </button>
                 <p className="text-center text-gray-400 text-sm mt-4">Envío seguro a todo el país 🇦🇷</p>
+                
+                {/* Garantía de Calidad Block */}
+                <div className="mt-8 bg-orange-50 p-4 rounded-lg">
+                  <h4 className="font-bold text-[#692904] text-sm mb-2">✨ Garantía de Confianza</h4>
+                  <p className="text-xs text-gray-700 leading-relaxed">
+                    Revisamos cada <strong>{product.name}</strong> antes de enviarlo. Las vetas de la calabaza, el brillo del cuero y el cincelado son únicos en cada pieza. Si no te enamorás al recibirlo, tenés garantía de cambio.
+                  </p>
+                </div>
               </div>
             </div>
           </div>

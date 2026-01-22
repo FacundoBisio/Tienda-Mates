@@ -4,20 +4,24 @@ import { Helmet } from 'react-helmet-async';
 
 const items = [
   {
+    title: '¿Hacen envíos a todo el país?',
+    content: 'Sí, realizamos envíos a todo el territorio argentino. Podés calcular el costo exacto ingresando tu código postal en el carrito de compras antes de finalizar tu pedido.',
+  },
+  {
+    title: '¿Los mates vienen curados?',
+    content: 'La mayoría de nuestros mates de calabaza requieren un proceso de curado. Incluimos un instructivo paso a paso con tu compra, o podés consultar nuestra guía rápida aquí mismo sobre "Cómo curar el mate".',
+  },
+  {
+    title: '¿Qué medios de pago aceptan?',
+    content: 'Aceptamos todas las tarjetas de crédito y débito, transferencias bancarias y efectivo. Trabajamos con plataformas seguras para garantizar tu tranquilidad al comprar.',
+  },
+  {
     title: '¿Cómo curar el mate?',
-    content: 'Curar el mate es fundamental para que no se agriete y tenga buen sabor. Llenalo con yerba usada y agua caliente (no hirviendo), dejalo reposar 24 hs, tirá todo y rascá el interior con una cuchara. Repetí este proceso 2 o 3 veces. Solo es necesario en mates de calabaza o madera.',
+    content: 'Para curar tu mate de calabaza: llenalo con yerba usada y agua caliente (no hirviendo), dejalo reposar 24hs, vacialo y raspá el interior con una cuchara. Repetí 2 o 3 veces. Fundamental para evitar grietas y moho.',
   },
   {
-    title: '¿Cuánto dura la yerba?',
-    content: 'La yerba sin abrir puede durar hasta 2 años si se guarda en un lugar seco y fresco. Una vez abierta, es ideal consumirla en 1 a 3 meses para que no pierda sabor ni aroma. Evitá la humedad y el sol directo.',
-  },
-  {
-    title: '¿Cómo cuidar tu mate?',
-    content: 'Te recomendamos después de usarlo, vaciá la yerba y dejalo secar boca abajo. No lo dejes húmedo mucho tiempo. En mates de calabaza, evitá mojar la parte exterior. Y si es de acero o vidrio, lavalo con agua tibia y secá bien.',
-  },
-  {
-    title: '¿Todos los mates son iguales?',
-    content: '¡No todos! Debido a que el trabajo de todos nuestros mates es 100% artesanal, no existen dos unidades iguales. Además, en los mates de calabaza, al realizarse sobre un fruto natural, los tamaños y formas varían constantemente.',
+    title: '¿Tienen garantía los productos?',
+    content: 'Sí, todos nuestros productos cuentan con garantía por defectos de fabricación. Si tenés algún inconveniente, contactanos y lo solucionamos.',
   },
 ];
 

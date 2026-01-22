@@ -34,9 +34,6 @@ const Home = () => {
   return (
     <>
       <SEO 
-        title="Inicio"
-        description="Tienda online de mates artesanales en Argentina. Encontrá mates imperiales, camioneros, torpedos cincelados, bombillas de alpaca y las mejores yerbas importadas."
-        keywords="mates, mate imperial, mate torpedo, bombillas, yerba mate, uruguaya, argentina, artesanales, cuero, tienda de mates"
         schema={organizationSchema}
       />
       {/* Background image section */}
@@ -46,8 +43,8 @@ const Home = () => {
         style={{ backgroundImage: 'url(/fondoMate.jpg)' }}
       >
         <div className="text-white bg-opacity-50 p-10 mx-10 rounded-xl text-center fade-in">
-          <h2 className="text-4xl font-bold ">Bienvenido a nuestra tienda</h2>
-          <p className="text-lg mb-10">Creá momentos únicos con nuestros mates.</p>
+          <h1 className="text-4xl font-bold mb-4">Tienda de Mates Artesanales</h1>
+          <p className="text-lg mb-10 text-white font-medium">Creá momentos únicos con nuestros mates.</p>
           <a href="#productos" className="btn btn-outline-light hover:font-semibold hover:border-[#692904] text-white px-6 py-3 rounded-lg hover:bg-[#692904]">
             Ver productos
           </a>
@@ -65,36 +62,36 @@ const Home = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-          {/* Tarjeta 1: Materiales */}
+          {/* Tarjeta 1: Calidad Artesanal */}
           <div className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition flex flex-col items-center">
             <div className="mb-4 p-3 bg-orange-100 rounded-full">
                 <FaShieldAlt size={32} color="#692904" />
             </div>
-            <h3 className="font-bold text-[#2E1300] text-lg mb-2">Materiales Nobles</h3>
+            <h3 className="font-bold text-[#2E1300] text-lg mb-2">Calidad Artesanal</h3>
             <p className="text-sm text-gray-600">
-              Priorizamos calabaza brasileña, cuero vacuno legítimo y acero inoxidable de grado alimenticio.
+              Cada pieza es única, trabajada a mano con calabaza brasileña seleccionada y cuero vacuno legítimo.
             </p>
           </div>
 
-          {/* Tarjeta 2: Artesanos */}
+          {/* Tarjeta 2: Envíos Seguros */}
           <div className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition flex flex-col items-center">
             <div className="mb-4 p-3 bg-orange-100 rounded-full">
                 <FaHandshake size={32} color="#692904" />
             </div>
-            <h3 className="font-bold text-[#2E1300] text-lg mb-2">Artesanos Locales</h3>
+            <h3 className="font-bold text-[#2E1300] text-lg mb-2">Envíos Rápidos y Seguros</h3>
             <p className="text-sm text-gray-600">
-              Trabajamos mano a mano con artesanos para brindarte piezas únicas y con historia.
+              Recibi tu pedido en la puerta de tu casa. Realizamos envíos a todo el país con total seguridad.
             </p>
           </div>
 
-          {/* Tarjeta 3: Variedad */}
+          {/* Tarjeta 3: Atención Dedicada */}
           <div className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition flex flex-col items-center">
              <div className="mb-4 p-3 bg-orange-100 rounded-full">
                 <FaMugHot size={32} color="#692904" />
             </div>
-            <h3 className="font-bold text-[#2E1300] text-lg mb-2">Variedad Premium</h3>
+            <h3 className="font-bold text-[#2E1300] text-lg mb-2">Atención Personalizada</h3>
             <p className="text-sm text-gray-600">
-              Desde los clásicos camioneros rústicos hasta los elegantes imperiales cincelados a mano.
+              Te asesoramos por WhatsApp para que elijas el mate ideal. ¿Buscás un regalo? Consultanos.
             </p>
           </div>
         </div>
