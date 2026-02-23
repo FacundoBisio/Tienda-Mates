@@ -1,5 +1,5 @@
 // components/Accordion.jsx
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 
 const items = [
   {

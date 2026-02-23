@@ -167,7 +167,7 @@ const ProductDetail = () => {
                   <Add size={24} color={product.stock > 0 ? "#fff" : "#9ca3af"} />
                   {product.stock > 0 ? "AGREGAR AL CARRITO" : "SIN STOCK DISPONIBLE"}
                 </button>
-                <p className="text-center text-gray-400 text-sm mt-4">Envío seguro a todo el país 🇦🇷</p>
+                <p className="text-center text-gray-400 text-sm mt-4"></p>
               </div>
             </div>
           </div>
