@@ -5,24 +5,24 @@ import { Link } from 'react-router-dom';
 const Footer = () => {
   return (
     <>
-    <section className="bg-[#FFDE45] py-5 text-center text-[#692904]" id='contacto'>
+    <section className="bg-brand-dark py-5 text-center text-brand-light" id='contacto'>
     <div className="container">
         <div className="row align-items-center text-center text-md-start">
 
         {/* Columna 1: Logo y frase */}
         <div className="col-md-4 mb-4 mb-md-0 d-flex flex-column align-items-center">
-            <img src="/Logo-frase.png" alt="Logo" className="mb-2" style={{ width: '120px' }} />
+            <img src="/Logo.png" alt="Logo" className="mb-2" style={{ width: '120px' }} />
             <strong>F&F</strong>
             <small>MATES</small>
         </div>
 
         {/* Columna 2: Navegación */}
-        <div className="col-md-4 mb-4 mb-md-0 d-flex flex-column gap-2 text-center hover:text-[#2E1300] font-semibold">
-            <a href="#inicio">Inicio</a>
-            <a href="#nosotros">Nosotros</a>
-            <a href="#productos">Productos</a>
-            <a href="#contacto">Contacto</a>
-            <Link to="/politica-de-privacidad">Privacidad</Link>
+        <div className="col-md-4 mb-4 mb-md-0 d-flex flex-column gap-2 text-center font-semibold">
+            <a className='hover:text-white transition' href="#inicio">Inicio</a>
+            <a className='hover:text-white transition' href="#nosotros">Nosotros</a>
+            <a className='hover:text-white transition' href="#productos">Productos</a>
+            <a className='hover:text-white transition' href="#contacto">Contacto</a>
+            <Link className='hover:text-white transition' to="/politica-de-privacidad">Privacidad</Link>
         </div>
 
         {/* Columna 3: Redes */}
@@ -36,15 +36,15 @@ const Footer = () => {
         </div>
     </div>
     </section>
-    <footer className="bg-[#FFDE45] py-4 text-center">
-            <p className="text-[#2E1300] font-semibold">&copy; {new Date().getFullYear()} FFMATES. Todos los derechos reservados.</p>
-            <div className="mt-2 flex items-center justify-center gap-1 text-[#2E1300]">
+    <footer className="bg-brand-dark py-4 text-center">
+            <p className="text-white font-semibold">&copy; {new Date().getFullYear()} FFMATES. Todos los derechos reservados.</p>
+            <div className="mt-2 flex items-center justify-center gap-1 text-white">
             <span>Desarrollado con 🧉 por</span>
             <a 
                 href="https://www.linkedin.com/in/facundo-bisio-25a104247/" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="font-bold text-[#2E1300] hover:text-[#692904] transition"
+                className="font-bold text-white hover:text-brand-contrast transition"
             >
                 Facundo Bisio
             </a>

@@ -22,7 +22,7 @@ const ProductCard = ({ product }) => {
         {product.name} agregado al carrito
       </div>,
       {
-        className: "rounded bg-yellow-600 text-xs text-[#2ec946]",
+        className: "rounded bg-brand-light text-xs text-white",
         icon: false,
         autoClose: 2000,
         hideProgressBar: true,
@@ -35,7 +35,7 @@ const ProductCard = ({ product }) => {
   const formattedPrice = isNaN(price) ? "$0" : `$${Number.isInteger(price) ? price : price.toFixed(2)}`;
 
   return (
-    <div className="group relative bg-yellow-50 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col">
+    <div className="group relative bg-brand-light/20 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col">
       
       {/* 1. IMAGEN: El zoom ahora solo ocurre en desktop (md:) */}
       <Link to={`/producto/${product.href || product.id}`} className="block h-56 overflow-hidden relative shrink-0">
@@ -49,14 +49,14 @@ const ProductCard = ({ product }) => {
       {/* 2. INFORMACIÓN DEL PRODUCTO */}
       <div className="p-4 text-left flex flex-col flex-grow relative z-10">
         <Link to={`/producto/${product.href || product.id}`} className="block mb-2">
-            <h5 className="text-[#2E1300] text-lg font-semibold leading-tight hover:underline">
+            <h5 className="text-brand-dark text-lg font-semibold leading-tight hover:underline">
             {product.name}
             </h5>
         </Link>
 
         {/* Precio y Stock */}
         <div className="mt-auto">
-            <p className="text-[#2E1300] font-bold text-lg">{formattedPrice}</p>
+            <p className="text-brand-dark font-bold text-lg">{formattedPrice}</p>
             <p className="text-xs text-gray-600 mt-1">Stock: {product.stock}</p>
         </div>
       </div>
@@ -65,7 +65,7 @@ const ProductCard = ({ product }) => {
       <div className="absolute bottom-2 right-2 z-20">
         <button
           disabled={product.stock <= 0}
-          className={`${product.stock <= 0 ? 'opacity-50 cursor-not-allowed' : 'bg-white hover:bg-orange-800 hover:animate-spin shadow-none hover:shadow-lg cursor-pointer'} rounded-full transition duration-700`}
+          className={`${product.stock <= 0 ? 'opacity-50 cursor-not-allowed' : 'bg-white text-brand-dark hover:bg-brand-dark fill-current hover:animate-spin shadow-none hover:shadow-lg cursor-pointer'} rounded-full transition duration-700`}
           onClick={handleAdd}
         >
           <Add />

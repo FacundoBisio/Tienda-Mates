@@ -40,34 +40,34 @@ const Home = () => {
       <section
         id="inicio"
         className="min-h-screen flex items-center justify-center bg-cover bg-center md:bg-left"
-        style={{ backgroundImage: 'url(/fondoMate.jpg)' }}
+        style={{ backgroundImage: 'url(/fondoMate.png)' }}
       >
         <div className="text-white bg-opacity-50 p-10 mx-10 rounded-xl text-center fade-in">
           <h1 className="text-4xl font-bold mb-4">Tienda de Mates Artesanales</h1>
           <p className="text-lg mb-10 text-white font-medium">Creá momentos únicos con nuestros mates.</p>
-          <a href="#productos" className="btn btn-outline-light hover:font-semibold hover:border-[#692904] text-white px-6 py-3 rounded-lg hover:bg-[#692904]">
+          <a href="#productos" className="btn btn-outline-light hover:font-semibold hover:border-brand-light text-white px-6 py-3 rounded-lg hover:bg-brand-light">
             Ver productos
           </a>
         </div>
       </section>
 
       {/* Sección "Sobre Nosotros" MEJORADA (Espaciado ajustado) */}
-      <section id="nosotros" className="bg-orange-50 py-16 px-6 rounded-3xl my-12 mx-auto max-w-6xl">
+      <section id="nosotros" className="bg-brand-light/20 py-16 px-6 rounded-3xl my-12 mx-auto max-w-6xl">
         {/* CAMBIO ACÁ: mb-16 para dar más aire abajo del título */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-3xl font-bold text-[#2E1300] mb-4">Más que un Mate, una Tradición</h2>
+          <h2 className="text-3xl font-bold text-brand-dark mb-4">Más que un Mate, una Tradición</h2>
           <p className="text-gray-700 text-lg leading-relaxed">
-            En <span className="font-bold text-[#692904]">FFMates</span> creemos que un buen mate no es solo un recipiente, sino un compañero de momentos.
+            En <span className="font-bold text-brand-light">FFMates</span> creemos que un buen mate no es solo un recipiente, sino un compañero de momentos.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
           {/* Tarjeta 1: Calidad Artesanal */}
           <div className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition flex flex-col items-center">
-            <div className="mb-4 p-3 bg-orange-100 rounded-full">
-                <FaShieldAlt size={32} color="#692904" />
+            <div className="mb-4 p-3 bg-brand-light/40 rounded-full">
+                <FaShieldAlt size={32} color="#7F997C" />
             </div>
-            <h3 className="font-bold text-[#2E1300] text-lg mb-2">Calidad Artesanal</h3>
+            <h3 className="font-bold text-brand-dark text-lg mb-2">Calidad Artesanal</h3>
             <p className="text-sm text-gray-600">
               Cada pieza es única, trabajada a mano con calabaza brasileña seleccionada y cuero vacuno legítimo.
             </p>
@@ -75,10 +75,10 @@ const Home = () => {
 
           {/* Tarjeta 2: Envíos Seguros */}
           <div className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition flex flex-col items-center">
-            <div className="mb-4 p-3 bg-orange-100 rounded-full">
-                <FaHandshake size={32} color="#692904" />
+            <div className="mb-4 p-3 bg-brand-light/40 rounded-full">
+                <FaHandshake size={32} color="#7F997C" />
             </div>
-            <h3 className="font-bold text-[#2E1300] text-lg mb-2">Envíos Rápidos y Seguros</h3>
+            <h3 className="font-bold text-brand-dark text-lg mb-2">Envíos Rápidos y Seguros</h3>
             <p className="text-sm text-gray-600">
               Recibi tu pedido en la puerta de tu casa. Realizamos envíos a todo el país con total seguridad.
             </p>
@@ -86,10 +86,10 @@ const Home = () => {
 
           {/* Tarjeta 3: Atención Dedicada */}
           <div className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition flex flex-col items-center">
-             <div className="mb-4 p-3 bg-orange-100 rounded-full">
-                <FaMugHot size={32} color="#692904" />
+             <div className="mb-4 p-3 bg-brand-light/40 rounded-full">
+                <FaMugHot size={32} color="#7F997C" />
             </div>
-            <h3 className="font-bold text-[#2E1300] text-lg mb-2">Atención Personalizada</h3>
+            <h3 className="font-bold text-brand-dark text-lg mb-2">Atención Personalizada</h3>
             <p className="text-sm text-gray-600">
               Te asesoramos por WhatsApp para que elijas el mate ideal. ¿Buscás un regalo? Consultanos.
             </p>
@@ -102,7 +102,7 @@ const Home = () => {
 
       <section className="py-10 px-6 bg-white">
         <div className="max-w-4xl mx-auto">
-          <p className="text-lg font-semibold text-left text-[#2E1300]">Preguntas frecuentes</p>
+          <p className="text-lg font-semibold text-left text-brand-contrast">Preguntas frecuentes</p>
           <p className="text-lg mb-10 text-left">¿Necesitas ayuda? Aquí puedes encontrar las preguntas más frecuentes.</p>
           <Accordion />
         </div>

@@ -55,7 +55,7 @@ const ProductDetail = () => {
         {product.name} agregado al carrito
       </div>,
       {
-        className: "rounded bg-yellow-600 text-xs text-[#2ec946]",
+        className: "rounded bg-brand-light text-xs text-white",
         icon: false,
         autoClose: 2000,
         hideProgressBar: true,
@@ -67,8 +67,8 @@ const ProductDetail = () => {
   if (!product) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4">
-        <h2 className="text-2xl font-bold text-[#692904] mb-4">Producto no encontrado</h2>
-        <Link to="/#productos" className="text-orange-600 hover:underline font-medium">
+        <h2 className="text-2xl font-bold text-brand-dark mb-4">Producto no encontrado</h2>
+        <Link to="/#productos" className="text-brand-dark/60 hover:underline font-medium">
           ← Volver al catálogo
         </Link>
       </div>
@@ -112,12 +112,12 @@ const ProductDetail = () => {
       <div className="max-w-6xl mx-auto">
         {/* Breadcrumb Visual */}
         <nav className="text-sm text-gray-500 mb-4" aria-label="Breadcrumb">
-           <Link to="/" className="hover:text-[#692904]">Inicio</Link> 
+           <Link to="/" className="hover:text-brand-dark">Inicio</Link> 
            <span className="mx-2">›</span>
            <span className="text-gray-800 font-medium">{product.name}</span>
         </nav>
 
-        <Link to="/#productos" className="inline-flex items-center text-[#692904] font-semibold hover:text-orange-600 mb-8 transition-colors">
+        <Link to="/#productos" className="inline-flex items-center text-brand-dark font-semibold hover:text-brand-dark/60 mb-8 transition-colors">
           <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
           </svg>
@@ -138,10 +138,10 @@ const ProductDetail = () => {
 
             {/* Detalles del Producto */}
             <div className="p-8 md:p-12 flex flex-col justify-center">
-              <h1 className="text-3xl md:text-4xl font-bold text-[#2E1300] mb-4 leading-tight">{product.name}</h1>
+              <h1 className="text-3xl md:text-4xl font-bold text-brand-dark mb-4 leading-tight">{product.name}</h1>
               
               <div className="flex items-center gap-4 mb-6 flex-wrap">
-                <span className="text-3xl font-bold text-[#692904]">{formattedPrice}</span>
+                <span className="text-3xl font-bold text-brand-dark">{formattedPrice}</span>
                 {product.stock > 0 ? (
                   <span className="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wide">
                     En Stock: {product.stock}
@@ -163,7 +163,7 @@ const ProductDetail = () => {
                   disabled={product.stock <= 0}
                   className={`w-full py-4 px-6 rounded-xl flex items-center justify-center gap-3 font-bold text-lg transition-all transform active:scale-[0.98] ${
                     product.stock > 0 
-                      ? 'bg-[#692904] text-white hover:bg-[#8B4513] shadow-lg hover:shadow-orange-900/20' 
+                      ? 'bg-brand-dark text-white hover:bg-brand-dark/80 shadow-lg hover:shadow-brand-dark/20' 
                       : 'bg-gray-200 text-gray-400 cursor-not-allowed'
                   }`}
                 >
@@ -173,8 +173,8 @@ const ProductDetail = () => {
                 <p className="text-center text-gray-400 text-sm mt-4">Envío seguro a todo el país 🇦🇷</p>
                 
                 {/* Garantía de Calidad Block */}
-                <div className="mt-8 bg-orange-50 p-4 rounded-lg">
-                  <h4 className="font-bold text-[#692904] text-sm mb-2">✨ Garantía de Confianza</h4>
+                <div className="mt-8 bg-brand-light/20 p-4 rounded-lg">
+                  <h4 className="font-bold text-brand-dark text-sm mb-2">✨ Garantía de Confianza</h4>
                   <p className="text-xs text-gray-700 leading-relaxed">
                     Revisamos cada <strong>{product.name}</strong> antes de enviarlo. Las vetas de la calabaza, el brillo del cuero y el cincelado son únicos en cada pieza. Si no te enamorás al recibirlo, tenés garantía de cambio.
                   </p>

@@ -58,13 +58,13 @@ const Accordion = () => {
           <div key={index} className="border rounded overflow-hidden transition-all" id='faq'>
             <button
               onClick={() => toggle(index)}
-              className="w-full flex justify-between items-center px-6 py-4 bg-yellow-100 hover:bg-[#692904] hover:text-[#FFDE45] text-left font-semibold transition"
+              className="w-full flex justify-between items-center px-6 py-4 bg-brand-dark text-white hover:bg-brand-light  text-left font-semibold transition"
             >
               <span>{item.title}</span>
               <span className="text-xl">{isOpen ? '−' : '+'}</span>
             </button>
             <div
-              className={`transition-all duration-500 ease-in-out overflow-hidden bg-[#692904] ${
+              className={`transition-all duration-500 ease-in-out overflow-hidden bg-brand-dark ${
                 isOpen ? 'max-h-auto opacity-100 py-4 px-6' : 'max-h-0 opacity-0 py-0 px-6'
               } bg-white text-gray-700`}
             >

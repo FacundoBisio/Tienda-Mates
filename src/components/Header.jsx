@@ -23,19 +23,19 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed w-full top-0 z-50 transition-colors duration-300 ${
-        showSolidNav ? 'bg-[#FFDE45] shadow-md text-[#692904]' : 'bg-transparent text-white'
+      className={`fixed w-full top-0 z-50 transition-colors duration-300 text-white ${
+        showSolidNav ? 'bg-brand-dark shadow-md' : 'bg-transparent'
       }`}
     >
       <nav className="max-w-6xl mx-auto flex items-center py-4 px-6 md:px-20 justify-center md:justify-between">
         {/* Si querés que el logo linkee al home siempre: */}
-        <a href="/" className="text-2xl font-bold text-center md:text-left hover:opacity-80">FFMATES</a>
+        <a href="/" className="text-2xl font-bold text-center md:text-left hover:text-brand-light ">FFMATES</a>
         
         <ul className="hidden md:flex space-x-6 text-lg font-medium">
-          <li><a href="/#inicio" className="hover:text-[#2E1300] transition">INICIO</a></li>
-          <li><a href="/#productos" className="hover:text-[#2E1300] transition">PRODUCTOS</a></li>
-          <li><a href="/#faq" className="hover:text-[#2E1300] transition">FAQ</a></li>
-          <li><a href="/#contacto" className="hover:text-[#2E1300] transition">CONTACTO</a></li>
+          <li><a href="/#inicio" className="hover:text-brand-light transition">INICIO</a></li>
+          <li><a href="/#productos" className="hover:text-brand-light transition">PRODUCTOS</a></li>
+          <li><a href="/#faq" className="hover:text-brand-light transition">FAQ</a></li>
+          <li><a href="/#contacto" className="hover:text-brand-light transition">CONTACTO</a></li>
         </ul>
       </nav>
     </header>

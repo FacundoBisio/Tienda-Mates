@@ -69,7 +69,7 @@ const ProductSection = () => {
     return (
       <>
         {selectedSub && (
-          <h4 className="text-2xl justify-center font-semibold mb-4 text-[#2E1300]">{selectedSub}</h4>
+          <h4 className="text-2xl justify-center font-semibold mb-4 text-brand-dark">{selectedSub}</h4>
         )}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {currentProducts.map((prod, idx) => {
@@ -89,8 +89,8 @@ const ProductSection = () => {
   return (
     <section id="productos" className="py-24 px-6 bg-white">
       <div className="max-w-6xl mx-auto text-center">
-        <h3 className="text-3xl font-bold text-[#2E1300]">NUESTROS PRODUCTOS</h3>
-        <p className="text-lg mb-5 text-center text-[#2E1300]">Elegí tu categoría y descubrí nuestros productos</p>
+        <h3 className="text-3xl font-bold text-brand-dark">NUESTROS PRODUCTOS</h3>
+        <p className="text-lg mb-5 text-center text-brand-dark/80">Elegí tu categoría y descubrí nuestros productos</p>
 
         {/* Categorías */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
@@ -123,7 +123,7 @@ const ProductSection = () => {
                   backgroundPosition: bgPosition,
                 }}
               >
-                <div className="absolute inset-0 bg-[#692904] bg-opacity-30 flex items-center justify-center">
+                <div className="absolute inset-0 bg-brand-dark/30 flex items-center justify-center">
                   <h4 className="text-white text-xl font-bold">{cat}</h4>
                 </div>
               </button>
@@ -133,13 +133,13 @@ const ProductSection = () => {
 
         {selectedCategory === 'MATES' && (
           <div className="flex flex-col sm:flex-row justify-between items-center mb-10 px-4" id="producto-scroll">
-            <h3 className="text-3xl font-bold text-[#2E1300] mt-4 mb-4 sm:mb-0">Todos nuestros productos</h3>
+            <h3 className="text-3xl font-bold text-brand mt-4 mb-4 sm:mb-0">Todos nuestros productos</h3>
 
             {/* Dropdown */}
             <div className="relative inline-block text-left">
               <button
                 onClick={() => setOpenDropdown(!openDropdown)}
-                className="inline-flex justify-center items-center gap-2 px-4 py-2 text-sm font-medium text-[#2E1300] bg-white border border-gray-300 rounded-md shadow hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#692904]"
+                className="inline-flex justify-center items-center gap-2 px-4 py-2 text-sm font-medium text-brand-dark bg-white border border-gray-300 rounded-md shadow hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#692904]"
               >
                 {selectedSub || "Destacados"}
                 <svg
@@ -161,7 +161,7 @@ const ProductSection = () => {
                           setSelectedSub(sub);
                           setOpenDropdown(false);
                         }}
-                        className="w-full text-left block px-4 py-2 text-sm text-[#2E1300] hover:bg-gray-200 "
+                        className="w-full text-left block px-4 py-2 text-sm text-brand-dark hover:bg-gray-200 "
                       >
                         {sub}
                       </button>
@@ -175,7 +175,7 @@ const ProductSection = () => {
 
         {selectedCategory && selectedCategory !== 'MATES' && (
           <div className="flex justify-center items-center mt-6 mb-10 px-4" id="producto-scroll">
-            <h3 className="text-3xl font-bold text-[#2E1300] text-center">
+            <h3 className="text-3xl font-bold text-brand-dark text-center">
               Todos nuestros {categoryTitles[selectedCategory] || selectedCategory.toLowerCase()}
             </h3>
           </div>

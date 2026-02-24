@@ -4,7 +4,7 @@ import React from 'react'
 // Iconose sociales para el footer
 export function RedesSociales () {
   return (
-    <div className="flex justify-center space-x-6 mt-6 text-[#692904] text-2xl">
+    <div className="flex justify-center space-x-6 mt-6 text-brand-dark text-2xl">
       <a
         href="https://www.instagram.com/ff.mates/?hl=es"
         className="hover:scale-110 transition"
@@ -17,7 +17,7 @@ export function RedesSociales () {
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="text-[#692904]"
+          className="text-brand-light hover:text-white transition"
         >
           <path
             d="M12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z"
@@ -51,7 +51,7 @@ export function RedesSociales () {
           width="24px"
           height="24px"
           viewBox="0 0 32 32"
-          className="text-[#692904] fill-current"
+          className="text-brand-light hover:text-white transition fill-current"
         >
           <path
             fillRule="evenodd"
@@ -72,7 +72,7 @@ export function RedesSociales () {
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="text-[#692904]"
+          className="text-brand-light hover:text-white transition"
         >
           <path
             d="M17 2H14C12.6739 2 11.4021 2.52678 10.4645 3.46447C9.52678 4.40215 9 5.67392 9 7V10H6V14H9V22H13V14H16L17 10H13V7C13 6.73478 13.1054 6.48043 13.2929 6.29289C13.4804 6.10536 13.7348 6 14 6H17V2Z"
@@ -103,7 +103,7 @@ export function AddToCartIcon () {
     )
   }
 
-  export function Add({ size = 40, color = "#ffde45" }) {
+  export function Add({ size = 40, color = "brand-dark" }) {
     return (
       <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 256 256">
         <g fill={color} fillRule="nonzero">
