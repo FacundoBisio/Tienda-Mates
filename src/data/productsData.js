@@ -276,7 +276,7 @@ const productsData = {
     {
       id: 'bombilla-4',
       name: 'Bombillon Trenzado',
-      price: '22500',
+      price: '28000',
       image: '/images/bombillas/Bombillon.webp',
       description: 'Bombillón de gran caudal tipo "bomba". Ideal para mates grandes y yerbas finas uruguayas. No se tapa.',
       stock: 1

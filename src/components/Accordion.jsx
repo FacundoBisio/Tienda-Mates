@@ -1,6 +1,5 @@
 // components/Accordion.jsx
-import React, { useState, useRef, useEffect } from 'react';
-import { Helmet } from 'react-helmet-async';
+import React, { useState } from 'react';
 
 const items = [
   {
