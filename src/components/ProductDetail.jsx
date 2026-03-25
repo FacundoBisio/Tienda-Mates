@@ -128,11 +128,11 @@ const ProductDetail = () => {
           <div className="grid grid-cols-1 md:grid-cols-2">
             
             {/* Imagen del Producto */}
-            <div className="h-[400px] md:h-[600px] bg-gray-100 relative group overflow-hidden">
+            <div className="h-[400px] md:h-[600px] bg-[#4C674A] relative group overflow-hidden">
               <img 
                 src={product.image} 
                 alt={product.name} 
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-110" 
               />
             </div>
 
