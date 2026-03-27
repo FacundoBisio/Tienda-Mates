@@ -5,7 +5,7 @@ const productsData = {
       {
         id: 'camionero-2',
         name: 'Camionero Cincelado premium',
-        price: '17999',
+        price: '19999',
         image: '/images/mates/camioneros/CamioneroCinceladoPremium.jpeg',
         href: 'CamioneroCinceladoPremium',
         description: 'Camionero premium con detalles cincelados y terminaciones de alta calidad.',
@@ -14,7 +14,7 @@ const productsData = {
       {
         id: 'camionero-1',
         name: 'Camionero Criollo Con Base',
-        price: '19500',
+        price: '17999',
         image: '/images/mates/camioneros/CamioneroCriolloConBase.jpeg',
         href: 'CamioneroCriolloConBase',
         description: 'Mate estilo camionero criollo, fabricado con calabaza seleccionada de pared gruesa y forrado en cuero de alta calidad. Incluye base reforzada para mayor estabilidad.',
@@ -24,8 +24,8 @@ const productsData = {
     Imperiales: [
       {
         id: 'imperial-new-1',
-        name: 'Imperial Algarrobo 1',
-        price: '24999',
+        name: 'Imperial Algarrobo De Acero',
+        price: '17999',
         image: '/images/mates/imperiales/ImperialAlgarrobo1.jpeg',
         href: 'ImperialAlgarrobo1',
         description: 'Mate Imperial de madera de algarrobo macizo, diseño elegante y terminaciones cuidadas.',
@@ -33,8 +33,8 @@ const productsData = {
       },
       {
         id: 'imperial-new-2',
-        name: 'Imperial Algarrobo 2',
-        price: '24999',
+        name: 'Imperial Cincelado Algarrobo',
+        price: '21999',
         image: '/images/mates/imperiales/ImperialAlgarrobo2.jpeg',
         href: 'ImperialAlgarrobo2',
         description: 'Mate Imperial en algarrobo estacionado, ideal para quienes buscan el sabor curado de la madera.',
@@ -42,8 +42,8 @@ const productsData = {
       },
       {
         id: 'imperial-new-3',
-        name: 'Imperial Algarrobo 3',
-        price: '24999',
+        name: 'Imperial Algarrobo Laqueado',
+        price: '19999',
         image: '/images/mates/imperiales/ImperialAlgarrobo3.jpeg',
         href: 'ImperialAlgarrobo3',
         description: 'Tercera variante de la línea Imperial en madera de algarrobo. Resistente y sofisticado.',
@@ -51,8 +51,8 @@ const productsData = {
       },
       {
         id: 'imperial-new-4',
-        name: 'Imperial Algarrobo Flores',
-        price: '26999',
+        name: 'Imperial Algarrobo Con Flores',
+        price: '19999',
         image: '/images/mates/imperiales/ImperialAlgarroboFlores.jpeg',
         href: 'ImperialAlgarroboFlores',
         description: 'Hermoso Mate Imperial de algarrobo que cuenta con increíbles detalles florales labrados.',
@@ -61,7 +61,7 @@ const productsData = {
       {
         id: 'imperial-new-20',
         name: 'Imperial Nacional',
-        price: '28999',
+        price: '29999',
         image: '/images/mates/imperiales/ImperialNacional.jpeg',
         href: 'ImperialNacional',
         description: 'Fabricación argentina impecable. Estilo Imperial a un costo muy accesible.',
@@ -70,7 +70,7 @@ const productsData = {
       {
         id: 'imperial-new-11',
         name: 'Imperial Cincelado Algarrobo',
-        price: '29999',
+        price: '21999',
         image: '/images/mates/imperiales/ImperialCinceladoAlgarrobo.jpeg',
         href: 'ImperialCinceladoAlgarrobo',
         description: 'La calidez del algarrobo combinada con el arte orfebre del metal cincelado.',
@@ -79,7 +79,7 @@ const productsData = {
       {
         id: 'imperial-new-21',
         name: 'Imperial Sin Base',
-        price: '30999',
+        price: '29999',
         image: '/images/mates/imperiales/ImperialSinBase.jpeg',
         href: 'ImperialSinBase',
         description: 'Mate Imperial tradicional, ideal para amantes de las formas esféricas clásicas.',
@@ -88,7 +88,7 @@ const productsData = {
       {
         id: 'imperial-new-9',
         name: 'Imperial Bicolor',
-        price: '33999',
+        price: '25999',
         image: '/images/mates/imperiales/ImperialBicolor.jpeg',
         href: 'ImperialBicolor',
         description: 'Llamativo Mate Imperial con un trabajo artesanal de cuero a dos colores.',
@@ -133,7 +133,7 @@ const productsData = {
       {
         id: 'imperial-new-19',
         name: 'Imperial De Boca',
-        price: '34999',
+        price: '31999',
         image: '/images/mates/imperiales/ImperialDeBoca.jpeg',
         href: 'ImperialDeBoca',
         description: 'Mate Imperial edición especial temática del equipo Xeneize.',
@@ -178,7 +178,7 @@ const productsData = {
       {
         id: 'imperial-new-10',
         name: 'Imperial Cincelado',
-        price: '36999',
+        price: '35999',
         image: '/images/mates/imperiales/ImperialCincelado.jpeg',
         href: 'ImperialCincelado',
         description: 'Mate Imperial tradicional realzado por una virola profusamente cincelada a mano.',
@@ -186,7 +186,7 @@ const productsData = {
       },
       {
         id: 'imperial-new-15',
-        name: 'Imperial Cincelado Marrón',
+        name: 'Imperial Cincelado de AceroMarrón',
         price: '36999',
         image: '/images/mates/imperiales/ImperialCinceladoMarron.jpeg',
         href: 'ImperialCinceladoMarron',
@@ -232,7 +232,7 @@ const productsData = {
       {
         id: 'imperial-new-18',
         name: 'Imperial Cuero Crudo Cincelado',
-        price: '45999',
+        price: '41999',
         image: '/images/mates/imperiales/ImperialCueroCrudoCincelado.jpeg',
         href: 'ImperialCueroCrudoCincelado',
         description: 'La mejor combination: resistencia del cuero crudo con la nobleza de metales cincelados.',
@@ -243,7 +243,7 @@ const productsData = {
       {
         id: 'torpedo-new-24',
         name: 'Torpedo Especial 1',
-        price: '20000',
+        price: '15000',
         image: '/images/mates/torpedos/WhatsApp Image 2026-02-25 at 8.11.39 PM (2).jpeg',
         href: 'TorpedoEspecial1',
         description: 'Mate Torpedo Edición Especial. Una combinación única de elementos que no pasa desapercibida.',
@@ -252,7 +252,7 @@ const productsData = {
       {
         id: 'torpedo-new-25',
         name: 'Torpedo Especial 2',
-        price: '20000',
+        price: '15000',
         image: '/images/mates/torpedos/WhatsApp Image 2026-02-25 at 8.11.39 PM (3).jpeg',
         href: 'TorpedoEspecial2',
         description: 'Variante de nuestra edición especial de Torpedo, para acompañarte en todos los mates.',
@@ -261,7 +261,7 @@ const productsData = {
       {
         id: 'torpedo-new-20',
         name: 'Torpedo Nacional',
-        price: '24999',
+        price: '34999',
         image: '/images/mates/torpedos/TorpedoNacional.jpeg',
         href: 'TorpedoNacional',
         description: 'Torpedo de confección nacional, ofreciendo un excelente equilibrio entre precio y calidad.',
@@ -270,7 +270,7 @@ const productsData = {
       {
         id: 'torpedo-new-21',
         name: 'Torpedo Nacional 2',
-        price: '24999',
+        price: '34999',
         image: '/images/mates/torpedos/TorpedoNacional2.jpeg',
         href: 'TorpedoNacional2',
         description: 'Excelente alternativa de Torpedo de fabricación 100% Argentina, mate clásico y noble.',
@@ -278,7 +278,7 @@ const productsData = {
       },
       {
         id: 'torpedo-new-5',
-        name: 'Torpedo Cincelado Chico',
+        name: 'Torpedo Cincelado s/base',
         price: '26999',
         image: '/images/mates/torpedos/TorpedoCinceladoChico.jpeg',
         href: 'TorpedoCinceladoChico',
@@ -288,7 +288,7 @@ const productsData = {
       {
         id: 'torpedo-new-3',
         name: 'Torpedo Cincelado Algarrobo',
-        price: '27999',
+        price: '21999',
         image: '/images/mates/torpedos/TorpedoCinceladoAlgarrobo.jpeg',
         href: 'TorpedoCinceladoAlgarrobo',
         description: 'Torpedo cincelado de pura madera de algarrobo. Terminaciones excelentes.',
@@ -297,7 +297,7 @@ const productsData = {
       {
         id: 'torpedo-new-4',
         name: 'Torpedo Cincelado Algarrobo Rojo',
-        price: '28999',
+        price: '21999',
         image: '/images/mates/torpedos/TorpedoCinceladoAlgarroboRojo.jpeg',
         href: 'TorpedoCinceladoAlgarroboRojo',
         description: 'Torpedo cincelado de madera de algarrobo con acabado rojizo. Destaca por su color cálido.',
@@ -306,7 +306,7 @@ const productsData = {
       {
         id: 'torpedo-new-11',
         name: 'Torpedo Cincelado Sin Base',
-        price: '28999',
+        price: '31999',
         image: '/images/mates/torpedos/TorpedoCinceladoSinBase.jpeg',
         href: 'TorpedoCinceladoSinBase',
         description: 'Forma esférica pura. Un Torpedo Cincelado tradicional sin patas o base agregada.',
@@ -315,25 +315,16 @@ const productsData = {
       {
         id: 'torpedo-new-12',
         name: 'Torpedo Cincelado Sin Base 2',
-        price: '28999',
+        price: '30999',
         image: '/images/mates/torpedos/TorpedoCinceladoSinBase2.jpeg',
         href: 'TorpedoCinceladoSinBase2',
         description: 'Variante de mate esférico clásico, sin detalles en la parte inferior para conservar simpleza.',
         stock: 2
       },
       {
-        id: 'torpedo-new-2',
-        name: 'Torpedo Cincelado',
-        price: '29999',
-        image: '/images/mates/torpedos/TorpedoCincelado.jpeg',
-        href: 'TorpedoCincelado',
-        description: 'Mate Torpedo clásico con forma ergonómica. Calabaza brasileña y virola de alpaca cincelada. El compañero ideal para todos los días.',
-        stock: 2
-      },
-      {
         id: 'torpedo-new-15',
-        name: 'Torpedo Copa',
-        price: '29999',
+        name: 'Torpedo Copa con Patas',
+        price: '31999',
         image: '/images/mates/torpedos/TorpedoCopa.jpeg',
         href: 'TorpedoCopa',
         description: 'Diseño en forma de copa, logrando una boca ancha que facilita el cebado y aumenta el sabor.',
@@ -342,7 +333,7 @@ const productsData = {
       {
         id: 'torpedo-new-22',
         name: 'Torpedo Nacional Premium',
-        price: '29999',
+        price: '59999',
         image: '/images/mates/torpedos/TorpedoNacionalPremium.jpeg',
         href: 'TorpedoNacionalPremium',
         description: 'Calidad de exportación ahora en un Torpedo Nacional, materiales cuidadosamente elegidos.',
@@ -351,7 +342,7 @@ const productsData = {
       {
         id: 'torpedo-new-7',
         name: 'Torpedo Cincelado Con Patitas',
-        price: '32999',
+        price: '44999',
         image: '/images/mates/torpedos/TorpedoCinceladoConPatitas.jpeg',
         href: 'TorpedoCinceladoConPatitas',
         description: 'Elegante Torpedo cincelado que incluye detalle de patitas en la base.',
@@ -360,7 +351,7 @@ const productsData = {
       {
         id: 'torpedo-new-1',
         name: 'Torpedo Argentina Premium',
-        price: '34999',
+        price: '44999',
         image: '/images/mates/torpedos/TorpedoArgentinaPremium.jpeg',
         href: 'TorpedoArgentinaPremium',
         description: 'Mate Torpedo de alta calidad, modelo Argentina Premium. Ideal para el disfrute diario.',
@@ -369,7 +360,7 @@ const productsData = {
       {
         id: 'torpedo-new-9',
         name: 'Torpedo Cincelado Hojas Talladas',
-        price: '34999',
+        price: '45999',
         image: '/images/mates/torpedos/TorpedoCinceladoHojasTalladas.jpeg',
         href: 'TorpedoCinceladoHojasTalladas',
         description: 'Torpedo cincelado con temática de naturaleza. Cuenta con detalles de hojas talladas.',
@@ -378,7 +369,7 @@ const productsData = {
       {
         id: 'torpedo-new-10',
         name: 'Torpedo Cincelado Premium',
-        price: '34999',
+        price: '32999',
         image: '/images/mates/torpedos/TorpedoCinceladoPremium.jpeg',
         href: 'TorpedoCinceladoPremium',
         description: 'La versión premium del Torpedo Cincelado clásico, ofreciendo la más alta calidad en cuero y virola.',
@@ -396,25 +387,25 @@ const productsData = {
       {
         id: 'torpedo-new-13',
         name: 'Torpedo Cocodrilo Negro',
-        price: '35999',
+        price: '39999',
         image: '/images/mates/torpedos/TorpedoCocodrilloNegro.jpeg',
         href: 'TorpedoCocodriloNegro',
         description: 'Impresionante Torpedo forrado en cuero texturado negro con relieve símil piel de cocodrilo.',
-        stock: 2
+        stock: 0
       },
       {
         id: 'torpedo-new-14',
         name: 'Torpedo Cocodrilo Rojo',
-        price: '35999',
+        price: '39999',
         image: '/images/mates/torpedos/TorpedoCocodrilloRojo.jpeg',
         href: 'TorpedoCocodriloRojo',
         description: 'Torpedo forrado en exclusivo cuero rojizo con relieve estilo cocodrilo. Resalta por su diseño audaz.',
-        stock: 2
+        stock: 0
       },
       {
         id: 'torpedo-new-6',
         name: 'Torpedo Cincelado Con Patas Reforzadas',
-        price: '37999',
+        price: '49999',
         image: '/images/mates/torpedos/TorpedoCinceladoConPatasReforzadas.jpeg',
         href: 'TorpedoCinceladoConPatasReforzadas',
         description: 'Mate Torpedo con base robusta y patas reforzadas de primera calidad.',
@@ -423,7 +414,7 @@ const productsData = {
       {
         id: 'torpedo-new-8',
         name: 'Torpedo Cincelado Cuero Tallado Y Reforzado',
-        price: '39999',
+        price: '49999',
         image: '/images/mates/torpedos/TorpedoCinceladoCueroTallado&Reforzado.jpeg',
         href: 'TorpedoCinceladoCueroTalladoYReforzado',
         description: 'El verdadero lujo. Cuero minuciosamente tallado a mano con una estructura totalmente reforzada.',
@@ -432,7 +423,7 @@ const productsData = {
       {
         id: 'torpedo-new-16',
         name: 'Torpedo Cuero Crudo Cincelado',
-        price: '44999',
+        price: '55999',
         image: '/images/mates/torpedos/TorpedoCueroCrudoCincelado.jpeg',
         href: 'TorpedoCueroCrudoCincelado',
         description: 'Torpedo rústico en puro cuero crudo y terminaciones en metal finamente cinceladas.',
@@ -441,7 +432,7 @@ const productsData = {
       {
         id: 'torpedo-new-17',
         name: 'Torpedo Cuero Crudo Cincelado 2',
-        price: '44999',
+        price: '55999',
         image: '/images/mates/torpedos/TorpedoCueroCrudoCincelado2.jpeg',
         href: 'TorpedoCueroCrudoCincelado2',
         description: 'Segunda variante de nuestro mate en cuero crudo cincelado, resistente y con estética gauchesca.',
@@ -450,7 +441,7 @@ const productsData = {
       {
         id: 'torpedo-new-18',
         name: 'Torpedo Cuero Crudo Cincelado 3',
-        price: '44999',
+        price: '41999',
         image: '/images/mates/torpedos/TorpedoCueroCrudoCincelado3.jpeg',
         href: 'TorpedoCueroCrudoCincelado3',
         description: 'Mate Torpedo confeccionado en cuero natural de alta resistencia y metales labrados.',
@@ -459,7 +450,7 @@ const productsData = {
       {
         id: 'torpedo-new-19',
         name: 'Torpedo Cuero Crudo Con Patitas',
-        price: '46999',
+        price: '59999',
         image: '/images/mates/torpedos/TorpedoCueroCrudoConPatitas.jpeg',
         href: 'TorpedoCueroCrudoConPatitas',
         description: 'La máxima combinación entre el lado rústico del cuero crudo y la elegancia de las patas de apoyo.',
