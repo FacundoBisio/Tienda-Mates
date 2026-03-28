@@ -85,16 +85,6 @@ const productsData = {
         stock: 2,
       },
       {
-        id: "imperial-new-20",
-        name: "Imperial Nacional",
-        price: "29999",
-        image: "/images/mates/imperiales/ImperialNacional.jpeg",
-        href: "ImperialNacional",
-        description:
-          "Fabricación argentina impecable. Estilo Imperial a un costo muy accesible.",
-        stock: 2,
-      },
-      {
         id: "imperial-new-21",
         name: "Imperial Sin Base",
         price: "29999",
@@ -157,31 +147,11 @@ const productsData = {
       {
         id: "imperial-new-6",
         name: "Imperial Base Redonda Marrón",
-        price: "35999",
+        price: "42999",
         image: "/images/mates/imperiales/ImperialBaseRedondaMarron.jpeg",
         href: "ImperialBaseRedondaMarron",
         description:
           "Elegancia clásica en color marrón con una cómoda base redonda para mayor soporte.",
-        stock: 2,
-      },
-      {
-        id: "imperial-new-7",
-        name: "Imperial Base Redonda Negro",
-        price: "35999",
-        image: "/images/mates/imperiales/ImperialBaseRedondaNegro.jpeg",
-        href: "ImperialBaseRedondaNegro",
-        description:
-          "Imperial en cuero negro con base redonda, un diseño imponente y ergonómico.",
-        stock: 2,
-      },
-      {
-        id: "imperial-new-8",
-        name: "Imperial Base Redonda Rojo",
-        price: "35999",
-        image: "/images/mates/imperiales/ImperialBaseRedondaRojo.jpeg",
-        href: "ImperialBaseRedondaRojo",
-        description:
-          "Mate Imperial forrado en cuero rojo premium con sistema de base redonda.",
         stock: 2,
       },
       {
@@ -212,6 +182,16 @@ const productsData = {
         href: "ImperialCinceladoMarron",
         description:
           "Mate Imperial clásico en cuero vacuno marrón, con virola artística cincelada.",
+        stock: 2,
+      },
+      {
+        id: "imperial-new-8",
+        name: "Imperial Base Redonda Rojo",
+        price: "39999",
+        image: "/images/mates/imperiales/ImperialBaseRedondaRojo.jpeg",
+        href: "ImperialBaseRedondaRojo",
+        description:
+          "Mate Imperial forrado en cuero rojo premium con sistema de base redonda.",
         stock: 2,
       },
       {
@@ -255,6 +235,16 @@ const productsData = {
         stock: 2,
       },
       {
+        id: "imperial-new-7",
+        name: "Imperial Base Redonda Negro",
+        price: "41999",
+        image: "/images/mates/imperiales/ImperialBaseRedondaNegro.jpeg",
+        href: "ImperialBaseRedondaNegro",
+        description:
+          "Imperial en cuero negro con base redonda, un diseño imponente y ergonómico.",
+        stock: 2,
+      },
+      {
         id: "imperial-new-18",
         name: "Imperial Cuero Crudo Cincelado",
         price: "41999",
@@ -262,6 +252,16 @@ const productsData = {
         href: "ImperialCueroCrudoCincelado",
         description:
           "La mejor combination: resistencia del cuero crudo con la nobleza de metales cincelados.",
+        stock: 2,
+      },
+      {
+        id: "imperial-new-20",
+        name: "Imperial Nacional",
+        price: "54999",
+        image: "/images/mates/imperiales/ImperialNacional.jpeg",
+        href: "ImperialNacional",
+        description:
+          "Fabricación argentina impecable. Estilo Imperial a un costo muy accesible.",
         stock: 2,
       },
     ],
@@ -359,26 +359,6 @@ const productsData = {
         stock: 2,
       },
       {
-        id: "torpedo-new-20",
-        name: "Torpedo Nacional",
-        price: "34999",
-        image: "/images/mates/torpedos/TorpedoNacional.jpeg",
-        href: "TorpedoNacional",
-        description:
-          "Torpedo de confección nacional, ofreciendo un excelente equilibrio entre precio y calidad.",
-        stock: 2,
-      },
-      {
-        id: "torpedo-new-21",
-        name: "Torpedo Nacional 2",
-        price: "34999",
-        image: "/images/mates/torpedos/TorpedoNacional2.jpeg",
-        href: "TorpedoNacional2",
-        description:
-          "Excelente alternativa de Torpedo de fabricación 100% Argentina, mate clásico y noble.",
-        stock: 2,
-      },
-      {
         id: "torpedo-new-23",
         name: "Torpedo Tallado Flor",
         price: "34999",
@@ -397,6 +377,27 @@ const productsData = {
         description:
           "Impresionante Torpedo forrado en cuero texturado negro con relieve símil piel de cocodrilo.",
         stock: 0,
+      },
+      
+      {
+        id: "torpedo-new-20",
+        name: "Torpedo Nacional",
+        price: "39999",
+        image: "/images/mates/torpedos/TorpedoNacional.jpeg",
+        href: "TorpedoNacional",
+        description:
+          "Torpedo de confección nacional, ofreciendo un excelente equilibrio entre precio y calidad.",
+        stock: 2,
+      },
+      {
+        id: "torpedo-new-21",
+        name: "Torpedo Nacional 2",
+        price: "39999",
+        image: "/images/mates/torpedos/TorpedoNacional2.jpeg",
+        href: "TorpedoNacional2",
+        description:
+          "Excelente alternativa de Torpedo de fabricación 100% Argentina, mate clásico y noble.",
+        stock: 2,
       },
       {
         id: "torpedo-new-14",
@@ -634,7 +635,7 @@ const productsData = {
     {
       id: "yerba-2",
       name: "Yerba Canarias 1kg",
-      price: "10500",
+      price: "12000",
       image: "/images/yerbas/Canarias.webp",
       description:
         "La yerba número uno de Uruguay. Molienda fina sin palo, sabor intenso y duradero. Ideal para quienes buscan un mate con cuerpo y energía.",
@@ -783,28 +784,8 @@ const productsData = {
   ],
   ACCESORIOS: [
     {
-      id: "accesorios-new-13",
-      name: "Mochila Matera Marrón",
-      price: "3500",
-      image: "/images/accesorios/MochilaMarron.jpeg",
-      href: "MochilaMateraMarron",
-      description:
-        "Mochila especialmente diseñada con correas y compartimentos internos para llevar todo tu equipo matero.",
-      stock: 2,
-    },
-    {
-      id: "accesorios-new-14",
-      name: "Mochila Matera Roja",
-      price: "3500",
-      image: "/images/accesorios/MochilaRoja.jpeg",
-      href: "MochilaMateraRoja",
-      description:
-        "Formatos modernos tipo mochila para mayor comodidad al transportar, en cuero rojo.",
-      stock: 2,
-    },
-    {
       id: "accesorios-new-1",
-      name: "Matera de Auto Cuero",
+      name: "Canasta de Auto Cuero",
       price: "15999",
       image: "/images/accesorios/MateraAutoCuero.jpeg",
       href: "MateraAutoCuero",
@@ -814,7 +795,7 @@ const productsData = {
     },
     {
       id: "accesorios-new-2",
-      name: "Matera de Auto Cuero Crudo",
+      name: "Canasta de Auto Cuero Crudo",
       price: "19999",
       image: "/images/accesorios/MateraAutoCueroCrudo.jpeg",
       href: "MateraAutoCueroCrudo",
@@ -824,8 +805,8 @@ const productsData = {
     },
     {
       id: "accesorios-new-3",
-      name: "Matera de Eco Cuero",
-      price: "19999",
+      name: "Canasta de Eco Cuero",
+      price: "24999",
       image: "/images/accesorios/MateraEcoCuero.jpeg",
       href: "MateraEcoCuero",
       description:
@@ -869,6 +850,26 @@ const productsData = {
       href: "MediaMateraCueroRojoColmena",
       description:
         "Atractivo detalle en estilo panal colmena sobre nuestra matera roja.",
+      stock: 2,
+    },
+    {
+      id: "accesorios-new-13",
+      name: "Mochila Matera Marrón",
+      price: "34999",
+      image: "/images/accesorios/MochilaMarron.jpeg",
+      href: "MochilaMateraMarron",
+      description:
+        "Mochila especialmente diseñada con correas y compartimentos internos para llevar todo tu equipo matero.",
+      stock: 2,
+    },
+    {
+      id: "accesorios-new-14",
+      name: "Mochila Matera Roja",
+      price: "34999",
+      image: "/images/accesorios/MochilaRoja.jpeg",
+      href: "MochilaMateraRoja",
+      description:
+        "Formatos modernos tipo mochila para mayor comodidad al transportar, en cuero rojo.",
       stock: 2,
     },
     {
@@ -927,19 +928,20 @@ const productsData = {
       image: "/images/accesorios/SetMatero.jpeg",
       href: "SetMateroCompleto",
       description:
-        "Todo lo que necesitás para empezar a cebar (Termo, latas, mate, bombilla y bolso).",
+        "Todo lo que necesitás para empezar a cebar (Matera, yerbero, azucarera).",
       stock: 2,
     },
   ],
   COMBOS: [
     {
-      id: "combo-1",
-      name: "Consultanos por combos",
-      price: "$$$$",
-      image: "/images/combos.webp",
+      id: "accesorios-new-15",
+      name: "Combo Mater Campestre de Ecocuero crudo",
+      price: "50000",
+      image: "/images/accesorios/SetMatero.jpeg",
+      href: "SetMateroCompleto",
       description:
-        "Armá tu equipo completo. Llevando mate, bombilla y termo te hacemos un precio especial. ¡Consultanos por WhatsApp!",
-      stock: 100,
+        "Todo lo que necesitás para empezar a cebar (Matera, yerbero, azucarera).",
+      stock: 2,
     },
   ],
 };
