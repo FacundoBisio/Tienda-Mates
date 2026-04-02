@@ -144,16 +144,6 @@ const productsData = {
         stock: 2
       },
       {
-        id: "imperial-new-16",
-        name: "Imperial Con Base",
-        price: "35999",
-        image: "/images/mates/imperiales/ImperialConBase.jpeg",
-        href: "ImperialConBase",
-        description:
-          "Imperial Premium que cuenta con una base de metal para asegurar la postura ideal.",
-        stock: 2,
-      },
-      {
         id: "imperial-new-10",
         name: "Imperial Cincelado",
         price: "35999",
@@ -176,7 +166,7 @@ const productsData = {
       {
         id: 'imperial-new-16',
         name: 'Imperial Con Base',
-        price: '35999',
+        price: '39999',
         image: '/images/mates/imperiales/ImperialConBase.jpeg',
         href: 'ImperialConBase',
         description: 'Imperial Premium que cuenta con una base de alpaca para asegurar la postura ideal.',
