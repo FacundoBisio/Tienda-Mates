@@ -122,15 +122,6 @@ const productsData = {
         stock: 2
       },
       {
-        id: 'imperial-new-5',
-        name: 'Imperial Animal Print',
-        price: '34999',
-        image: '/images/mates/imperiales/ImperialAnimalPrint.jpeg',
-        href: 'ImperialAnimalPrint',
-        description: 'Un Imperial con carácter, forrado en cuero con diseño exclusivo Animal Print.',
-        stock: 2
-      },
-      {
         id: 'imperial-new-19',
         name: 'Imperial De Boca',
         price: '34999',
@@ -172,7 +163,7 @@ const productsData = {
         price: '35999',
         image: '/images/mates/imperiales/ImperialConBase.jpeg',
         href: 'ImperialConBase',
-        description: 'Imperial Premium que cuenta con una base de metal para asegurar la postura ideal.',
+        description: 'Imperial Premium que cuenta con una base de alpaca para asegurar la postura ideal.',
         stock: 2
       },
       {
@@ -227,6 +218,15 @@ const productsData = {
         image: '/images/mates/imperiales/ImperialCueroCrudo.jpeg',
         href: 'ImperialCueroCrudo',
         description: 'Estilo rústico, forrado en puro cuero crudo criollo sin teñir.',
+        stock: 2
+      },
+      {
+        id: 'imperial-new-5',
+        name: 'Imperial Animal Print',
+        price: '44999',
+        image: '/images/mates/imperiales/ImperialAnimalPrint.jpeg',
+        href: 'ImperialAnimalPrint',
+        description: 'Un Imperial con carácter, forrado en cuero con diseño exclusivo Animal Print.',
         stock: 2
       },
       {
