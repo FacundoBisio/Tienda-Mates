@@ -22,6 +22,16 @@ const productsData = {
           "Camionero premium con detalles cincelados y terminaciones de alta calidad.",
         stock: 0,
       },
+      {
+        id: "camionero-3",
+        name: "Ranchero de Algarrobo",
+        price: "39999",
+        image: "/images/mates/camioneros/RancheroAlgarrobo.png",
+        href: "RancheroAlgarrobo",
+        description:
+          "Mate estilo camionero criollo, fabricado con madera de algarrobo seleccionada de pared gruesa y pintado a mano. Incluye base reforzada para mayor estabilidad.",
+        stock: 4,
+      },
     ],
     Imperiales: [
       {
