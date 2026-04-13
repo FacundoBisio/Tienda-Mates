@@ -1,189 +1,64 @@
-// src/components/ProductSection.jsx
-import React, { useState, useContext, useEffect } from 'react';
-import productsData from '../data/productsData';
-import ProductCard from './ProductCard';
-import { Button } from "@material-tailwind/react";
-import { CartContext } from '../context/Cart';
+// src/components/ProductSection.jsx  
+// Sección home: muestra las 6 categorías como accesos rápidos a /categoria/:cat
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-const categories = Object.keys(productsData);
-
-const ProductSection = () => { 
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedSub, setSelectedSub] = useState(null);
-  const [openDropdown, setOpenDropdown] = useState(false);
-  const { allProducts } = useContext(CartContext); 
-
-  // --- CORRECCIÓN: El useEffect va ACÁ, en el cuerpo principal del componente ---
-  useEffect(() => {
-    if (window.location.hash === '#productos') {
-      const element = document.getElementById('productos');
-      if (element) {
-        setTimeout(() => {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }, 100);
-      }
-    }
-  }, []); // Se ejecuta una sola vez al montar el componente
-
-  const categoryTitles = {
-    MATES: "mates artesanales",
-    TERMOS: "termos de calidad",
-    YERBAS: "yerbas seleccionadas",
-    BOMBILLAS: "bombillas únicas",
-    ACCESORIOS: "accesorios para tu mate",
-    COMBOS: "combos especiales"
-  };
-
-  const handleCategoryClick = (cat) => {
-    setSelectedCategory(cat);
-    setSelectedSub(null);
-  };
-
-  const getProductWithUpdatedStock = (product) => {
-    if (!selectedCategory) return product;
-    const data = allProducts[selectedCategory];
-    if (selectedCategory === 'MATES' && typeof data === 'object') {
-      const list = !selectedSub ? Object.values(data).flat() : data[selectedSub];
-      return list.find(p => p.id === product.id) || product;
-    }
-    if (Array.isArray(data)) {
-      return data.find(p => p.id === product.id) || product;
-    }
-    return product;
-  };
-
-  const renderProducts = () => {
-    if (!selectedCategory) return null;
-
-    const originalData = productsData[selectedCategory];
-    let currentProducts = [];
-
-    if (selectedCategory === 'MATES' && typeof originalData === 'object') {
-      currentProducts = !selectedSub ? Object.values(originalData).flat() : originalData[selectedSub];
-    } else if (Array.isArray(originalData)) {
-      currentProducts = originalData;
-    }
-
-    // --- ACÁ NO DEBE IR EL useEffect ---
-
-    return (
-      <>
-        {selectedSub && (
-          <h4 className="text-2xl justify-center font-semibold mb-4 text-brand-dark">{selectedSub}</h4>
-        )}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {currentProducts.map((prod, idx) => {
-            const updatedProduct = getProductWithUpdatedStock(prod);
-            return (
-              <ProductCard
-                key={idx}
-                product={{ ...updatedProduct, category: selectedCategory, catKey: selectedSub || selectedCategory }}
-              />
-            );
-          })}
-        </div>
-      </>
-    );
-  };
-
-  return (
-    <section id="productos" className="py-24 px-6 bg-white">
-      <div className="max-w-6xl mx-auto text-center">
-        <h3 className="text-3xl font-bold text-brand-dark">NUESTROS PRODUCTOS</h3>
-        <p className="text-lg mb-5 text-center text-brand-dark/80">Elegí tu categoría y descubrí nuestros productos</p>
-
-        {/* Categorías */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
-          {categories.map((cat) => {
-            const backgroundImages = {
-              MATES: '/images/mates.webp',
-              TERMOS: '/images/termos.jpg',
-              YERBAS: '/images/yerbas.jpg',
-              BOMBILLAS: '/images/bombillas.webp',
-              ACCESORIOS: '/images/accesorios.webp',
-              COMBOS: '/images/yerbas.webp',
-            };
-
-            const bgPosition = cat === 'TERMOS' ? 'top center' : 'center';
-
-            return (
-              <button
-                key={cat}
-                onClick={() => {
-                  handleCategoryClick(cat);
-                  // Pequeño hack para asegurar que el scroll ocurra después de renderizar
-                  setTimeout(() => {
-                    document.getElementById('producto-scroll')?.scrollIntoView({ behavior: 'smooth' });
-                  }, 100);
-                }}
-                className="relative h-32 sm:h-40 lg:h-[200px] lg:aspect-square w-full rounded-lg overflow-hidden shadow-md hover:scale-105 transition-transform"
-                style={{
-                  backgroundImage: `url(${backgroundImages[cat]})`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: bgPosition,
-                }}
-              >
-                <div className="absolute inset-0 bg-brand-dark/30 flex items-center justify-center">
-                  <h4 className="text-white text-xl font-bold">{cat}</h4>
-                </div>
-              </button>
-            );
-          })}
-        </div>
-
-        {selectedCategory === 'MATES' && (
-          <div className="flex flex-col sm:flex-row justify-between items-center mb-10 px-4" id="producto-scroll">
-            <h3 className="text-3xl font-bold text-brand mt-4 mb-4 sm:mb-0">Todos nuestros productos</h3>
-
-            {/* Dropdown */}
-            <div className="relative inline-block text-left">
-              <button
-                onClick={() => setOpenDropdown(!openDropdown)}
-                className="inline-flex justify-center items-center gap-2 px-4 py-2 text-sm font-medium text-brand-dark bg-white border border-gray-300 rounded-md shadow hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#692904]"
-              >
-                {selectedSub || "Destacados"}
-                <svg
-                  className={`w-4 h-4 transition-transform ${openDropdown ? "rotate-180" : ""}`}
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path d="M5.516 7.548a.5.5 0 01.707 0L10 11.325l3.777-3.777a.5.5 0 11.707.707l-4.13 4.13a.5.5 0 01-.707 0l-4.13-4.13a.5.5 0 010-.707z" />
-                </svg>
-              </button>
-
-              {openDropdown && (
-                <div className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 ">
-                  <div className="py-1">
-                    {Object.keys(productsData.MATES).map((sub) => (
-                      <button
-                        key={sub}
-                        onClick={() => {
-                          setSelectedSub(sub);
-                          setOpenDropdown(false);
-                        }}
-                        className="w-full text-left block px-4 py-2 text-sm text-brand-dark hover:bg-gray-200 "
-                      >
-                        {sub}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        )}
-
-        {selectedCategory && selectedCategory !== 'MATES' && (
-          <div className="flex justify-center items-center mt-6 mb-10 px-4" id="producto-scroll">
-            <h3 className="text-3xl font-bold text-brand-dark text-center">
-              Todos nuestros {categoryTitles[selectedCategory] || selectedCategory.toLowerCase()}
-            </h3>
-          </div>
-        )}
-        {renderProducts()}
-      </div>
-    </section>
-  );
+const categoryMeta = {
+  mates:      { label: 'Mates',      bg: '/images/mates.webp',      pos: 'center' },
+  termos:     { label: 'Termos',     bg: '/images/termos.jpg',      pos: 'top center' },
+  yerbas:     { label: 'Yerbas',     bg: '/images/yerbas.jpg',      pos: 'center' },
+  bombillas:  { label: 'Bombillas',  bg: '/images/bombillas.webp',  pos: 'center' },
+  accesorios: { label: 'Accesorios', bg: '/images/accesorios.webp', pos: 'center' },
+  combos:     { label: 'Combos',     bg: '/images/yerbas.webp',     pos: 'center' },
 };
+
+const ProductSection = () => (
+  <section id="productos" className="py-28 px-6 bg-[#FAFAF8]">
+    <div className="max-w-7xl mx-auto">
+
+      {/* Encabezado */}
+      <div className="text-center mb-16">
+        <p className="text-xs tracking-[0.25em] uppercase text-[#4C674A] font-semibold mb-3">Catálogo</p>
+        <h2 className="text-4xl md:text-5xl font-normal text-[#1C1C1C]" style={{ fontFamily: "'DM Serif Display', serif" }}>
+          Nuestros productos
+        </h2>
+        <p className="mt-4 text-[#888] text-base max-w-md mx-auto">
+          Seleccioná una categoría y encontrá el compañero ideal para tus mates.
+        </p>
+      </div>
+
+      {/* Grid de categorías */}
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+        {Object.entries(categoryMeta).map(([slug, meta]) => (
+          <Link
+            key={slug}
+            to={`/categoria/${slug}`}
+            className="relative overflow-hidden rounded-2xl h-36 md:h-52 group block"
+          >
+            {/* Imagen de fondo con lazy load */}
+            <img
+              src={meta.bg}
+              alt={meta.label}
+              loading="lazy"
+              decoding="async"
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              style={{ objectPosition: meta.pos }}
+            />
+            {/* Overlay */}
+            <div className="absolute inset-0 bg-[#1C1C1C]/40 group-hover:bg-[#1C1C1C]/30 transition-all duration-300" />
+
+            {/* Label + CTA */}
+            <div className="relative z-10 p-5 h-full flex flex-col justify-end">
+              <p className="text-white text-lg font-medium">{meta.label}</p>
+              <p className="text-white/60 text-xs mt-1 tracking-wide opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                Ver todos →
+              </p>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </div>
+  </section>
+);
 
 export default ProductSection;

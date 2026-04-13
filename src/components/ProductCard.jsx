@@ -1,7 +1,6 @@
 // src/components/ProductCard.jsx
 import React from "react";
 import { Link } from 'react-router-dom';
-import { Add } from "./Icons.jsx";
 import { useCart } from '../context/Cart.jsx';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -10,19 +9,13 @@ const ProductCard = ({ product }) => {
   const { addToCart } = useCart();
 
   const handleAdd = (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     e.stopPropagation();
-    
-    addToCart({ ...product, category: product.category || Object.keys(product).find(key => Array.isArray(product[key])) });
+    addToCart({ ...product, category: product.category || 'Varios' });
     toast(
-      <div className="flex items-center gap-2 text-white font-medium">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
-          <path fillRule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clipRule="evenodd" />
-        </svg>
-        {product.name} agregado al carrito
-      </div>,
+      <span className="text-white font-medium text-sm">✓ {product.name} agregado al carrito</span>,
       {
-        className: "rounded bg-brand-light text-xs text-white",
+        className: "rounded-xl bg-[#3C503A] text-white",
         icon: false,
         autoClose: 2000,
         hideProgressBar: true,
@@ -32,43 +25,65 @@ const ProductCard = ({ product }) => {
   };
 
   const price = parseFloat(product.price);
-  const formattedPrice = isNaN(price) ? "$0" : `$${Number.isInteger(price) ? price : price.toFixed(2)}`;
+  const formattedPrice = isNaN(price)
+    ? "$0"
+    : `$${Number.isInteger(price) ? price.toLocaleString('es-AR') : price.toFixed(2)}`;
+
+  const productPath = `/producto/${product.href || product.id}`;
+
+  const isOutOfStock = product.stock <= 0;
 
   return (
-    <div className="group relative bg-brand-light/20 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col">
-      
-      {/* 1. IMAGEN: El zoom ahora solo ocurre en desktop (md:) */}
-      <Link to={`/producto/${product.href || product.id}`} className="block h-56 overflow-hidden relative shrink-0">
+    <div className="group relative bg-white rounded-2xl overflow-hidden transition-all duration-500 hover:shadow-[0_20px_60px_-10px_rgba(76,103,74,0.18)] flex flex-col">
+
+      {/* ── Imagen ── */}
+      <Link to={productPath} className="block relative overflow-hidden bg-[#4C674A]" style={{ aspectRatio: '1/1' }}>
         <img
           src={product.image}
           alt={product.name}
-          className="w-full h-full object-contain scale-[1.2] bg-[#4C674A] transition-transform duration-500 md:group-hover:scale-110"
+          loading="lazy"
+          decoding="async"
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
+
+        {/* Sin stock overlay */}
+        {isOutOfStock && (
+          <div className="absolute inset-0 bg-black/45 flex items-center justify-center">
+            <span className="text-xs font-semibold tracking-widest uppercase text-white bg-black/50 px-3 py-1 rounded-full">
+              Sin stock
+            </span>
+          </div>
+        )}
+
+
       </Link>
 
-      {/* 2. INFORMACIÓN DEL PRODUCTO */}
-      <div className="p-4 text-left flex flex-col flex-grow relative z-10">
-        <Link to={`/producto/${product.href || product.id}`} className="block mb-2">
-            <h5 className="text-brand-dark text-lg font-semibold leading-tight hover:underline">
+      {/* ── Info ── */}
+      <div className="p-5 flex flex-col flex-grow">
+        <Link to={productPath}>
+          <h5 className="text-[15px] font-medium text-[#1C1C1C] leading-snug hover:text-[#4C674A] transition-colors mb-1 line-clamp-2">
             {product.name}
-            </h5>
+          </h5>
         </Link>
 
-        {/* Precio y Stock */}
-        <div className="mt-auto">
-            <p className="text-brand-dark font-bold text-lg">{formattedPrice}</p>
-            <p className="text-xs text-gray-600 mt-1">Stock: {product.stock}</p>
+        {/* Precio */}
+        <div className="mt-auto pt-3 flex items-center justify-between gap-2">
+          <p className="text-[14px] font-semibold text-[#1C1C1C]">{formattedPrice}</p>
+          {isOutOfStock && (
+            <span className="text-[11px] text-red-400 font-medium">Agotado</span>
+          )}
         </div>
-      </div>
 
-      {/* 3. BOTÓN FLOTANTE */}
-      <div className="absolute bottom-2 right-2 z-20">
         <button
-          disabled={product.stock <= 0}
-          className={`${product.stock <= 0 ? 'opacity-50 cursor-not-allowed' : 'bg-white text-brand-dark hover:bg-brand-dark fill-current hover:animate-spin shadow-none hover:shadow-lg cursor-pointer'} rounded-full transition duration-700`}
+          disabled={isOutOfStock}
           onClick={handleAdd}
+          className={`mt-3 w-full py-2.5 rounded-xl text-xs font-semibold tracking-widest uppercase transition-all duration-300 ${
+            !isOutOfStock
+              ? 'bg-[#1C1C1C] text-white hover:bg-[#4C674A] active:scale-[0.98]'
+              : 'bg-[#F0EDE8] text-[#BBBBB0] cursor-not-allowed'
+          }`}
         >
-          <Add />
+          {!isOutOfStock ? 'Agregar al carrito' : 'Sin stock'}
         </button>
       </div>
     </div>

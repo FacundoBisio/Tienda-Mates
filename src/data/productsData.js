@@ -670,7 +670,7 @@ const productsData = {
     {
       id: "bombilla-new-2",
       name: "Bombilla Con Apliques",
-      price: "7500",
+      price: "8000",
       image: "/images/bombillas/BombillaConApliques.jpeg",
       href: "BombillaConApliques",
       description:
@@ -689,7 +689,7 @@ const productsData = {
     },
     {
       id: "bombilla-new-4",
-      name: "Bombillón",
+      name: "Bombillón Clásico",
       price: "28000",
       image: "/images/bombillas/Bombillon.jpeg",
       href: "Bombillon",
@@ -719,8 +719,8 @@ const productsData = {
     },
     {
       id: "bombilla-new-7",
-      name: "Bombillón Trenzado 19cm",
-      price: "29000",
+      name: "Bombilla Trenzada 19cm",
+      price: "8500",
       image: "/images/bombillas/BombillonTrenzado19cm.jpeg",
       href: "BombillonTrenzado19cm",
       description:
@@ -749,7 +749,7 @@ const productsData = {
     },
     {
       id: "bombilla-new-10",
-      name: "Bombillón Trenzado Con Dorado",
+      name: "Bombillón Trenzado Dorado",
       price: "30000",
       image: "/images/bombillas/BombillonTrenzadoConDorado.jpeg",
       href: "BombillonTrenzadoConDorado",
@@ -769,8 +769,8 @@ const productsData = {
     },
     {
       id: "bombilla-new-12",
-      name: "Bombillón Dorado Con Apliques",
-      price: "32000",
+      name: "Bombilla con Apliques Dorados",
+      price: "8000",
       image: "/images/bombillas/BombillonDoradoConApliques.jpeg",
       href: "BombillonDoradoConApliques",
       description:
