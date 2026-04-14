@@ -1,6 +1,7 @@
 // src/components/Footer.tsx
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { CategoryIcon } from './Icons';
 
 const Footer = () => {
@@ -12,7 +13,7 @@ const Footer = () => {
       <div className="border-b border-white/10">
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
           <div className="flex flex-col gap-3">
-            <img src="/Logo.png" alt="FFMATES logo" className="h-14 w-auto object-contain" loading="lazy" />
+            <Image src="/Logo.png" alt="FFMATES logo" width={56} height={56} className="object-contain" />
             <p className="text-2xl font-normal tracking-[0.2em] text-white" style={{ fontFamily: "'DM Serif Display', serif" }}>
               FFMATES
             </p>

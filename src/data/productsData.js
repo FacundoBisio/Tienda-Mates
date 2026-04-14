@@ -566,8 +566,8 @@ const productsData = {
     },
     {
       id: "yerba-9",
-      name: "Yerba Rei Verde Clasica 1kg",
-      price: "7000",
+      name: "Yerba Rei Verde Clásica 1kg",
+      price: "9000",
       image: "/images/yerbas/reiverdeClasica.webp",
       description:
         "Sabor clásico y versátil. Rei Verde Clásica ofrece un mate parejo desde la primera hasta la última cebada.",
@@ -576,7 +576,7 @@ const productsData = {
     {
       id: "yerba-8",
       name: "Yerba Rei Verde Tradicional 1kg",
-      price: "7500",
+      price: "10000",
       image: "/images/yerbas/reiverde.webp",
       description:
         "Yerba mate de origen brasileño para exportación. Corte tradicional, buen balance entre hoja y polvo.",
@@ -585,7 +585,7 @@ const productsData = {
     {
       id: "yerba-15",
       name: "Yerba Verdecita 1kg",
-      price: "8000",
+      price: "9500",
       image: "/images/yerbas/verdecita.webp",
       description:
         "Yerba mate de producción agroecológica. Sabor puro a campo, sin agroquímicos.",
@@ -594,7 +594,7 @@ const productsData = {
     {
       id: "yerba-11",
       name: "Yerba Rei Verde Premium 1kg",
-      price: "9000",
+      price: "12000",
       image: "/images/yerbas/reiverdePremium.webp",
       description:
         "Selección especial de hojas. Estacionamiento natural prolongado que otorga un sabor más sofisticado y suave.",

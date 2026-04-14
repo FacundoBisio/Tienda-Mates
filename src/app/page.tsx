@@ -1,6 +1,7 @@
 // src/app/page.tsx — Home (Server Component)
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import Accordion from '@/components/Accordion';
 import ProductSection from '@/components/ProductSection';
 import { CraftIcon, TruckIcon, ChatIcon } from '@/components/Icons';
@@ -17,9 +18,10 @@ export const metadata: Metadata = {
       'Comprá mates artesanales, bombillas de alpaca, termos y yerbas seleccionadas online. Piezas únicas hechas a mano en Córdoba. Envíos a todo el país.',
     url: 'https://tienda-mates.vercel.app',
     type: 'website',
-    images: [{ url: '/mate.png', width: 1200, height: 630, alt: 'FFMATES - Mates artesanales' }],
+    images: [{ url: '/Logo.png', width: 1200, height: 630, alt: 'FFMATES - Mates artesanales' }],
   },
 };
+
 
 // ── Hero ────────────────────────────────────────────────────────
 const Hero = () => (
@@ -39,11 +41,20 @@ const Hero = () => (
         </defs>
         <rect width="100%" height="100%" fill="url(#grid)" />
       </svg>
-      <div className="hidden md:block absolute right-0 top-0 h-full w-1/2 opacity-10"
+      {/* Desktop: mitad derecha, fade hacia la izquierda */}
+      <div className="hidden md:block absolute right-0 top-0 h-full w-1/2 opacity-25"
         style={{
           background: 'url(/images/mates/imperiales/ImperialConBase.jpeg) center/cover no-repeat',
-          maskImage: 'linear-gradient(to left, rgba(0,0,0,0.6) 0%, transparent 100%)',
-          WebkitMaskImage: 'linear-gradient(to left, rgba(0,0,0,0.6) 0%, transparent 100%)',
+          maskImage: 'linear-gradient(to left, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 60%, transparent 100%)',
+          WebkitMaskImage: 'linear-gradient(to left, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 60%, transparent 100%)',
+        }}
+      />
+      {/* Mobile: pantalla completa, fade arriba y abajo para no tapar el texto */}
+      <div className="block md:hidden absolute inset-0 opacity-[0.18]"
+        style={{
+          background: 'url(/images/mates/imperiales/ImperialConBase.jpeg) center/cover no-repeat',
+          maskImage: 'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 25%, rgba(0,0,0,0.7) 75%, transparent 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 25%, rgba(0,0,0,0.7) 75%, transparent 100%)',
         }}
       />
     </div>
@@ -97,7 +108,7 @@ const ProductosDestacados = () => (
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {destacados.map((item, i) => (
           <Link key={i} href={item.href} className="group relative overflow-hidden rounded-3xl bg-[#4C674A]" style={{ aspectRatio: '3/4' }}>
-            <img src={item.image} alt={item.name} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            <Image src={item.image} alt={item.name} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-opacity duration-300 group-hover:from-black/70" />
             <div className="absolute top-5 left-5">
               <span className="text-[11px] font-semibold uppercase tracking-widest bg-white/20 backdrop-blur-sm text-white px-3 py-1.5 rounded-full border border-white/20">{item.tag}</span>

@@ -1,0 +1,26 @@
+{
+  "..\\node_modules\\next\\dist\\client\\dev\\hot-reloader\\app\\use-websocket.js -> @vercel/turbopack-ecmascript-runtime/browser/dev/hmr-client/hmr-client.ts": {
+    "id": "..\\node_modules\\next\\dist\\client\\dev\\hot-reloader\\app\\use-websocket.js -> @vercel/turbopack-ecmascript-runtime/browser/dev/hmr-client/hmr-client.ts",
+    "files": [
+      "static/chunks/_app-pages-browser_node_modules_next_dist_client_dev_noop-turbopack-hmr_js.js"
+    ]
+  },
+  "components\\Providers.tsx -> ./CartSidebar": {
+    "id": "components\\Providers.tsx -> ./CartSidebar",
+    "files": [
+      "static/chunks/_app-pages-browser_src_components_CartSidebar_tsx.js"
+    ]
+  },
+  "components\\Providers.tsx -> ./Footer": {
+    "id": "components\\Providers.tsx -> ./Footer",
+    "files": [
+      "static/chunks/_app-pages-browser_src_components_Footer_tsx.js"
+    ]
+  },
+  "components\\Providers.tsx -> ./WhatsAppButton": {
+    "id": "components\\Providers.tsx -> ./WhatsAppButton",
+    "files": [
+      "static/chunks/_app-pages-browser_src_components_WhatsAppButton_tsx.js"
+    ]
+  }
+}

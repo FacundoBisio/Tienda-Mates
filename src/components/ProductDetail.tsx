@@ -3,6 +3,7 @@
 // src/components/ProductDetail.tsx
 import React, { useMemo } from 'react';
 import { useParams } from 'next/navigation';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useCart } from '@/context/Cart';
 import { toast } from 'react-toastify';
@@ -129,7 +130,7 @@ const ProductDetail = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
           <div className="md:sticky md:top-28">
             <div className="aspect-square rounded-3xl overflow-hidden bg-[#4C674A] group relative">
-              <img src={product.image} alt={product.name} loading="eager" decoding="async" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+              <Image src={product.image} alt={product.name} fill priority sizes="(max-width: 768px) 100vw, 50vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
             </div>
           </div>
 

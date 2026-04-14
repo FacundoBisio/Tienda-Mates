@@ -1,7 +1,7 @@
 'use client';
 
 // src/components/Header.tsx
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useMemo } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { useCart } from '@/context/Cart';
@@ -24,11 +24,11 @@ export default function Header({ onCartOpen }: { onCartOpen: () => void }) {
   const pathname                    = usePathname();
   const isHome                      = pathname === '/';
   const { cartItems }               = useCart();
-  const totalItems                  = cartItems.reduce((acc, i) => acc + i.quantity, 0);
+  const totalItems                  = useMemo(() => cartItems.reduce((acc, i) => acc + i.quantity, 0), [cartItems]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
-    window.addEventListener('scroll', onScroll);
+    window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 

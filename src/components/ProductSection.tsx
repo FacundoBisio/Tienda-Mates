@@ -1,6 +1,7 @@
 // src/components/ProductSection.tsx
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const categoryMeta: Record<string, { label: string; bg: string; pos: string }> = {
   mates:      { label: 'Mates',      bg: '/images/mates.webp',      pos: 'center' },
@@ -31,12 +32,12 @@ const ProductSection = () => (
             href={`/categoria/${slug}`}
             className="relative overflow-hidden rounded-2xl h-36 md:h-52 group block"
           >
-            <img
+            <Image
               src={meta.bg}
               alt={meta.label}
-              loading="lazy"
-              decoding="async"
-              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              fill
+              sizes="(max-width: 768px) 50vw, 33vw"
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
               style={{ objectPosition: meta.pos }}
             />
             <div className="absolute inset-0 bg-[#1C1C1C]/40 group-hover:bg-[#1C1C1C]/30 transition-all duration-300" />

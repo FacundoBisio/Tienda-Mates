@@ -1,7 +1,7 @@
 'use client';
 
 // src/components/CategoryPage.tsx
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useMemo, useCallback } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import productsData from '@/data/productsData';
@@ -19,13 +19,21 @@ const categoryMeta: Record<string, { key: string; label: string; desc: string }>
   combos:     { key: 'COMBOS',     label: 'Combos Especiales',    desc: 'Paquetes pensados para regalar o para empezar con todo lo necesario.'    },
 };
 
+// Pre-compute "other categories" links once (they never change)
+const otherCategoriesFor = Object.fromEntries(
+  Object.keys(categoryMeta).map(slug => [
+    slug,
+    Object.entries(categoryMeta).filter(([s]) => s !== slug),
+  ])
+);
+
 const CategoryPage = () => {
   const params = useParams();
   const cat = params?.cat as string;
   const cartCtx = useContext(CartContext);
   const allProducts = cartCtx?.allProducts ?? {};
   const [selectedSub, setSelectedSub] = useState<string | null>(null);
-  const [sortBy, setSortBy] = useState('price-asc');
+  const [sortBy, setSortBy] = useState('price-desc');
 
   const meta = categoryMeta[cat?.toLowerCase()];
 
@@ -33,40 +41,60 @@ const CategoryPage = () => {
     setSelectedSub(null);
   }, [cat]);
 
-  if (!meta) return null;
+  const rawData = meta ? (productsData as Record<string, unknown>)[meta.key] : undefined;
+  const hasSubs = meta?.key === 'MATES' && typeof rawData === 'object' && !Array.isArray(rawData);
+  const subs = useMemo(
+    () => (hasSubs ? Object.keys(rawData as Record<string, unknown>) : []),
+    [hasSubs, rawData]
+  );
 
-  const rawData = (productsData as Record<string, unknown>)[meta.key];
-  const hasSubs = meta.key === 'MATES' && typeof rawData === 'object' && !Array.isArray(rawData);
-  const subs = hasSubs ? Object.keys(rawData as Record<string, unknown>) : [];
-
-  const getUpdated = (product: Product): Product => {
+  // Build a lookup map for stock-updated products (from cart context)
+  const stockMap = useMemo(() => {
+    if (!meta) return new Map<string, Product>();
     const data = (allProducts as Record<string, unknown>)[meta.key];
-    if (!data) return product;
-    if (hasSubs) {
-      const list: Product[] = !selectedSub
-        ? Object.values(data as Record<string, Product[]>).flat()
-        : (data as Record<string, Product[]>)[selectedSub] || [];
-      return list.find(p => p.id === product.id) || product;
-    }
-    if (Array.isArray(data)) return (data as Product[]).find(p => p.id === product.id) || product;
-    return product;
-  };
+    if (!data) return new Map<string, Product>();
+    const map = new Map<string, Product>();
+    const addItems = (items: unknown) => {
+      if (Array.isArray(items)) {
+        for (const p of items) map.set(p.id, p);
+      } else if (typeof items === 'object' && items !== null) {
+        for (const val of Object.values(items as Record<string, unknown>)) addItems(val);
+      }
+    };
+    addItems(data);
+    return map;
+  }, [allProducts, meta]);
 
-  let products: Product[] = hasSubs
-    ? (!selectedSub
-        ? Object.values(rawData as Record<string, Product[]>).flat()
-        : (rawData as Record<string, Product[]>)[selectedSub] || [])
-    : (Array.isArray(rawData) ? rawData as Product[] : []);
+  const getUpdated = useCallback(
+    (product: Product): Product => stockMap.get(product.id) || product,
+    [stockMap]
+  );
 
-  const seen = new Set<string>();
-  products = products.filter(p => {
-    if (seen.has(p.id)) return false;
-    seen.add(p.id);
-    return true;
-  });
+  // Memoize the full filtered + sorted product list
+  const products = useMemo(() => {
+    if (!meta) return [];
+    let list: Product[] = hasSubs
+      ? (!selectedSub
+          ? Object.values(rawData as Record<string, Product[]>).flat()
+          : (rawData as Record<string, Product[]>)[selectedSub] || [])
+      : (Array.isArray(rawData) ? rawData as Product[] : []);
 
-  if (sortBy === 'price-asc')  products = [...products].sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
-  if (sortBy === 'price-desc') products = [...products].sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
+    // Dedup
+    const seen = new Set<string>();
+    list = list.filter(p => {
+      if (seen.has(p.id)) return false;
+      seen.add(p.id);
+      return true;
+    });
+
+    // Sort
+    const sorted = [...list];
+    if (sortBy === 'price-asc')  sorted.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+    if (sortBy === 'price-desc') sorted.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
+    return sorted;
+  }, [meta, hasSubs, rawData, selectedSub, sortBy]);
+
+  if (!meta) return null;
 
   return (
     <div className="min-h-screen bg-[#FAFAF8] pt-28">
@@ -123,15 +151,15 @@ const CategoryPage = () => {
             onChange={(e) => setSortBy(e.target.value)}
             className="ml-auto px-4 py-2 bg-white border border-[#E8E3DC] rounded-xl text-sm text-[#555] focus:outline-none focus:border-[#4C674A] cursor-pointer"
           >
-            <option value="price-asc">Precio: menor a mayor</option>
             <option value="price-desc">Precio: mayor a menor</option>
+            <option value="price-asc">Precio: menor a mayor</option>
           </select>
         </div>
 
         {products.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {products.map((prod, idx) => (
-              <div key={`${prod.id}-${idx}`} className="fade-up h-full" style={{ animationDelay: `${Math.min(idx * 0.05, 0.4)}s` }}>
+              <div key={prod.id} className="fade-up h-full" style={{ animationDelay: `${Math.min(idx * 0.05, 0.4)}s` }}>
                 <ProductCard product={{ ...getUpdated(prod), category: meta.key, catKey: selectedSub || meta.key }} />
               </div>
             ))}
@@ -146,17 +174,15 @@ const CategoryPage = () => {
         <div className="mt-20 pt-12 border-t border-[#F0EDE8]">
           <p className="text-xs tracking-widest uppercase text-[#888] mb-6 text-center">Explorar otras categorías</p>
           <div className="flex flex-wrap gap-3 justify-center">
-            {Object.entries(categoryMeta)
-              .filter(([slug]) => slug !== cat?.toLowerCase())
-              .map(([slug, m]) => (
-                <Link
-                  key={slug}
-                  href={`/categoria/${slug}`}
-                  className="flex items-center gap-2 px-5 py-2.5 bg-white border border-[#E8E3DC] rounded-full text-sm text-[#555] hover:border-[#4C674A] hover:text-[#4C674A] transition-all"
-                >
-                  <span>{m.label}</span>
-                </Link>
-              ))}
+            {(otherCategoriesFor[cat?.toLowerCase()] || []).map(([slug, m]) => (
+              <Link
+                key={slug}
+                href={`/categoria/${slug}`}
+                className="flex items-center gap-2 px-5 py-2.5 bg-white border border-[#E8E3DC] rounded-full text-sm text-[#555] hover:border-[#4C674A] hover:text-[#4C674A] transition-all"
+              >
+                <span>{m.label}</span>
+              </Link>
+            ))}
           </div>
         </div>
       </div>
@@ -164,4 +190,4 @@ const CategoryPage = () => {
   );
 };
 
-export default CategoryPage;
+export default React.memo(CategoryPage);

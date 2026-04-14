@@ -2,6 +2,7 @@
 
 // src/components/CartSidebar.tsx
 import React, { useEffect } from 'react';
+import Image from 'next/image';
 import { useCart } from '@/context/Cart';
 import { MateIcon } from './Icons';
 
@@ -60,8 +61,8 @@ const CartSidebar = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
             <ul className="flex-grow overflow-y-auto px-6 py-4 space-y-5">
               {cartItems.map((item) => (
                 <li key={item.id} className="flex gap-4 items-start">
-                  <div className="w-20 h-20 rounded-xl overflow-hidden flex-shrink-0 bg-[#4C674A]">
-                    <img src={item.image} alt={item.name} className="w-full h-full object-contain p-2" />
+                  <div className="w-20 h-20 rounded-xl overflow-hidden flex-shrink-0 bg-[#4C674A] relative">
+                    <Image src={item.image} alt={item.name} fill sizes="80px" className="object-contain p-2" />
                   </div>
                   <div className="flex-grow">
                     <p className="text-sm font-medium text-[#1C1C1C] leading-snug">{item.name}</p>

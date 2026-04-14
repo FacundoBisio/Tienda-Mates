@@ -1,16 +1,17 @@
 'use client';
 
 // src/components/ProductCard.tsx
-import React from 'react';
+import React, { useMemo, useCallback } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useCart } from '@/context/Cart';
 import { toast } from 'react-toastify';
 import type { Product } from '@/types';
 
-const ProductCard = ({ product }: { product: Product }) => {
+const ProductCard = React.memo(({ product }: { product: Product }) => {
   const { addToCart } = useCart();
 
-  const handleAdd = (e: React.MouseEvent) => {
+  const handleAdd = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     addToCart({ ...product, category: product.category || 'Varios' });
@@ -24,12 +25,14 @@ const ProductCard = ({ product }: { product: Product }) => {
         closeButton: false,
       }
     );
-  };
+  }, [addToCart, product]);
 
-  const price = parseFloat(product.price);
-  const formattedPrice = isNaN(price)
-    ? '$0'
-    : `$${Number.isInteger(price) ? price.toLocaleString('es-AR') : price.toFixed(2)}`;
+  const formattedPrice = useMemo(() => {
+    const price = parseFloat(product.price);
+    return isNaN(price)
+      ? '$0'
+      : `$${Number.isInteger(price) ? price.toLocaleString('es-AR') : price.toFixed(2)}`;
+  }, [product.price]);
 
   const productPath = `/producto/${product.href || product.id}`;
   const isOutOfStock = product.stock <= 0;
@@ -37,12 +40,12 @@ const ProductCard = ({ product }: { product: Product }) => {
   return (
     <div className="group relative bg-white rounded-2xl overflow-hidden transition-all duration-500 hover:shadow-[0_20px_60px_-10px_rgba(76,103,74,0.18)] flex flex-col h-full">
       <Link href={productPath} className="block relative overflow-hidden bg-[#4C674A]" style={{ aspectRatio: '1/1' }}>
-        <img
+        <Image
           src={product.image}
           alt={product.name}
-          loading="lazy"
-          decoding="async"
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+          className="object-cover transition-transform duration-700 group-hover:scale-105"
         />
         {isOutOfStock && (
           <div className="absolute inset-0 bg-black/45 flex items-center justify-center">
@@ -77,6 +80,9 @@ const ProductCard = ({ product }: { product: Product }) => {
       </div>
     </div>
   );
-};
+});
+
+ProductCard.displayName = 'ProductCard';
 
 export default ProductCard;
+

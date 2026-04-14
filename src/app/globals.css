@@ -1,3 +1,5 @@
+
+
 @import 'react-toastify/dist/ReactToastify.css';
 
 @tailwind base;
@@ -42,3 +44,22 @@ html {
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: #C5BFB3; border-radius: 4px; }
+
+/* ── Performance optimisations ───────────────────────────── */
+
+/* Hint the browser to skip layout/paint on off-screen sections */
+section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 600px;
+}
+
+/* GPU-accelerate card hover transitions */
+.group img {
+  will-change: transform;
+}
+
+/* Reduce paint on fixed header */
+header {
+  will-change: background-color, box-shadow;
+}
+
