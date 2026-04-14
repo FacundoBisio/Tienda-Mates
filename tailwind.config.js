@@ -1,10 +1,14 @@
 export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  content: [
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
   theme: {
     extend: {
       fontFamily: {
-        serif: ["'DM Serif Display'", "Georgia", "serif"],
-        sans:  ["'DM Sans'", "system-ui", "sans-serif"],
+        serif: ["var(--font-dm-serif)", "Georgia", "serif"],
+        sans:  ["var(--font-dm-sans)", "system-ui", "sans-serif"],
       },
       colors: {
         brand: {

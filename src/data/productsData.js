@@ -15,7 +15,7 @@ const productsData = {
       {
         id: "camionero-2",
         name: "Camionero Cincelado premium",
-        price: "19999",
+        price: "26999",
         image: "/images/mates/camioneros/CamioneroCinceladoPremium.jpeg",
         href: "CamioneroCinceladoPremium",
         description:
@@ -112,16 +112,6 @@ const productsData = {
         href: "ImperialDeBoca",
         description:
           "Mate Imperial edición especial temática del equipo Xeneize.",
-        stock: 2,
-      },
-      {
-        id: "imperial-new-22",
-        name: "Imperial Sin Base Tallado",
-        price: "33999",
-        image: "/images/mates/imperiales/ImperialSinBaseTallado.jpeg",
-        href: "ImperialSinBaseTallado",
-        description:
-          "Imperial tipo vasija esférica envuelta en cuero natural minuciosamente tallado.",
         stock: 2,
       },
       {
@@ -531,7 +521,7 @@ const productsData = {
   YERBAS: [
     {
       id: "yerba-12",
-      name: "Yerba Rei Verde Padron Argentino 500g",
+      name: "Yerba Rei Verde Padrón Argentino 500g",
       price: "4000",
       image: "/images/yerbas/reiverdeRoja.webp",
       description:
