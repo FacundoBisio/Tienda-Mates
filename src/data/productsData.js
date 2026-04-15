@@ -540,7 +540,7 @@ const productsData = {
     {
       id: "yerba-14",
       name: "Yerba Cosmico 500g",
-      price: "4500",
+      price: "4899",
       image: "/images/yerbas/cosmico.webp",
       description:
         'Selección especial con palo. Un sabor \"de otro planeta\", suave y rendidor.',
@@ -558,7 +558,7 @@ const productsData = {
     {
       id: "yerba-13",
       name: "Yerba Libre 1kg",
-      price: "6000",
+      price: "7399",
       image: "/images/yerbas/libre.webp",
       description:
         "Yerba mate elaborada pensando en un público joven. Sabor fresco y energizante.",
@@ -567,7 +567,7 @@ const productsData = {
     {
       id: "yerba-9",
       name: "Yerba Rei Verde Clásica 1kg",
-      price: "9000",
+      price: "10099",
       image: "/images/yerbas/reiverdeClasica.webp",
       description:
         "Sabor clásico y versátil. Rei Verde Clásica ofrece un mate parejo desde la primera hasta la última cebada.",
@@ -576,7 +576,7 @@ const productsData = {
     {
       id: "yerba-8",
       name: "Yerba Rei Verde Tradicional 1kg",
-      price: "10000",
+      price: "9099",
       image: "/images/yerbas/reiverde.webp",
       description:
         "Yerba mate de origen brasileño para exportación. Corte tradicional, buen balance entre hoja y polvo.",
@@ -585,7 +585,7 @@ const productsData = {
     {
       id: "yerba-15",
       name: "Yerba Verdecita 1kg",
-      price: "9500",
+      price: "9599",
       image: "/images/yerbas/verdecita.webp",
       description:
         "Yerba mate de producción agroecológica. Sabor puro a campo, sin agroquímicos.",
@@ -594,7 +594,7 @@ const productsData = {
     {
       id: "yerba-11",
       name: "Yerba Rei Verde Premium 1kg",
-      price: "12000",
+      price: "12199",
       image: "/images/yerbas/reiverdePremium.webp",
       description:
         "Selección especial de hojas. Estacionamiento natural prolongado que otorga un sabor más sofisticado y suave.",
@@ -603,7 +603,7 @@ const productsData = {
     {
       id: "yerba-6",
       name: "Yerba Sara 1kg",
-      price: "10000",
+      price: "15399",
       image: "/images/yerbas/sara.webp",
       description:
         "Yerba mate tradicional uruguaya. Sabor clásico, amargor justo y espuma duradera. Una de las marcas con más historia.",
@@ -612,7 +612,7 @@ const productsData = {
     {
       id: "yerba-7",
       name: "Yerba Sara Suave 1kg",
-      price: "10000",
+      price: "15399",
       image: "/images/yerbas/saraSuave.webp",
       description:
         "Variedad suave de Sara. Ideal para quienes se inician en la yerba sin palo o prefieren mates menos agresivos al paladar.",
@@ -620,17 +620,44 @@ const productsData = {
     },
     {
       id: "yerba-2",
-      name: "Yerba Canarias 1kg",
-      price: "12000",
+      name: "Yerba Canarias Común 1kg",
+      price: "12099",
       image: "/images/yerbas/Canarias.webp",
       description:
         "La yerba número uno de Uruguay. Molienda fina sin palo, sabor intenso y duradero. Ideal para quienes buscan un mate con cuerpo y energía.",
       stock: 5,
     },
     {
+      id: "yerba-16",
+      name: "Yerba Canarias Té Verde y Jengibre 1kg",
+      price: "13299",
+      image: "/images/yerbas/canarias-te-verde-y-jengibre.png",
+      description:
+        "Exquisita mezcla de Yerba Canarias con Té Verde y Jengibre. Frescura y energía para tu día.",
+      stock: 5,
+    },
+    {
+      id: "yerba-17",
+      name: "Yerba Canarias Edición Especial 1kg",
+      price: "13299",
+      image: "/images/yerbas/canarias-especial.png",
+      description:
+        "Edición especial de Yerba Canarias con una selección de molienda estacionada con el mayor cuidado.",
+      stock: 5,
+    },
+    {
+      id: "yerba-18",
+      name: "Yerba Pindare 1kg",
+      price: "8299",
+      image: "/images/yerbas/pindare.png",
+      description:
+        "Yerba mate de excelente calidad, con el clásico sabor de los mates bien cebados.",
+      stock: 5,
+    },
+    {
       id: "yerba-3",
       name: "Yerba Baldo 1kg",
-      price: "11000",
+      price: "10999",
       image: "/images/yerbas/Baldo.webp",
       description:
         "Yerba mate uruguaya de sabor equilibrado. Molienda tipo PU-1. Menos intensa que Canarias pero con excelente rendimiento.",
