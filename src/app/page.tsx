@@ -91,9 +91,9 @@ const Hero = () => (
 
 // ── Productos Destacados ─────────────────────────────────────────
 const destacados = [
-  { name: 'Imperial Cincelado Con Base',  price: '$40.999', image: '/images/mates/imperiales/ImperialCinceladoConBase.jpeg', href: '/producto/ImperialCinceladoConBase', tag: 'Más vendido' },
+  { name: 'Imperial Cincelado Con Base',  price: '$41.500', image: '/images/mates/imperiales/ImperialCinceladoConBase.jpeg', href: '/producto/ImperialCinceladoConBase', tag: 'Más vendido' },
   { name: 'Torpedo Nacional Premium',     price: '$59.999', image: '/images/mates/torpedos/TorpedoNacionalPremium.jpeg',    href: '/producto/TorpedoNacionalPremium',    tag: 'Premium' },
-  { name: 'Ranchero de Algarrobo',        price: '$39.999', image: '/images/mates/camioneros/RancheroAlgarrobo.png',        href: '/producto/RancheroAlgarrobo',          tag: 'Edición especial' },
+  { name: 'Ranchero de Algarrobo',        price: '$40.000', image: '/images/mates/camioneros/RancheroAlgarrobo.png',        href: '/producto/RancheroAlgarrobo',          tag: 'Edición especial' },
 ];
 
 const ProductosDestacados = () => (

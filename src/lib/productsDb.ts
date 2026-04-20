@@ -46,6 +46,15 @@ export function toNested(flat: FlatProduct[]): ProductsData {
   return data;
 }
 
+export async function insertProduct(product: FlatProduct): Promise<void> {
+  await (await col()).insertOne(product);
+}
+
+export async function deleteProduct(id: string): Promise<boolean> {
+  const result = await (await col()).deleteOne({ id });
+  return result.deletedCount > 0;
+}
+
 export async function updateProduct(
   id: string,
   fields: Partial<Pick<Product, 'price' | 'stock' | 'description' | 'image'>>

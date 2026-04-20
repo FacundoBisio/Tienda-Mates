@@ -33,7 +33,7 @@ const IconShield = () => (
 );
 
 const messages = [
-  { Icon: IconTruck,  text: 'Envíos a todo el país · Embalaje seguro garantizado' },
+  { Icon: IconTruck,  text: 'Envíos gratis a partir de $100.000 · Embalaje seguro garantizado' },
   { Icon: IconCraft,  text: 'Piezas únicas hechas a mano · Calidad artesanal en cada detalle' },
   { Icon: IconChat,   text: 'Atención personalizada por WhatsApp · Respondemos al instante' },
   { Icon: IconShield, text: 'Compra 100% segura · Coordinamos pago y entrega por WhatsApp' },
