@@ -3,12 +3,7 @@
 // src/context/Cart.tsx
 import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
 import { toast } from 'react-toastify';
-import productsData from '../data/productsData';
 import type { Product, CartItem, CartContextValue } from '@/types';
-
-const GOOGLE_SHEET_URL =
-  process.env.NEXT_PUBLIC_GOOGLE_SHEET_URL ??
-  `https://docs.google.com/spreadsheets/d/e/2PACX-1vSAay1X8MYjlrX4_YJpKz-ieLNhBJGMcCi40BTTMhjo7XADQ5wAybhbkqiE7RoMKutMGd_zfpPlzgMf/pub?gid=1640561616&single=true&output=csv&_t=${new Date().getTime()}`;
 
 const CartContext = createContext<CartContextValue | undefined>(undefined);
 
@@ -83,58 +78,20 @@ const updateStockImmutable = (data: any, index: ProductIndex, id: string, delta:
 // ─── Provider ───────────────────────────────────────────────────
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [allProducts, setAllProducts] = useState<any>(productsData);
+  const [allProducts, setAllProducts] = useState<any>({});
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Memoized product index – rebuilds only when allProducts object changes
   const productIndex = useMemo(() => buildIndex(allProducts), [allProducts]);
 
   useEffect(() => {
-    // Fetch stock updates in the background – don't block initial render
     const controller = new AbortController();
-    const fetchAndUpdateStock = async () => {
-      try {
-        setIsLoading(true);
-        const response = await fetch(GOOGLE_SHEET_URL, { signal: controller.signal });
-        if (!response.ok) throw new Error('Error conectando stock.');
-
-        const csvText = await response.text();
-        const stockMap = new Map<string, number>();
-        csvText.trim().split('\n').slice(1).forEach(row => {
-          const [id, , stock] = row.split(',');
-          if (id && stock !== undefined) {
-            stockMap.set(id.trim(), parseInt(stock.trim(), 10));
-          }
-        });
-
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const updateCategory = (items: any): any => {
-          if (Array.isArray(items)) {
-            return items.map(item => ({
-              ...item,
-              stock: stockMap.has(String(item.id)) ? stockMap.get(String(item.id)) : item.stock,
-            }));
-          } else if (typeof items === 'object' && items !== null) {
-            const newObj: Record<string, unknown> = {};
-            Object.keys(items).forEach(key => { newObj[key] = updateCategory(items[key]); });
-            return newObj;
-          }
-          return items;
-        };
-
-        setAllProducts(updateCategory(structuredClone(productsData)));
-      } catch (error) {
-        if ((error as Error).name !== 'AbortError') {
-          console.error('Error stock:', error);
-        }
-        // allProducts already has productsData, no need to set it again
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchAndUpdateStock();
+    fetch('/api/products', { signal: controller.signal })
+      .then(r => r.ok ? r.json() : Promise.reject())
+      .then(data => setAllProducts(data))
+      .catch(err => { if (err?.name !== 'AbortError') console.error('Error cargando productos:', err); })
+      .finally(() => setIsLoading(false));
     return () => controller.abort();
   }, []);
 
