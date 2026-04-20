@@ -724,10 +724,10 @@ const productsData = {
       id: "bombilla-new-1",
       name: "Bombilla",
       price: "7000",
-      image: "/images/bombillas/bombilla.webp",
+      image: "/images/bombillas/Bombilla.webp",
       href: "Bombilla",
       description:
-        "Bombilla tradicional de excelente material térmico, ideal para todo tipo de mate.",
+        "Bombilla tradicional de excelente material térmico, ideal para todo tipo de mate. ",
       stock: 5,
     },
     {
