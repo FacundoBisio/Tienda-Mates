@@ -4,7 +4,6 @@
 import React, { useState, useContext, useEffect, useMemo, useCallback } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import productsData from '@/data/productsData';
 import ProductCard from './ProductCard';
 import { CartContext } from '@/context/Cart';
 import { CategoryIcon } from './Icons';
@@ -41,7 +40,7 @@ const CategoryPage = () => {
     setSelectedSub(null);
   }, [cat]);
 
-  const rawData = meta ? (productsData as Record<string, unknown>)[meta.key] : undefined;
+  const rawData = meta ? (allProducts as Record<string, unknown>)[meta.key] : undefined;
   const hasSubs = meta?.key === 'MATES' && typeof rawData === 'object' && !Array.isArray(rawData);
   const subs = useMemo(
     () => (hasSubs ? Object.keys(rawData as Record<string, unknown>) : []),
