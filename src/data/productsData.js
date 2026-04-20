@@ -32,6 +32,15 @@ const productsData = {
           "Mate estilo camionero criollo, fabricado con madera de algarrobo seleccionada de pared gruesa y pintado a mano. Incluye base reforzada para mayor estabilidad.",
         stock: 4,
       },
+      {
+        id: "camionero-staged-1",
+        name: "Camionero Laqueado",
+        price: "21999",
+        image: "/images/mates/camioneros/CamioneroLaqueado.webp",
+        href: "CamioneroLaqueado",
+        description: "Mate estilo camionero con un acabado laqueado brillante que lo protege y le da un aspecto elegante.",
+        stock: 2,
+      },
     ],
     Imperiales: [
       {
@@ -155,8 +164,8 @@ const productsData = {
       },
       {
         id: "imperial-new-15",
-        name: "Imperial Cincelado de AceroMarrón",
-        price: "36999",
+        name: "Imperial Cincelado de Acero Marrón",
+        price: "26999",
         image: "/images/mates/imperiales/ImperialCinceladoMarron.jpeg",
         href: "ImperialCinceladoMarron",
         description:
@@ -249,12 +258,21 @@ const productsData = {
         href: 'ImperialCueroCrudoCincelado',
         description: 'La mejor combination: resistencia del cuero crudo con la nobleza de metales cincelados.',
         stock: 2
+      },
+      {
+        id: "imperial-staged-1",
+        name: "Imperial",
+        price: "34999",
+        image: "/images/mates/imperiales/Imperial.webp",
+        href: "Imperial",
+        description: "Mate Imperial elegante y distinguido, fabricado con materiales de primera calidad.",
+        stock: 2,
       }
     ],
     Torpedos: [
       {
         id: "torpedo-new-24",
-        name: "Torpedo Especial 1",
+        name: "Torpedo Especial",
         price: "15000",
         image:
           "/images/mates/torpedos/WhatsApp Image 2026-02-25 at 8.11.39 PM (2).jpeg",
@@ -265,7 +283,7 @@ const productsData = {
       },
       {
         id: "torpedo-new-25",
-        name: "Torpedo Especial 2",
+        name: "Torpedo Especial ",
         price: "15000",
         image:
           "/images/mates/torpedos/WhatsApp Image 2026-02-25 at 8.11.39 PM (3).jpeg",
@@ -306,7 +324,7 @@ const productsData = {
       },
       {
         id: "torpedo-new-12",
-        name: "Torpedo Cincelado Sin Base 2",
+        name: "Torpedo Cincelado Sin Base Marron",
         price: "30999",
         image: "/images/mates/torpedos/TorpedoCinceladoSinBase2.jpeg",
         href: "TorpedoCinceladoSinBase2",
@@ -337,7 +355,7 @@ const productsData = {
       {
         id: "torpedo-new-10",
         name: "Torpedo Cincelado Premium",
-        price: "32999",
+        price: "34999",
         image: "/images/mates/torpedos/TorpedoCinceladoPremium.jpeg",
         href: "TorpedoCinceladoPremium",
         description:
@@ -494,6 +512,24 @@ const productsData = {
         href: "TorpedoCueroCrudoConPatitas",
         description:
           "La máxima combinación entre el lado rústico del cuero crudo y la elegancia de las patas de apoyo.",
+        stock: 2,
+      },
+      {
+        id: "torpedo-staged-1",
+        name: "Torpedo",
+        price: "24999",
+        image: "/images/mates/torpedos/Torpedo.webp",
+        href: "Torpedo",
+        description: "Mate estilo torpedo clásico de alta calidad.",
+        stock: 2,
+      },
+      {
+        id: "torpedo-staged-2",
+        name: "Torpedo Doble Corona",
+        price: "44999",
+        image: "/images/mates/torpedos/TorpedoDobleCorona.webp",
+        href: "TorpedoDobleCorona",
+        description: "Mate torpedo modelo exclusivo con virola doble corona cincelada a mano.",
         stock: 2,
       },
     ],
@@ -794,6 +830,15 @@ const productsData = {
         "La máxima distinción. Bombillón grueso bañado en oro con espectaculares apliques.",
       stock: 5,
     },
+    {
+      id: "bombilla-staged-1",
+      name: "Bombillón Copa Mundo",
+      price: "26999",
+      image: "/images/bombillas/bombillonCopaMundo.webp",
+      href: "BombillonCopaMundo",
+      description: "Exclusivo bombillón con aplique conmemorativo de la Copa del Mundo.",
+      stock: 5,
+    },
   ],
   ACCESORIOS: [
     {
@@ -944,10 +989,50 @@ const productsData = {
         "Todo lo que necesitás para empezar a cebar (Matera, yerbero, azucarera).",
       stock: 2,
     },
+    {
+      id: "accesorios-new-16",
+      name: "Yerbera Marron claro",
+      price: "7999",
+      image: "/images/accesorios/yerberaMarronClaro.webp",
+      href: "YerberaMarronClaro",
+      description:
+        "Yerbera de ecocuero color marrón claro.",
+      stock: 2,
+    },
+    {
+      id: "accesorios-new-17",
+      name: "Yerbera Marron",
+      price: "7999",
+      image: "/images/accesorios/yerberaMarron.webp",
+      href: "YerberaMarron",
+      description:
+        "Yerbera de ecocuero color marrón.",
+      stock: 2,
+    },
+    {
+      id: "accesorios-new-18",
+      name: "Azucarera Negra",
+      price: "7999",
+      image: "/images/accesorios/azucareraNegra.webp",
+      href: "AzucareraNegra",
+      description:
+        "Azucarera de ecocuero color negro.",
+      stock: 2,
+    },
+    {
+      id: "accesorios-new-19",
+      name: "Filtro para bombilla",
+      price: "1500",
+      image: "/images/accesorios/FiltroBombilla.webp",
+      href: "FiltroBombilla",
+      description:
+        "Packete de 3 filtros para bombilla.",
+      stock: 2,
+    },
   ],
   COMBOS: [
     {
-      id: "accesorios-new-15",
+      id: "combo-new-1",
       name: "Combo Mater Campestre de Ecocuero crudo",
       price: "50000",
       image: "/images/accesorios/SetMatero.jpeg",
