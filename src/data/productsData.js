@@ -4,13 +4,23 @@ const productsData = {
     Camioneros: [
       {
         id: "camionero-1",
+        name: "Camionero de Algarrobo",
+        price: "17999",
+        image: "/images/mates/camioneros/CamioneroAlgarrobo.webp",
+        href: "CamioneroAlgarrobo",
+        description:
+          "Mate estilo camionero criollo, fabricado con madera de algarrobo seleccionada de pared gruesa y forrado en cuero de alta calidad. Incluye base reforzada para mayor estabilidad.",
+        stock: 2,
+      },
+      {
+        id: "camionero-1",
         name: "Camionero Criollo Con Base",
         price: "17999",
-        image: "/images/mates/camioneros/CamioneroCriolloConBase.jpeg",
+        image: "/images/mates/camioneros/CamioneroCriolloConBase.webp",
         href: "CamioneroCriolloConBase",
         description:
           "Mate estilo camionero criollo, fabricado con calabaza seleccionada de pared gruesa y forrado en cuero de alta calidad. Incluye base reforzada para mayor estabilidad.",
-        stock: 0,
+        stock: 2,
       },
       {
         id: "camionero-2",
@@ -20,13 +30,13 @@ const productsData = {
         href: "CamioneroCinceladoPremium",
         description:
           "Camionero premium con detalles cincelados y terminaciones de alta calidad.",
-        stock: 0,
+        stock: 2,
       },
       {
         id: "camionero-3",
         name: "Ranchero de Algarrobo",
         price: "39999",
-        image: "/images/mates/camioneros/RancheroAlgarrobo.png",
+        image: "/images/mates/camioneros/RancheroAlgarrobo.webp",
         href: "RancheroAlgarrobo",
         description:
           "Mate estilo camionero criollo, fabricado con madera de algarrobo seleccionada de pared gruesa y pintado a mano. Incluye base reforzada para mayor estabilidad.",
@@ -714,7 +724,7 @@ const productsData = {
       id: "bombilla-new-1",
       name: "Bombilla",
       price: "7000",
-      image: "/images/bombillas/Bombilla.jpeg",
+      image: "/images/bombillas/bombilla.webp",
       href: "Bombilla",
       description:
         "Bombilla tradicional de excelente material térmico, ideal para todo tipo de mate.",
@@ -1011,12 +1021,12 @@ const productsData = {
     },
     {
       id: "accesorios-new-18",
-      name: "Azucarera Negra",
+      name: "Yerbera Negra",
       price: "7999",
-      image: "/images/accesorios/azucareraNegra.webp",
-      href: "AzucareraNegra",
+      image: "/images/accesorios/yerberaNegra.webp",
+      href: "YerberaNegra",
       description:
-        "Azucarera de ecocuero color negro.",
+        "Yerbera de ecocuero color negro.",
       stock: 2,
     },
     {
@@ -1026,7 +1036,7 @@ const productsData = {
       image: "/images/accesorios/FiltroBombilla.webp",
       href: "FiltroBombilla",
       description:
-        "Packete de 3 filtros para bombilla.",
+        "Packete de 3 filtros para bombilla. Ideal para evitar que la yerba y su polvo pasen por la bombilla.",
       stock: 2,
     },
   ],
