@@ -5,7 +5,7 @@ const productsData = {
       {
         id: "camionero-1",
         name: "Camionero de Algarrobo",
-        price: "17999",
+        price: "20000",
         image: "/images/mates/camioneros/CamioneroAlgarrobo.webp",
         href: "CamioneroAlgarrobo",
         description:
@@ -15,7 +15,7 @@ const productsData = {
       {
         id: "camionero-1",
         name: "Camionero Criollo Con Base",
-        price: "17999",
+        price: "20500",
         image: "/images/mates/camioneros/CamioneroCriolloConBase.webp",
         href: "CamioneroCriolloConBase",
         description:
@@ -25,7 +25,7 @@ const productsData = {
       {
         id: "camionero-2",
         name: "Camionero Cincelado premium",
-        price: "26999",
+        price: "25000",
         image: "/images/mates/camioneros/CamioneroCinceladoPremium.jpeg",
         href: "CamioneroCinceladoPremium",
         description:
@@ -35,7 +35,7 @@ const productsData = {
       {
         id: "camionero-3",
         name: "Ranchero de Algarrobo",
-        price: "39999",
+        price: "40000",
         image: "/images/mates/camioneros/RancheroAlgarrobo.webp",
         href: "RancheroAlgarrobo",
         description:
@@ -45,7 +45,7 @@ const productsData = {
       {
         id: "camionero-staged-1",
         name: "Camionero Laqueado",
-        price: "21999",
+        price: "22000",
         image: "/images/mates/camioneros/CamioneroLaqueado.webp",
         href: "CamioneroLaqueado",
         description: "Mate estilo camionero con un acabado laqueado brillante que lo protege y le da un aspecto elegante.",
@@ -56,7 +56,7 @@ const productsData = {
       {
         id: "imperial-new-1",
         name: "Imperial Algarrobo De Acero",
-        price: "17999",
+        price: "25500",
         image: "/images/mates/imperiales/ImperialAlgarrobo1.jpeg",
         href: "ImperialAlgarrobo1",
         description:
@@ -66,7 +66,7 @@ const productsData = {
       {
         id: "imperial-new-3",
         name: "Imperial Algarrobo Laqueado",
-        price: "19999",
+        price: "27500",
         image: "/images/mates/imperiales/ImperialAlgarrobo3.jpeg",
         href: "ImperialAlgarrobo3",
         description:
@@ -76,7 +76,7 @@ const productsData = {
       {
         id: "imperial-new-4",
         name: "Imperial Algarrobo Con Flores",
-        price: "19999",
+        price: "27500",
         image: "/images/mates/imperiales/ImperialAlgarroboFlores.jpeg",
         href: "ImperialAlgarroboFlores",
         description:
@@ -86,7 +86,7 @@ const productsData = {
       {
         id: "imperial-new-2",
         name: "Imperial Cincelado Algarrobo",
-        price: "21999",
+        price: "27500",
         image: "/images/mates/imperiales/ImperialAlgarrobo2.jpeg",
         href: "ImperialAlgarrobo2",
         description:
@@ -96,7 +96,7 @@ const productsData = {
       {
         id: "imperial-new-11",
         name: "Imperial Cincelado Algarrobo",
-        price: "21999",
+        price: "27500",
         image: "/images/mates/imperiales/ImperialCinceladoAlgarrobo.jpeg",
         href: "ImperialCinceladoAlgarrobo",
         description:
@@ -106,7 +106,7 @@ const productsData = {
       {
         id: "imperial-new-9",
         name: "Imperial Bicolor",
-        price: "25999",
+        price: "35400",
         image: "/images/mates/imperiales/ImperialBicolor.jpeg",
         href: "ImperialBicolor",
         description:
@@ -116,7 +116,7 @@ const productsData = {
       {
         id: "imperial-new-21",
         name: "Imperial Sin Base",
-        price: "29999",
+        price: "35400",
         image: "/images/mates/imperiales/ImperialSinBase.jpeg",
         href: "ImperialSinBase",
         description:
@@ -126,7 +126,7 @@ const productsData = {
       {
         id: "imperial-new-19",
         name: "Imperial De Boca",
-        price: "31999",
+        price: "35400",
         image: "/images/mates/imperiales/ImperialDeBoca.jpeg",
         href: "ImperialDeBoca",
         description:
@@ -136,7 +136,7 @@ const productsData = {
       {
         id: "imperial-new-23",
         name: "Imperial Sin Base Tallado Marrón",
-        price: "33999",
+        price: "35400",
         image: "/images/mates/imperiales/ImperialSinBaseTalladoMarron.jpeg",
         href: "ImperialSinBaseTalladoMarron",
         description:
@@ -146,7 +146,7 @@ const productsData = {
       {
         id: "imperial-new-24",
         name: "Imperial Sin Base Tallado Rojo",
-        price: "33999",
+        price: "35400",
         image: "/images/mates/imperiales/ImperialSinBaseTalladoRojo.jpeg",
         href: "ImperialSinBaseTalladoRojo",
         description:
@@ -156,7 +156,7 @@ const productsData = {
       {
         id: 'imperial-new-19',
         name: 'Imperial De Boca',
-        price: '34999',
+        price: '35400',
         image: '/images/mates/imperiales/ImperialDeBoca.jpeg',
         href: 'ImperialDeBoca',
         description: 'Mate Imperial edición especial temática del equipo Xeneize.',
@@ -165,7 +165,7 @@ const productsData = {
       {
         id: "imperial-new-10",
         name: "Imperial Cincelado",
-        price: "35999",
+        price: "37500",
         image: "/images/mates/imperiales/ImperialCincelado.jpeg",
         href: "ImperialCincelado",
         description:
@@ -175,7 +175,7 @@ const productsData = {
       {
         id: "imperial-new-15",
         name: "Imperial Cincelado de Acero Marrón",
-        price: "26999",
+        price: "35400",
         image: "/images/mates/imperiales/ImperialCinceladoMarron.jpeg",
         href: "ImperialCinceladoMarron",
         description:
@@ -185,7 +185,7 @@ const productsData = {
       {
         id: 'imperial-new-16',
         name: 'Imperial Con Base',
-        price: '39999',
+        price: '41500',
         image: '/images/mates/imperiales/ImperialConBase.jpeg',
         href: 'ImperialConBase',
         description: 'Imperial Premium que cuenta con una base de alpaca para asegurar la postura ideal.',
@@ -194,7 +194,7 @@ const productsData = {
       {
         id: "imperial-new-12",
         name: "Imperial Cincelado Base Redonda",
-        price: "39999",
+        price: "41500",
         image: "/images/mates/imperiales/ImperialCinceladoBaseRedonda.jpeg",
         href: "ImperialCinceladoBaseRedonda",
         description:
@@ -204,7 +204,7 @@ const productsData = {
       {
         id: "imperial-new-13",
         name: "Imperial Cincelado Con Base",
-        price: "40999",
+        price: "41500",
         image: "/images/mates/imperiales/ImperialCinceladoConBase.jpeg",
         href: "ImperialCinceladoConBase",
         description:
@@ -214,7 +214,7 @@ const productsData = {
       {
         id: "imperial-new-14",
         name: "Imperial Cincelado Con Base Rojo",
-        price: "40999",
+        price: "41500",
         image: "/images/mates/imperiales/ImperialCinceladoConBaseRojo.jpeg",
         href: "ImperialCinceladoConBaseRojo",
         description:
@@ -224,7 +224,7 @@ const productsData = {
       {
         id: "imperial-new-17",
         name: "Imperial Cuero Crudo",
-        price: "41999",
+        price: "49500",
         image: "/images/mates/imperiales/ImperialCueroCrudo.jpeg",
         href: "ImperialCueroCrudo",
         description:
@@ -234,7 +234,7 @@ const productsData = {
       {
         id: "imperial-new-7",
         name: "Imperial Base Redonda Negro",
-        price: "41999",
+        price: "41500",
         image: "/images/mates/imperiales/ImperialBaseRedondaNegro.jpeg",
         href: "ImperialBaseRedondaNegro",
         description:
@@ -244,7 +244,7 @@ const productsData = {
       {
         id: "imperial-new-18",
         name: "Imperial Cuero Crudo Cincelado",
-        price: "41999",
+        price: "49500",
         image: "/images/mates/imperiales/ImperialCueroCrudoCincelado.jpeg",
         href: "ImperialCueroCrudoCincelado",
         description:
@@ -254,7 +254,7 @@ const productsData = {
       {
         id: 'imperial-new-5',
         name: 'Imperial Animal Print',
-        price: '44999',
+        price: '47500',
         image: '/images/mates/imperiales/ImperialAnimalPrint.jpeg',
         href: 'ImperialAnimalPrint',
         description: 'Un Imperial con carácter, forrado en cuero con diseño exclusivo Animal Print.',
@@ -263,7 +263,7 @@ const productsData = {
       {
         id: 'imperial-new-18',
         name: 'Imperial Cuero Crudo Cincelado',
-        price: '45999',
+        price: '49500',
         image: '/images/mates/imperiales/ImperialCueroCrudoCincelado.jpeg',
         href: 'ImperialCueroCrudoCincelado',
         description: 'La mejor combination: resistencia del cuero crudo con la nobleza de metales cincelados.',
@@ -272,7 +272,7 @@ const productsData = {
       {
         id: "imperial-staged-1",
         name: "Imperial",
-        price: "34999",
+        price: "35400",
         image: "/images/mates/imperiales/Imperial.webp",
         href: "Imperial",
         description: "Mate Imperial elegante y distinguido, fabricado con materiales de primera calidad.",
@@ -281,31 +281,9 @@ const productsData = {
     ],
     Torpedos: [
       {
-        id: "torpedo-new-24",
-        name: "Torpedo Especial",
-        price: "15000",
-        image:
-          "/images/mates/torpedos/WhatsApp Image 2026-02-25 at 8.11.39 PM (2).jpeg",
-        href: "TorpedoEspecial1",
-        description:
-          "Mate Torpedo Edición Especial. Una combinación única de elementos que no pasa desapercibida.",
-        stock: 2,
-      },
-      {
-        id: "torpedo-new-25",
-        name: "Torpedo Especial ",
-        price: "15000",
-        image:
-          "/images/mates/torpedos/WhatsApp Image 2026-02-25 at 8.11.39 PM (3).jpeg",
-        href: "TorpedoEspecial2",
-        description:
-          "Variante de nuestra edición especial de Torpedo, para acompañarte en todos los mates.",
-        stock: 2,
-      },
-      {
         id: "torpedo-new-3",
         name: "Torpedo Cincelado Algarrobo",
-        price: "21999",
+        price: "27500",
         image: "/images/mates/torpedos/TorpedoCinceladoAlgarrobo.jpeg",
         href: "TorpedoCinceladoAlgarrobo",
         description:
@@ -315,7 +293,7 @@ const productsData = {
       {
         id: "torpedo-new-4",
         name: "Torpedo Cincelado Algarrobo Rojo",
-        price: "21999",
+        price: "27500",
         image: "/images/mates/torpedos/TorpedoCinceladoAlgarroboRojo.jpeg",
         href: "TorpedoCinceladoAlgarroboRojo",
         description:
@@ -325,7 +303,7 @@ const productsData = {
       {
         id: "torpedo-new-5",
         name: "Torpedo Cincelado s/base",
-        price: "26999",
+        price: "35500",
         image: "/images/mates/torpedos/TorpedoCinceladoChico.jpeg",
         href: "TorpedoCinceladoChico",
         description:
@@ -334,28 +312,28 @@ const productsData = {
       },
       {
         id: "torpedo-new-12",
-        name: "Torpedo Cincelado Sin Base Marron",
-        price: "30999",
+        name: "Torpedo Cincelado Base Reforzada redonda Marrón",
+        price: "35500",
         image: "/images/mates/torpedos/TorpedoCinceladoSinBase2.jpeg",
         href: "TorpedoCinceladoSinBase2",
         description:
-          "Variante de mate esférico clásico, sin detalles en la parte inferior para conservar simpleza.",
+          "Variante de mate esférico clásico, con base reforzada para mayor estabilidad y durabilidad.",
         stock: 2,
       },
       {
         id: "torpedo-new-11",
-        name: "Torpedo Cincelado Sin Base",
-        price: "31999",
+        name: "Torpedo Cincelado Base Reforzada redonda",
+        price: "35500",
         image: "/images/mates/torpedos/TorpedoCinceladoSinBase.jpeg",
         href: "TorpedoCinceladoSinBase",
         description:
-          "Forma esférica pura. Un Torpedo Cincelado tradicional sin patas o base agregada.",
+          "Forma esférica pura. Un Torpedo Cincelado tradicional sin base.",
         stock: 2,
       },
       {
         id: "torpedo-new-15",
-        name: "Torpedo Copa con Patas",
-        price: "31999",
+        name: "Torpedo Copa con Bolitas",
+        price: "45500",
         image: "/images/mates/torpedos/TorpedoCopa.jpeg",
         href: "TorpedoCopa",
         description:
@@ -365,7 +343,7 @@ const productsData = {
       {
         id: "torpedo-new-10",
         name: "Torpedo Cincelado Premium",
-        price: "34999",
+        price: "40500",
         image: "/images/mates/torpedos/TorpedoCinceladoPremium.jpeg",
         href: "TorpedoCinceladoPremium",
         description:
@@ -375,7 +353,7 @@ const productsData = {
       {
         id: "torpedo-new-23",
         name: "Torpedo Tallado Flor",
-        price: "34999",
+        price: "40000",
         image: "/images/mates/torpedos/TorpedoTalladoFlor.jpeg",
         href: "TorpedoTalladoFlor",
         description:
@@ -392,11 +370,11 @@ const productsData = {
           "Impresionante Torpedo forrado en cuero texturado negro con relieve símil piel de cocodrilo.",
         stock: 0,
       },
-      
+
       {
         id: "torpedo-new-20",
-        name: "Torpedo Nacional",
-        price: "39999",
+        name: "Torpedo Nacional Marrón",
+        price: "40500",
         image: "/images/mates/torpedos/TorpedoNacional.jpeg",
         href: "TorpedoNacional",
         description:
@@ -405,8 +383,8 @@ const productsData = {
       },
       {
         id: "torpedo-new-21",
-        name: "Torpedo Nacional 2",
-        price: "39999",
+        name: "Torpedo Nacional Rojo",
+        price: "40500",
         image: "/images/mates/torpedos/TorpedoNacional2.jpeg",
         href: "TorpedoNacional2",
         description:
@@ -426,7 +404,7 @@ const productsData = {
       {
         id: "torpedo-new-18",
         name: "Torpedo Cuero Crudo Cincelado 3",
-        price: "41999",
+        price: "52000",
         image: "/images/mates/torpedos/TorpedoCueroCrudoCincelado3.jpeg",
         href: "TorpedoCueroCrudoCincelado3",
         description:
@@ -435,8 +413,8 @@ const productsData = {
       },
       {
         id: "torpedo-new-7",
-        name: "Torpedo Cincelado Con Patitas",
-        price: "44999",
+        name: "Torpedo Cincelado Con Bolitas",
+        price: "45500",
         image: "/images/mates/torpedos/TorpedoCinceladoConPatitas.jpeg",
         href: "TorpedoCinceladoConPatitas",
         description:
@@ -446,7 +424,7 @@ const productsData = {
       {
         id: "torpedo-new-1",
         name: "Torpedo Argentina Premium",
-        price: "44999",
+        price: "40500",
         image: "/images/mates/torpedos/TorpedoArgentinaPremium.jpeg",
         href: "TorpedoArgentinaPremium",
         description:
@@ -456,7 +434,7 @@ const productsData = {
       {
         id: "torpedo-new-9",
         name: "Torpedo Cincelado Hojas Talladas",
-        price: "45999",
+        price: "45500",
         image: "/images/mates/torpedos/TorpedoCinceladoHojasTalladas.jpeg",
         href: "TorpedoCinceladoHojasTalladas",
         description:
@@ -465,8 +443,8 @@ const productsData = {
       },
       {
         id: "torpedo-new-6",
-        name: "Torpedo Cincelado Con Patas Reforzadas",
-        price: "49999",
+        name: "Torpedo Cincelado Cuero Tallado con Bolitas",
+        price: "45500",
         image: "/images/mates/torpedos/TorpedoCinceladoConPatasReforzadas.jpeg",
         href: "TorpedoCinceladoConPatasReforzadas",
         description:
@@ -475,8 +453,8 @@ const productsData = {
       },
       {
         id: "torpedo-new-8",
-        name: "Torpedo Cincelado Cuero Tallado Y Reforzado",
-        price: "49999",
+        name: "Torpedo Cincelado Cuero Tallado con Bolitas Rojo",
+        price: "45500",
         image:
           "/images/mates/torpedos/TorpedoCinceladoCueroTallado&Reforzado.jpeg",
         href: "TorpedoCinceladoCueroTalladoYReforzado",
@@ -497,7 +475,7 @@ const productsData = {
       {
         id: "torpedo-new-16",
         name: "Torpedo Cuero Crudo Cincelado",
-        price: "59999",
+        price: "52000",
         image: "/images/mates/torpedos/TorpedoCueroCrudoCincelado.jpeg",
         href: "TorpedoCueroCrudoCincelado",
         description:
@@ -507,7 +485,7 @@ const productsData = {
       {
         id: "torpedo-new-17",
         name: "Torpedo Cuero Crudo Cincelado 2",
-        price: "59999",
+        price: "52000",
         image: "/images/mates/torpedos/TorpedoCueroCrudoCincelado2.jpeg",
         href: "TorpedoCueroCrudoCincelado2",
         description:
@@ -516,18 +494,18 @@ const productsData = {
       },
       {
         id: "torpedo-new-19",
-        name: "Torpedo Cuero Crudo Con Patitas",
-        price: "59999",
+        name: "Torpedo Cuero Crudo Con Bolitas",
+        price: "55000",
         image: "/images/mates/torpedos/TorpedoCueroCrudoConPatitas.jpeg",
-        href: "TorpedoCueroCrudoConPatitas",
+        href: "TorpedoCueroCrudoConBolitas",
         description:
-          "La máxima combinación entre el lado rústico del cuero crudo y la elegancia de las patas de apoyo.",
+          "La máxima combinación entre el lado rústico del cuero crudo y la elegancia de las bolitas de apoyo.",
         stock: 2,
       },
       {
         id: "torpedo-staged-1",
         name: "Torpedo",
-        price: "24999",
+        price: "33000",
         image: "/images/mates/torpedos/Torpedo.webp",
         href: "Torpedo",
         description: "Mate estilo torpedo clásico de alta calidad.",
@@ -536,7 +514,7 @@ const productsData = {
       {
         id: "torpedo-staged-2",
         name: "Torpedo Doble Corona",
-        price: "44999",
+        price: "40500",
         image: "/images/mates/torpedos/TorpedoDobleCorona.webp",
         href: "TorpedoDobleCorona",
         description: "Mate torpedo modelo exclusivo con virola doble corona cincelada a mano.",
@@ -548,7 +526,7 @@ const productsData = {
     {
       id: "termo-1",
       name: "Termo Media Manija 1L Plateado",
-      price: "24000",
+      price: "30000",
       image: "/images/termos/mediamanija.webp",
       description:
         'Termo de acero inoxidable bicapa con capacidad de 1 litro. Diseño \"media manija\" para un cebado cómodo y preciso. Mantiene el agua caliente por 24hs.',
@@ -557,7 +535,7 @@ const productsData = {
     {
       id: "termo-2",
       name: "Termo Media Manija 1L Total Black",
-      price: "26000",
+      price: "30000",
       image: "/images/termos/termoNegro.webp",
       description:
         "Edición Total Black. Termo de acero inoxidable de 1 litro con acabado negro mate antideslizante. Alta retención térmica y pico cebador de precisión.",
@@ -723,7 +701,7 @@ const productsData = {
     {
       id: "bombilla-new-1",
       name: "Bombilla",
-      price: "7000",
+      price: "9500",
       image: "/images/bombillas/Bombilla.webp",
       href: "Bombilla",
       description:
@@ -733,7 +711,7 @@ const productsData = {
     {
       id: "bombilla-new-2",
       name: "Bombilla Con Apliques",
-      price: "8000",
+      price: "11000",
       image: "/images/bombillas/BombillaConApliques.jpeg",
       href: "BombillaConApliques",
       description:
@@ -742,8 +720,8 @@ const productsData = {
     },
     {
       id: "bombilla-new-3",
-      name: "Bombilla Dorada",
-      price: "8000",
+      name: "Bombilla con Pico de Bronce",
+      price: "11500",
       image: "/images/bombillas/BombillaDorada.jpeg",
       href: "BombillaDorada",
       description:
@@ -753,7 +731,7 @@ const productsData = {
     {
       id: "bombilla-new-4",
       name: "Bombillón Clásico",
-      price: "28000",
+      price: "25000",
       image: "/images/bombillas/Bombillon.jpeg",
       href: "Bombillon",
       description:
@@ -763,7 +741,7 @@ const productsData = {
     {
       id: "bombilla-new-5",
       name: "Bombillón Trenzado",
-      price: "28500",
+      price: "25000",
       image: "/images/bombillas/BombillonTrenzad.jpeg",
       href: "BombillonTrenzado",
       description:
@@ -773,7 +751,7 @@ const productsData = {
     {
       id: "bombilla-new-6",
       name: "Bombillón Trenzado 2",
-      price: "28500",
+      price: "25000",
       image: "/images/bombillas/BombillonTrenzado2.jpeg",
       href: "BombillonTrenzado2",
       description:
@@ -783,7 +761,7 @@ const productsData = {
     {
       id: "bombilla-new-7",
       name: "Bombilla Trenzada 19cm",
-      price: "8500",
+      price: "11000",
       image: "/images/bombillas/BombillonTrenzado19cm.jpeg",
       href: "BombillonTrenzado19cm",
       description:
@@ -793,7 +771,7 @@ const productsData = {
     {
       id: "bombilla-new-8",
       name: "Bombillón Belgrano",
-      price: "29500",
+      price: "25000",
       image: "/images/bombillas/BombillonBelgrano.jpeg",
       href: "BombillonBelgrano",
       description:
@@ -803,7 +781,7 @@ const productsData = {
     {
       id: "bombilla-new-9",
       name: "Bombillón Boca",
-      price: "29500",
+      price: "25000",
       image: "/images/bombillas/BombillonBoca.jpeg",
       href: "BombillonBoca",
       description:
@@ -813,7 +791,7 @@ const productsData = {
     {
       id: "bombilla-new-10",
       name: "Bombillón Trenzado Dorado",
-      price: "30000",
+      price: "25000",
       image: "/images/bombillas/BombillonTrenzadoConDorado.jpeg",
       href: "BombillonTrenzadoConDorado",
       description:
@@ -823,7 +801,7 @@ const productsData = {
     {
       id: "bombilla-new-11",
       name: "Bombillón Cincelado",
-      price: "31000",
+      price: "25000",
       image: "/images/bombillas/BombillonCincelado.jpeg",
       href: "BombillonCincelado",
       description:
@@ -832,18 +810,18 @@ const productsData = {
     },
     {
       id: "bombilla-new-12",
-      name: "Bombilla con Apliques Dorados",
-      price: "8000",
+      name: "Bombilla con Apliques de Bronce",
+      price: "11000",
       image: "/images/bombillas/BombillonDoradoConApliques.jpeg",
       href: "BombillonDoradoConApliques",
       description:
-        "La máxima distinción. Bombillón grueso bañado en oro con espectaculares apliques.",
+        "La máxima distinción. Bombillón grueso bañado en bronce con espectaculares apliques.",
       stock: 5,
     },
     {
       id: "bombilla-staged-1",
       name: "Bombillón Copa Mundo",
-      price: "26999",
+      price: "25000",
       image: "/images/bombillas/bombillonCopaMundo.webp",
       href: "BombillonCopaMundo",
       description: "Exclusivo bombillón con aplique conmemorativo de la Copa del Mundo.",
@@ -874,7 +852,7 @@ const productsData = {
     {
       id: "accesorios-new-3",
       name: "Canasta de Eco Cuero",
-      price: "24999",
+      price: "33500",
       image: "/images/accesorios/MateraEcoCuero.jpeg",
       href: "MateraEcoCuero",
       description:
@@ -884,7 +862,7 @@ const productsData = {
     {
       id: "accesorios-new-6",
       name: "Canasta de Cuero Marrón",
-      price: "31999",
+      price: "40000",
       image: "/images/accesorios/MediaMateraCueroMarron.jpeg",
       href: "MediaMateraCueroMarron",
       description: "Canasta en cuero genuino color marrón natural.",
@@ -893,7 +871,7 @@ const productsData = {
     {
       id: "accesorios-new-7",
       name: "Canasta Cuero Rojo",
-      price: "31999",
+      price: "40000",
       image: "/images/accesorios/MediaMateraCueroRojo.jpeg",
       href: "MediaMateraCueroRojo",
       description:
@@ -903,7 +881,7 @@ const productsData = {
     {
       id: "accesorios-new-4",
       name: "Canasta de Cuero",
-      price: "34999",
+      price: "40000",
       image: "/images/accesorios/MediaMateraCuero.jpeg",
       href: "MediaMateraCuero",
       description:
@@ -913,7 +891,7 @@ const productsData = {
     {
       id: "accesorios-new-8",
       name: "Canasta Cuero Rojo Colmena",
-      price: "34999",
+      price: "40000",
       image: "/images/accesorios/MediaMateraCueroRojoColmena.jpeg",
       href: "MediaMateraCueroRojoColmena",
       description:
@@ -923,7 +901,7 @@ const productsData = {
     {
       id: "accesorios-new-13",
       name: "Mochila Matera Marrón",
-      price: "34999",
+      price: "45000",
       image: "/images/accesorios/MochilaMarron.jpeg",
       href: "MochilaMateraMarron",
       description:
@@ -933,7 +911,7 @@ const productsData = {
     {
       id: "accesorios-new-14",
       name: "Mochila Matera Roja",
-      price: "34999",
+      price: "45000",
       image: "/images/accesorios/MochilaRoja.jpeg",
       href: "MochilaMateraRoja",
       description:
@@ -943,7 +921,7 @@ const productsData = {
     {
       id: "accesorios-new-5",
       name: "Canasta Cuadrada de Cuero",
-      price: "37999",
+      price: "40000",
       image: "/images/accesorios/MediaMateraCuero2.jpeg",
       href: "MediaMateraCuero2",
       description:
@@ -953,7 +931,7 @@ const productsData = {
     {
       id: "accesorios-new-12",
       name: "Canasta Cuadrada de Cuero Marrón",
-      price: "37999",
+      price: "40000",
       image: "/images/accesorios/MateraCueroMarron.jpeg",
       href: "MateraCueroMarron",
       description:
@@ -963,7 +941,7 @@ const productsData = {
     {
       id: "accesorios-new-10",
       name: "Canasta Charrua con Pelo Blanco",
-      price: "38000",
+      price: "45000",
       image: "/images/accesorios/MediaMateraCueroConPielBlanca.jpeg",
       href: "MediaMateraCueroPeloBlanco",
       description:
@@ -973,7 +951,7 @@ const productsData = {
     {
       id: "accesorios-new-11",
       name: "Canasta Charrua con Pelo Marrón",
-      price: "38000",
+      price: "45000",
       image: "/images/accesorios/MediaMateraCueroPielMarron.jpeg",
       href: "MediaMateraCueroPeloMarron",
       description: "Matera de pelo, con pelaje natural marrón predominante.",
@@ -982,7 +960,7 @@ const productsData = {
     {
       id: "accesorios-new-9",
       name: "Canasta Trenzada Uruguaya",
-      price: "49999",
+      price: "45000",
       image: "/images/accesorios/MediaMateraCueroCrudo.jpeg",
       href: "MediaMateraCueroCrudo",
       description:
@@ -1002,7 +980,7 @@ const productsData = {
     {
       id: "accesorios-new-16",
       name: "Yerbera Marron claro",
-      price: "7999",
+      price: "8000",
       image: "/images/accesorios/yerberaMarronClaro.webp",
       href: "YerberaMarronClaro",
       description:
@@ -1012,7 +990,7 @@ const productsData = {
     {
       id: "accesorios-new-17",
       name: "Yerbera Marron",
-      price: "7999",
+      price: "8000",
       image: "/images/accesorios/yerberaMarron.webp",
       href: "YerberaMarron",
       description:
@@ -1022,7 +1000,7 @@ const productsData = {
     {
       id: "accesorios-new-18",
       name: "Yerbera Negra",
-      price: "7999",
+      price: "8000",
       image: "/images/accesorios/yerberaNegra.webp",
       href: "YerberaNegra",
       description:
@@ -1031,12 +1009,12 @@ const productsData = {
     },
     {
       id: "accesorios-new-19",
-      name: "Filtro para bombilla",
+      name: "Pack de 3 filtros para bombilla",
       price: "1500",
       image: "/images/accesorios/FiltroBombilla.webp",
       href: "FiltroBombilla",
       description:
-        "Packete de 3 filtros para bombilla. Ideal para evitar que la yerba y su polvo pasen por la bombilla.",
+        "Pack de 3 filtros para bombilla. Evita que la yerba y su polvo pasen por la bombilla.",
       stock: 2,
     },
   ],
