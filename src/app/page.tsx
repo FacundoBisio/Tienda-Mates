@@ -64,10 +64,10 @@ const Hero = () => (
         <p className="text-xs tracking-[0.3em] uppercase text-white/50 mb-5 delay-100">
           Mates artesanales · Córdoba, Argentina
         </p>
-        <h1 className="text-5xl md:text-7xl font-normal text-white leading-tight mb-6 delay-200" style={{ fontFamily: "'DM Serif Display', serif" }}>
+        <h1 className="text-5xl md:text-7xl font-normal text-white leading-tight mb-8 md:mb-6 delay-200" style={{ fontFamily: "'DM Serif Display', serif" }}>
           El mate que<br /><em style={{ color: '#a8c5a5' }}>te define</em>
         </h1>
-        <p className="text-white/65 text-lg leading-relaxed mb-10 max-w-md delay-300">
+        <p className="hidden md:block text-white/65 text-lg leading-relaxed mb-10 max-w-md delay-300">
           Piezas únicas hechas a mano. Cada mate cuenta una historia. ¿Cuál va a ser la tuya?
         </p>
         <div className="flex flex-wrap gap-4 delay-400">
@@ -93,7 +93,7 @@ const Hero = () => (
 const destacados = [
   { name: 'Imperial Cincelado Con Base',  price: '$41.500', image: '/images/mates/imperiales/ImperialCinceladoConBase.jpeg', href: '/producto/ImperialCinceladoConBase', tag: 'Más vendido' },
   { name: 'Torpedo Nacional Premium',     price: '$59.999', image: '/images/mates/torpedos/TorpedoNacionalPremium.jpeg',    href: '/producto/TorpedoNacionalPremium',    tag: 'Premium' },
-  { name: 'Ranchero de Algarrobo',        price: '$40.000', image: '/images/mates/camioneros/RancheroAlgarrobo.png',        href: '/producto/RancheroAlgarrobo',          tag: 'Edición especial' },
+  { name: 'Ranchero de Algarrobo',        price: '$40.000', image: '/images/mates/camioneros/RancheroAlgarrobo.webp',        href: '/producto/RancheroAlgarrobo',          tag: 'Edición especial' },
 ];
 
 const ProductosDestacados = () => (
@@ -108,7 +108,7 @@ const ProductosDestacados = () => (
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {destacados.map((item, i) => (
           <Link key={i} href={item.href} className="group relative overflow-hidden rounded-3xl bg-[#4C674A]" style={{ aspectRatio: '3/4' }}>
-            <Image src={item.image} alt={item.name} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
+            <Image src={item.image} alt={item.name} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover transition-transform duration-700 group-hover:scale-105" priority={i === 0} />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-opacity duration-300 group-hover:from-black/70" />
             <div className="absolute top-5 left-5">
               <span className="text-[11px] font-semibold uppercase tracking-widest bg-white/20 backdrop-blur-sm text-white px-3 py-1.5 rounded-full border border-white/20">{item.tag}</span>
@@ -202,11 +202,25 @@ const faqSchema = {
 
 const orgSchema = {
   '@context': 'https://schema.org',
-  '@type': 'Organization',
+  '@type': 'Store',
   name: 'FFMates',
   url: 'https://tienda-mates.vercel.app',
   logo: 'https://tienda-mates.vercel.app/Logo.png',
-  description: 'Tienda de mates artesanales y accesorios en Argentina.',
+  image: 'https://tienda-mates.vercel.app/mate.png',
+  description: 'Tienda de mates artesanales, bombillas, termos y yerbas seleccionadas en Córdoba, Argentina.',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Córdoba',
+    addressRegion: 'Córdoba',
+    addressCountry: 'AR',
+  },
+  priceRange: '$$',
+  currenciesAccepted: 'ARS',
+  paymentAccepted: 'Transferencia bancaria, Efectivo',
+  areaServed: {
+    '@type': 'Country',
+    name: 'Argentina',
+  },
 };
 
 const FAQSection = () => (

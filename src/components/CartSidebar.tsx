@@ -11,7 +11,16 @@ const CartSidebar = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
 
   const total = cartItems.reduce((acc, item) => acc + (parseFloat(item.price) || 0) * item.quantity, 0);
 
-  const generarMensajeWhatsApp = () => {
+  const generarMensajeWhatsApp = async () => {
+    const orderItems = cartItems.map(({ id, name, quantity, price }) => ({ id, name, quantity, price }));
+    try {
+      await fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ items: orderItems, total }),
+      });
+    } catch { /* no bloquear si falla */ }
+
     const mensaje = cartItems
       .map((item) => `${item.name} x${item.quantity} - $${(parseFloat(item.price) * item.quantity).toLocaleString('es-AR')}`)
       .join('\n');
@@ -83,7 +92,7 @@ const CartSidebar = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
                 <span className="text-sm text-[#888]">Total</span>
                 <span className="text-lg font-semibold text-[#1C1C1C]">${total.toLocaleString('es-AR')}</span>
               </div>
-              <button onClick={generarMensajeWhatsApp} className="w-full bg-[#1C1C1C] text-white py-3.5 rounded-xl text-sm font-medium tracking-wide hover:bg-[#4C674A] transition-colors active:scale-[0.98]">
+              <button onClick={() => { generarMensajeWhatsApp(); }} className="w-full bg-[#1C1C1C] text-white py-3.5 rounded-xl text-sm font-medium tracking-wide hover:bg-[#4C674A] transition-colors active:scale-[0.98]">
                 Finalizar por WhatsApp →
               </button>
               <button onClick={clearCart} className="w-full text-xs text-[#888] hover:text-red-400 transition-colors tracking-widest uppercase py-1">

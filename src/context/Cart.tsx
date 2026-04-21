@@ -1,6 +1,5 @@
 'use client';
 
-// src/context/Cart.tsx
 import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
 import { toast } from 'react-toastify';
 import type { Product, CartItem, CartContextValue } from '@/types';
@@ -13,8 +12,6 @@ export const useCart = () => {
   return ctx;
 };
 
-// ─── helpers ────────────────────────────────────────────────────
-// Build a flat id → { path, product } index for O(1) lookups
 type ProductIndex = Map<string, { catKey: string; subKey?: string; idx: number }>;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -50,39 +47,12 @@ const findProductFast = (data: any, index: ProductIndex, id: string): Product | 
   return data[loc.catKey]?.[loc.idx] ?? null;
 };
 
-// Immutable stock update – only recreates the affected array + branch
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const updateStockImmutable = (data: any, index: ProductIndex, id: string, delta: number): any => {
-  const loc = index.get(id);
-  if (!loc) return data;
-
-  if (loc.subKey !== undefined) {
-    const oldArr = data[loc.catKey][loc.subKey];
-    const newArr = [...oldArr];
-    newArr[loc.idx] = { ...newArr[loc.idx], stock: newArr[loc.idx].stock + delta };
-    return {
-      ...data,
-      [loc.catKey]: {
-        ...data[loc.catKey],
-        [loc.subKey]: newArr,
-      },
-    };
-  }
-
-  const oldArr = data[loc.catKey];
-  const newArr = [...oldArr];
-  newArr[loc.idx] = { ...newArr[loc.idx], stock: newArr[loc.idx].stock + delta };
-  return { ...data, [loc.catKey]: newArr };
-};
-
-// ─── Provider ───────────────────────────────────────────────────
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [allProducts, setAllProducts] = useState<any>({});
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Memoized product index – rebuilds only when allProducts object changes
   const productIndex = useMemo(() => buildIndex(allProducts), [allProducts]);
 
   useEffect(() => {
@@ -104,83 +74,54 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
   }, [cartItems]);
 
-  const addToCart = useCallback((product: Product) => {
-    const productInStock = findProductFast(allProducts, productIndex, product.id);
+  // Derives available stock from server data minus what's already in cart.
+  // allProducts never mutated by cart ops → no unnecessary re-renders.
+  const getAvailableStock = useCallback((id: string): number => {
+    const product = findProductFast(allProducts, productIndex, id);
+    if (!product) return 0;
+    const inCart = cartItems.find(i => i.id === id)?.quantity ?? 0;
+    return product.stock - inCart;
+  }, [allProducts, productIndex, cartItems]);
 
-    if (!productInStock || productInStock.stock <= 0) {
+  const addToCart = useCallback((product: Product) => {
+    const available = getAvailableStock(product.id);
+    if (available <= 0) {
       toast.error(`No hay suficiente stock disponible para ${product.name}`, {
         autoClose: 2000,
         hideProgressBar: true,
       });
       return;
     }
-
-    setCartItems(prevCart => {
-      const existing = prevCart.find(item => item.id === product.id);
+    setCartItems(prev => {
+      const existing = prev.find(i => i.id === product.id);
       if (existing) {
-        return prevCart.map(item => item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item);
+        return prev.map(i => i.id === product.id ? { ...i, quantity: i.quantity + 1 } : i);
       }
-      return [...prevCart, { ...product, quantity: 1 }];
+      return [...prev, { ...product, quantity: 1 }];
     });
-
-    setAllProducts((prev: unknown) => {
-      const idx = buildIndex(prev);
-      return updateStockImmutable(prev, idx, product.id, -1);
-    });
-  }, [allProducts, productIndex]);
+  }, [getAvailableStock]);
 
   const removeFromCart = useCallback((id: string) => {
-    setCartItems(prev => {
-      const itemToRemove = prev.find(item => item.id === id);
-      if (itemToRemove) {
-        setAllProducts((prevProducts: unknown) => {
-          const idx = buildIndex(prevProducts);
-          return updateStockImmutable(prevProducts, idx, id, itemToRemove.quantity);
-        });
-        return prev.filter(item => item.id !== id);
-      }
-      return prev;
-    });
+    setCartItems(prev => prev.filter(i => i.id !== id));
   }, []);
 
   const clearCart = useCallback(() => {
-    setCartItems(prev => {
-      if (prev.length > 0) {
-        setAllProducts((prevProducts: unknown) => {
-          let data = prevProducts;
-          const idx = buildIndex(data);
-          for (const cartItem of prev) {
-            data = updateStockImmutable(data, idx, cartItem.id, cartItem.quantity);
-          }
-          return data;
-        });
-      }
-      return [];
-    });
+    setCartItems([]);
   }, []);
 
   const updateQuantity = useCallback((id: string, newQuantity: number) => {
     if (newQuantity < 1) { removeFromCart(id); return; }
-
     setCartItems(prev => {
-      const itemInCart = prev.find(item => item.id === id);
-      const currentQty = itemInCart ? itemInCart.quantity : 0;
-      const diff = newQuantity - currentQty;
-
-      setAllProducts((prevProducts: unknown) => {
-        const idx = buildIndex(prevProducts);
-        const productInStock = findProductFast(prevProducts, idx, id);
-        if (diff < 0 || (productInStock && productInStock.stock >= diff)) {
-          return updateStockImmutable(prevProducts, idx, id, -diff);
-        }
-        toast.warn(`Solo quedan ${productInStock?.stock} unidades.`);
-        return prevProducts;
-      });
-
-      // Check if the update is valid
-      return prev.map(item => item.id === id ? { ...item, quantity: newQuantity } : item);
+      const item = prev.find(i => i.id === id);
+      if (!item) return prev;
+      const product = findProductFast(allProducts, productIndex, id);
+      if (product && newQuantity > product.stock) {
+        toast.warn(`Solo quedan ${product.stock} unidades.`);
+        return prev;
+      }
+      return prev.map(i => i.id === id ? { ...i, quantity: newQuantity } : i);
     });
-  }, [removeFromCart]);
+  }, [allProducts, productIndex, removeFromCart]);
 
   const contextValue = useMemo<CartContextValue>(() => ({
     cartItems,
@@ -190,7 +131,8 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     updateQuantity,
     allProducts,
     isLoading,
-  }), [cartItems, addToCart, removeFromCart, clearCart, updateQuantity, allProducts, isLoading]);
+    getAvailableStock,
+  }), [cartItems, addToCart, removeFromCart, clearCart, updateQuantity, allProducts, isLoading, getAvailableStock]);
 
   return (
     <CartContext.Provider value={contextValue}>
@@ -201,4 +143,3 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
 
 export { CartContext };
 export default CartProvider;
-

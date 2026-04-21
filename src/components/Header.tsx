@@ -2,7 +2,7 @@
 
 // src/components/Header.tsx
 import React, { useEffect, useState, useRef, useMemo } from 'react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useCart } from '@/context/Cart';
 import { CategoryIcon } from './Icons';
@@ -22,9 +22,29 @@ export default function Header({ onCartOpen }: { onCartOpen: () => void }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const dropdownRef                 = useRef<HTMLLIElement>(null);
   const pathname                    = usePathname();
+  const router                      = useRouter();
   const isHome                      = pathname === '/';
   const { cartItems }               = useCart();
   const totalItems                  = useMemo(() => cartItems.reduce((acc, i) => acc + i.quantity, 0), [cartItems]);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const searchInputRef              = useRef<HTMLInputElement>(null);
+  const searchContainerRef          = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (searchOpen) setTimeout(() => searchInputRef.current?.focus(), 50);
+  }, [searchOpen]);
+
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (searchContainerRef.current && !searchContainerRef.current.contains(e.target as Node)) {
+        setSearchOpen(false);
+        setSearchQuery('');
+      }
+    };
+    if (searchOpen) document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, [searchOpen]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -114,6 +134,16 @@ export default function Header({ onCartOpen }: { onCartOpen: () => void }) {
           </ul>
 
           <div className="flex items-center gap-4">
+            <Link href="/favoritos" aria-label="Favoritos" className={`${textColor} opacity-75 hover:opacity-100 transition-opacity`}>
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              </svg>
+            </Link>
+            <button onClick={() => setSearchOpen(v => !v)} aria-label="Buscar" className={`${textColor} opacity-75 hover:opacity-100 transition-opacity`}>
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </button>
             <Link
               href="/admin"
               aria-label="Panel de administración"
@@ -152,6 +182,52 @@ export default function Header({ onCartOpen }: { onCartOpen: () => void }) {
             </button>
           </div>
         </nav>
+
+        {/* Search panel */}
+        <div
+          ref={searchContainerRef}
+          className={`overflow-hidden transition-all duration-300 ease-in-out ${searchOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'}`}
+        >
+          <div className="border-t border-white/10 bg-[#3C503A]/98 backdrop-blur-xl px-6 md:px-12 py-5">
+            <div className="max-w-7xl mx-auto">
+              <div className="relative mb-4">
+                <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <input
+                  ref={searchInputRef}
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && searchQuery.trim()) {
+                      router.push(`/buscar?q=${encodeURIComponent(searchQuery.trim())}`);
+                      setSearchOpen(false);
+                      setSearchQuery('');
+                    }
+                    if (e.key === 'Escape') { setSearchOpen(false); setSearchQuery(''); }
+                  }}
+                  placeholder="Buscar productos..."
+                  className="w-full bg-white/10 text-white placeholder-white/40 text-sm pl-11 pr-4 py-2.5 rounded-xl border border-white/15 focus:outline-none focus:border-white/40 focus:bg-white/15 transition-all"
+                />
+              </div>
+              <p className="text-white/35 text-[10px] uppercase tracking-widest mb-2.5">Explorar categorías</p>
+              <div className="grid grid-cols-3 md:grid-cols-6 gap-2">
+                {categorias.map((cat) => (
+                  <Link
+                    key={cat.slug}
+                    href={`/categoria/${cat.slug}`}
+                    onClick={() => { setSearchOpen(false); setSearchQuery(''); }}
+                    className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/8 hover:bg-white/18 border border-white/10 hover:border-white/25 transition-all text-white/75 hover:text-white text-xs"
+                  >
+                    <CategoryIcon slug={cat.slug} className="w-3.5 h-3.5 flex-shrink-0" />
+                    <span className="font-medium">{cat.label}</span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div className={`md:hidden overflow-hidden transition-all duration-300 bg-[#3C503A] ${mobileOpen ? 'max-h-[500px] border-t border-[#2d4a2b]' : 'max-h-0'}`}>
           <div className="px-6 py-4 space-y-1">

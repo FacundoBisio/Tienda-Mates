@@ -2,10 +2,10 @@
 
 import { useState, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
 
 export default function AdminLoginPage() {
   const [password, setPassword] = useState('');
-  const [error, setError]       = useState('');
   const [loading, setLoading]   = useState(false);
   const router = useRouter();
 
@@ -13,7 +13,6 @@ export default function AdminLoginPage() {
     e.preventDefault();
     if (!password.trim()) return;
     setLoading(true);
-    setError('');
 
     const res = await fetch('/api/admin/login', {
       method: 'POST',
@@ -22,10 +21,11 @@ export default function AdminLoginPage() {
     });
 
     if (res.ok) {
+      toast.success('Sesión iniciada');
       router.push('/admin');
     } else {
       const data = await res.json();
-      setError(data.error ?? 'Error al iniciar sesión');
+      toast.error(data.error ?? 'Error al iniciar sesión');
     }
     setLoading(false);
   }
@@ -64,10 +64,6 @@ export default function AdminLoginPage() {
               autoFocus
             />
           </div>
-
-          {error && (
-            <p className="text-red-500 text-xs text-center">{error}</p>
-          )}
 
           <button
             type="submit"

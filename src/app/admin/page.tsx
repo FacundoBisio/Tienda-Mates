@@ -3,6 +3,7 @@
 import { useState, useEffect, useOptimistic, useTransition } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
 
 interface FlatProduct {
   id: string;
@@ -32,6 +33,14 @@ interface CreateForm {
   image: string;
   _topKey: string;
   _subKey: string;
+}
+
+interface AdminOrder {
+  _id: string;
+  items: { id: string; name: string; quantity: number; price: string }[];
+  total: number;
+  createdAt: string;
+  status: 'pendiente' | 'confirmado';
 }
 
 const CATEGORY_LABELS: Record<string, string> = {
@@ -66,15 +75,21 @@ export default function AdminPage() {
   // Edit modal
   const [editing, setEditing]         = useState<FlatProduct | null>(null);
   const [form, setForm]               = useState<EditForm>({ price: '', stock: '', description: '', image: '' });
-  const [saveError, setSaveError]     = useState('');
-  const [saveOk, setSaveOk]           = useState(false);
   const [isPending, startTransition]  = useTransition();
 
   // Create modal
   const [creating, setCreating]       = useState(false);
   const [createForm, setCreateForm]   = useState<CreateForm>(EMPTY_CREATE);
-  const [createError, setCreateError] = useState('');
   const [createPending, startCreate]  = useTransition();
+
+  // Pagination
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(0);
+
+  // Tabs + Orders
+  const [activeTab, setActiveTab] = useState<'inventario' | 'pedidos'>('inventario');
+  const [orders, setOrders] = useState<AdminOrder[]>([]);
+  const [ordersLoading, setOrdersLoading] = useState(false);
 
   const router = useRouter();
 
@@ -85,21 +100,62 @@ export default function AdminPage() {
   );
 
   useEffect(() => {
-    fetch('/api/admin/products')
+    setLoading(true);
+    fetch(`/api/admin/products?page=${page}&limit=20`)
       .then((r) => r.json())
-      .then((data: FlatProduct[]) => { setProducts(data); setLoading(false); });
-  }, []);
+      .then((data: { products: FlatProduct[]; total: number }) => {
+        setProducts(data.products);
+        setTotal(data.total);
+        setLoading(false);
+      });
+  }, [page]);
+
+  useEffect(() => {
+    if (activeTab !== 'pedidos') return;
+    setOrdersLoading(true);
+    fetch('/api/admin/orders')
+      .then(r => r.json())
+      .then((data: AdminOrder[]) => { setOrders(data); setOrdersLoading(false); });
+  }, [activeTab]);
+
+  async function handleConfirmOrder(id: string) {
+    const res = await fetch(`/api/admin/orders/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status: 'confirmado' }),
+    });
+    if (res.ok) {
+      setOrders(prev => prev.map(o => o._id === id ? { ...o, status: 'confirmado' } : o));
+      toast.success('Pedido confirmado');
+    } else {
+      toast.error('Error al confirmar pedido');
+    }
+  }
 
   async function handleLogout() {
     await fetch('/api/admin/logout', { method: 'POST' });
     router.push('/admin/login');
   }
 
+  async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>, onSuccess: (path: string) => void) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const fd = new FormData();
+    fd.append('file', file);
+    const res = await fetch('/api/admin/upload', { method: 'POST', body: fd });
+    if (res.ok) {
+      const data = await res.json();
+      onSuccess(data.path);
+    } else {
+      const data = await res.json();
+      alert(data.error ?? 'Error al subir imagen');
+    }
+  }
+
   /* ── Edit ── */
   function openEdit(p: FlatProduct) {
     setEditing(p);
     setForm({ price: p.price, stock: String(p.stock), description: p.description ?? '', image: p.image });
-    setSaveError(''); setSaveOk(false);
   }
 
   function validateEdit(): string | null {
@@ -113,8 +169,7 @@ export default function AdminPage() {
   async function handleSave() {
     if (!editing) return;
     const err = validateEdit();
-    if (err) { setSaveError(err); return; }
-    setSaveError('');
+    if (err) { toast.error(err); return; }
 
     const updated: FlatProduct = { ...editing, price: form.price, stock: Number(form.stock), description: form.description, image: form.image };
 
@@ -127,11 +182,11 @@ export default function AdminPage() {
       });
       if (res.ok) {
         setProducts((prev) => prev.map((p) => (p.id === updated.id ? updated : p)));
-        setSaveOk(true);
-        setTimeout(() => setEditing(null), 900);
+        toast.success(`${updated.name} guardado`);
+        setEditing(null);
       } else {
         const data = await res.json();
-        setSaveError(data.error ?? 'Error al guardar');
+        toast.error(data.error ?? 'Error al guardar');
       }
     });
   }
@@ -139,7 +194,6 @@ export default function AdminPage() {
   /* ── Create ── */
   function openCreate() {
     setCreateForm(EMPTY_CREATE);
-    setCreateError('');
     setCreating(true);
   }
 
@@ -160,8 +214,7 @@ export default function AdminPage() {
 
   async function handleCreate() {
     const err = validateCreate();
-    if (err) { setCreateError(err); return; }
-    setCreateError('');
+    if (err) { toast.error(err); return; }
 
     startCreate(async () => {
       const body = {
@@ -177,10 +230,11 @@ export default function AdminPage() {
       if (res.ok) {
         const newProduct: FlatProduct = { ...body, price: String(body.price) };
         setProducts((prev) => [newProduct, ...prev]);
+        toast.success(`${createForm.name} creado`);
         setCreating(false);
       } else {
         const data = await res.json();
-        setCreateError(data.error ?? 'Error al crear');
+        toast.error(data.error ?? 'Error al crear');
       }
     });
   }
@@ -207,12 +261,31 @@ export default function AdminPage() {
         </div>
       </header>
 
+      <div className="bg-white border-b border-[#E8E3DC]">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 flex gap-6">
+          {(['inventario', 'pedidos'] as const).map(tab => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`py-3.5 text-[11px] uppercase tracking-widest font-semibold border-b-2 transition-colors capitalize ${
+                activeTab === tab
+                  ? 'border-[#3C503A] text-[#3C503A]'
+                  : 'border-transparent text-[#888] hover:text-[#555]'
+              }`}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {activeTab === 'inventario' && (
       <main className="max-w-7xl mx-auto px-4 md:px-8 py-10">
 
         <div className="flex items-end justify-between mb-8">
           <div>
             <h2 className="text-2xl text-[#1C1C1C] mb-1" style={{ fontFamily: "'DM Serif Display', serif" }}>Inventario</h2>
-            <p className="text-[#888] text-sm">{optimisticProducts.length} productos en total</p>
+            <p className="text-[#888] text-sm">{total} productos en total</p>
           </div>
           <button
             onClick={openCreate}
@@ -247,6 +320,7 @@ export default function AdminPage() {
         {loading ? (
           <div className="text-center py-20 text-[#aaa] text-sm">Cargando productos...</div>
         ) : (
+          <>
           <div className="bg-white rounded-2xl border border-[#E8E3DC] overflow-hidden shadow-sm">
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
@@ -297,8 +371,82 @@ export default function AdminPage() {
               </table>
             </div>
           </div>
+          {total > 20 && (
+            <div className="flex items-center justify-between mt-4">
+              <p className="text-xs text-[#888]">
+                Mostrando {Math.min((page - 1) * 20 + 1, total)}–{Math.min(page * 20, total)} de {total}
+              </p>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => setPage(p => Math.max(1, p - 1))}
+                  disabled={page === 1}
+                  className="px-4 py-2 text-[11px] uppercase tracking-widest font-semibold rounded-xl border border-[#E8E3DC] disabled:opacity-40 hover:border-[#3C503A] transition"
+                >
+                  ← Anterior
+                </button>
+                <button
+                  onClick={() => setPage(p => p + 1)}
+                  disabled={page * 20 >= total}
+                  className="px-4 py-2 text-[11px] uppercase tracking-widest font-semibold rounded-xl border border-[#E8E3DC] disabled:opacity-40 hover:border-[#3C503A] transition"
+                >
+                  Siguiente →
+                </button>
+              </div>
+            </div>
+          )}
+          </>
         )}
       </main>
+      )}
+
+      {activeTab === 'pedidos' && (
+        <main className="max-w-7xl mx-auto px-4 md:px-8 py-10">
+          <h2 className="text-2xl text-[#1C1C1C] mb-6" style={{ fontFamily: "'DM Serif Display', serif" }}>Pedidos</h2>
+          {ordersLoading ? (
+            <div className="text-center py-20 text-[#aaa] text-sm">Cargando pedidos...</div>
+          ) : orders.length === 0 ? (
+            <div className="text-center py-20 text-[#aaa] text-sm">No hay pedidos todavía.</div>
+          ) : (
+            <div className="space-y-4">
+              {orders.map(order => (
+                <div key={order._id} className="bg-white rounded-2xl border border-[#E8E3DC] p-6">
+                  <div className="flex items-start justify-between gap-4 mb-4">
+                    <div>
+                      <p className="text-xs text-[#888] font-mono">{order._id}</p>
+                      <p className="text-xs text-[#aaa] mt-0.5">{new Date(order.createdAt).toLocaleString('es-AR')}</p>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className={`text-xs px-3 py-1 rounded-full font-semibold uppercase tracking-wide ${order.status === 'confirmado' ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'}`}>
+                        {order.status}
+                      </span>
+                      {order.status === 'pendiente' && (
+                        <button
+                          onClick={() => handleConfirmOrder(order._id)}
+                          className="text-[11px] uppercase tracking-widest text-[#4C674A] hover:text-[#3C503A] font-semibold transition"
+                        >
+                          Confirmar
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                  <div className="space-y-1.5 mb-4">
+                    {order.items.map((item, i) => (
+                      <div key={i} className="flex justify-between text-sm">
+                        <span className="text-[#555]">{item.name} <span className="text-[#aaa]">x{item.quantity}</span></span>
+                        <span className="text-[#3C503A] font-medium">${(parseFloat(item.price) * item.quantity).toLocaleString('es-AR')}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="border-t border-[#F0EBE3] pt-3 flex justify-between">
+                    <span className="text-xs text-[#888]">Total</span>
+                    <span className="font-semibold text-[#1C1C1C]">${order.total.toLocaleString('es-AR')}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </main>
+      )}
 
       {/* ── Modal Editar ── */}
       {editing && (
@@ -326,16 +474,18 @@ export default function AdminPage() {
                 </div>
               </div>
               <div>
-                <label className={labelCls}>Imagen (path)</label>
-                <input type="text" value={form.image} onChange={(e) => setForm((f) => ({ ...f, image: e.target.value }))} className={inputCls} />
+                <label className={labelCls}>Imagen</label>
+                <input type="text" value={form.image} onChange={(e) => setForm((f) => ({ ...f, image: e.target.value }))} className={inputCls} placeholder="URL o path" />
+                <label className="mt-2 flex items-center gap-2 cursor-pointer text-[11px] text-[#4C674A] hover:underline tracking-widest uppercase">
+                  <input type="file" accept="image/*" className="hidden" onChange={(e) => handleImageUpload(e, (path) => setForm((f) => ({ ...f, image: path })))} />
+                  Subir imagen desde archivo
+                </label>
               </div>
               <div>
                 <label className={labelCls}>Descripción</label>
                 <textarea rows={3} value={form.description} onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))} className={`${inputCls} resize-none`} />
               </div>
             </div>
-            {saveError && <p className="mt-3 text-red-500 text-xs">{saveError}</p>}
-            {saveOk    && <p className="mt-3 text-green-600 text-xs font-medium">Guardado correctamente ✓</p>}
             <div className="flex gap-3 mt-6">
               <button onClick={() => setEditing(null)} className="flex-1 border border-[#E8E3DC] text-[#555] text-[11px] tracking-widest uppercase font-semibold rounded-xl py-3 hover:bg-[#F5F0EA] transition">Cancelar</button>
               <button onClick={handleSave} disabled={isPending} className="flex-1 bg-[#3C503A] hover:bg-[#2d4a2b] text-white text-[11px] tracking-widest uppercase font-semibold rounded-xl py-3 transition disabled:opacity-60">
@@ -413,13 +563,17 @@ export default function AdminPage() {
               </div>
 
               <div>
-                <label className={labelCls}>Imagen (path en /public)</label>
+                <label className={labelCls}>Imagen</label>
                 <input
-                  type="text" placeholder="/images/mates/torpedos/MiMate.jpeg"
+                  type="text" placeholder="URL o path"
                   value={createForm.image}
                   onChange={(e) => setCreateForm((f) => ({ ...f, image: e.target.value }))}
                   className={inputCls}
                 />
+                <label className="mt-2 flex items-center gap-2 cursor-pointer text-[11px] text-[#4C674A] hover:underline tracking-widest uppercase">
+                  <input type="file" accept="image/*" className="hidden" onChange={(e) => handleImageUpload(e, (path) => setCreateForm((f) => ({ ...f, image: path })))} />
+                  Subir imagen desde archivo
+                </label>
               </div>
 
               <div>
@@ -432,8 +586,6 @@ export default function AdminPage() {
                 />
               </div>
             </div>
-
-            {createError && <p className="mt-3 text-red-500 text-xs">{createError}</p>}
 
             <div className="flex gap-3 mt-6">
               <button onClick={() => setCreating(false)} className="flex-1 border border-[#E8E3DC] text-[#555] text-[11px] tracking-widest uppercase font-semibold rounded-xl py-3 hover:bg-[#F5F0EA] transition">Cancelar</button>

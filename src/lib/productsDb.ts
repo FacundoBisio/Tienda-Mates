@@ -18,6 +18,15 @@ export async function getAllFlat(): Promise<FlatProduct[]> {
   return (await col()).find({}, { projection: { _id: 0 } }).toArray();
 }
 
+export async function getAllFlatPaginated(page: number, limit: number): Promise<{ products: FlatProduct[]; total: number }> {
+  const c = await col();
+  const [products, total] = await Promise.all([
+    c.find({}, { projection: { _id: 0 } }).skip((page - 1) * limit).limit(limit).toArray(),
+    c.countDocuments(),
+  ]);
+  return { products, total };
+}
+
 export async function getAllNested(): Promise<ProductsData> {
   const flat = await getAllFlat();
   return toNested(flat);
@@ -47,7 +56,7 @@ export function toNested(flat: FlatProduct[]): ProductsData {
 }
 
 export async function insertProduct(product: FlatProduct): Promise<void> {
-  await (await col()).insertOne(product);
+  await (await col()).replaceOne({ id: product.id }, product, { upsert: true });
 }
 
 export async function deleteProduct(id: string): Promise<boolean> {
@@ -76,6 +85,7 @@ export function flattenNested(data: ProductsData): FlatProduct[] {
 
 export async function seedIfEmpty(flat: FlatProduct[]): Promise<void> {
   const c = await col();
+  await c.createIndex({ id: 1 }).catch(() => {});
   const count = await c.countDocuments();
   if (count > 0) return;
 
@@ -87,6 +97,5 @@ export async function seedIfEmpty(flat: FlatProduct[]): Promise<void> {
     return true;
   });
 
-  await c.createIndex({ id: 1 });
   await c.insertMany(unique);
 }

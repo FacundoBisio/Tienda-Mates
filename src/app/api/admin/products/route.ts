@@ -1,10 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getAllFlat, insertProduct } from '@/lib/productsDb';
+import { getAllFlatPaginated, insertProduct } from '@/lib/productsDb';
 import type { FlatProduct } from '@/lib/productsDb';
 
-export async function GET() {
-  const products = await getAllFlat();
-  return NextResponse.json(products);
+export async function GET(req: NextRequest) {
+  try {
+    const { searchParams } = new URL(req.url);
+    const page = Math.max(1, parseInt(searchParams.get('page') ?? '1', 10));
+    const limit = Math.min(50, Math.max(1, parseInt(searchParams.get('limit') ?? '20', 10)));
+    const result = await getAllFlatPaginated(page, limit);
+    return NextResponse.json(result);
+  } catch {
+    return NextResponse.json({ error: 'Error al obtener productos' }, { status: 500 });
+  }
 }
 
 export async function POST(req: NextRequest) {
@@ -27,6 +34,10 @@ export async function POST(req: NextRequest) {
     ...(_topKey === 'MATES' && _subKey ? { _subKey } : {}),
   };
 
-  await insertProduct(product);
-  return NextResponse.json({ ok: true }, { status: 201 });
+  try {
+    await insertProduct(product);
+    return NextResponse.json({ ok: true }, { status: 201 });
+  } catch {
+    return NextResponse.json({ error: 'Error al guardar producto' }, { status: 500 });
+  }
 }

@@ -11,7 +11,7 @@
         "stock": 2
       },
       {
-        "id": "camionero-1",
+        "id": "camionero-4",
         "name": "Camionero Criollo Con Base",
         "price": "20500",
         "image": "/images/mates/camioneros/CamioneroCriolloConBase.webp",
@@ -139,15 +139,6 @@
         "stock": 2
       },
       {
-        "id": "imperial-new-19",
-        "name": "Imperial De Boca",
-        "price": "35400",
-        "image": "/images/mates/imperiales/ImperialDeBoca.jpeg",
-        "href": "ImperialDeBoca",
-        "description": "Mate Imperial edición especial temática del equipo Xeneize.",
-        "stock": 2
-      },
-      {
         "id": "imperial-new-10",
         "name": "Imperial Cincelado",
         "price": "37500",
@@ -235,15 +226,6 @@
         "image": "/images/mates/imperiales/ImperialAnimalPrint.jpeg",
         "href": "ImperialAnimalPrint",
         "description": "Un Imperial con carácter, forrado en cuero con diseño exclusivo Animal Print.",
-        "stock": 2
-      },
-      {
-        "id": "imperial-new-18",
-        "name": "Imperial Cuero Crudo Cincelado",
-        "price": "49500",
-        "image": "/images/mates/imperiales/ImperialCueroCrudoCincelado.jpeg",
-        "href": "ImperialCueroCrudoCincelado",
-        "description": "La mejor combination: resistencia del cuero crudo con la nobleza de metales cincelados.",
         "stock": 2
       },
       {
@@ -481,6 +463,7 @@
       "name": "Termo Media Manija 1L Plateado",
       "price": "30000",
       "image": "/images/termos/mediamanija.webp",
+      "href": "TermoMediaManija1LPlateado",
       "description": "Termo de acero inoxidable bicapa con capacidad de 1 litro. Diseño \"media manija\" para un cebado cómodo y preciso. Mantiene el agua caliente por 24hs.",
       "stock": 3
     },
@@ -489,6 +472,7 @@
       "name": "Termo Media Manija 1L Total Black",
       "price": "30000",
       "image": "/images/termos/termoNegro.webp",
+      "href": "TermoMediaManija1LTotalBlack",
       "description": "Edición Total Black. Termo de acero inoxidable de 1 litro con acabado negro mate antideslizante. Alta retención térmica y pico cebador de precisión.",
       "stock": 3
     }
@@ -499,6 +483,7 @@
       "name": "Yerba Rei Verde Padrón Argentino 500g",
       "price": "4000",
       "image": "/images/yerbas/reiverdeRoja.webp",
+      "href": "YerbaReiVerdePadronArgentino500g",
       "description": "Elaborada con palo, al estilo argentino. Molienda más gruesa que las uruguayas, sabor suave y amigable.",
       "stock": 5
     },
@@ -507,6 +492,7 @@
       "name": "Yerba Rei Verde Compuesta 500g",
       "price": "4500",
       "image": "/images/yerbas/reiverdeCompuesta.webp",
+      "href": "YerbaReiVerdeCompuesta500g",
       "description": "Mezcla especial con hierbas serranas. Aporta frescura y propiedades digestivas al mate diario.",
       "stock": 5
     },
@@ -515,6 +501,7 @@
       "name": "Yerba Cosmico 500g",
       "price": "4899",
       "image": "/images/yerbas/cosmico.webp",
+      "href": "YerbaCosmico500g",
       "description": "Selección especial con palo. Un sabor \"de otro planeta\", suave y rendidor.",
       "stock": 5
     },
@@ -523,6 +510,7 @@
       "name": "Yerba Baldo 500g",
       "price": "6000",
       "image": "/images/yerbas/baldo500.webp",
+      "href": "YerbaBaldo500g",
       "description": "Versión de medio kilo de la clásica Yerba Baldo. Perfecta para probar o para viajes.",
       "stock": 5
     },
@@ -531,6 +519,7 @@
       "name": "Yerba Libre 1kg",
       "price": "7399",
       "image": "/images/yerbas/libre.webp",
+      "href": "YerbaLibre1kg",
       "description": "Yerba mate elaborada pensando en un público joven. Sabor fresco y energizante.",
       "stock": 0
     },
@@ -539,6 +528,7 @@
       "name": "Yerba Rei Verde Clásica 1kg",
       "price": "10099",
       "image": "/images/yerbas/reiverdeClasica.webp",
+      "href": "YerbaReiVerdeClasica1kg",
       "description": "Sabor clásico y versátil. Rei Verde Clásica ofrece un mate parejo desde la primera hasta la última cebada.",
       "stock": 5
     },
@@ -547,6 +537,7 @@
       "name": "Yerba Rei Verde Tradicional 1kg",
       "price": "9099",
       "image": "/images/yerbas/reiverde.webp",
+      "href": "YerbaReiVerdeTradicional1kg",
       "description": "Yerba mate de origen brasileño para exportación. Corte tradicional, buen balance entre hoja y polvo.",
       "stock": 5
     },
@@ -555,6 +546,7 @@
       "name": "Yerba Verdecita 1kg",
       "price": "9599",
       "image": "/images/yerbas/verdecita.webp",
+      "href": "YerbaVerdecita1kg",
       "description": "Yerba mate de producción agroecológica. Sabor puro a campo, sin agroquímicos.",
       "stock": 5
     },
@@ -563,6 +555,7 @@
       "name": "Yerba Rei Verde Premium 1kg",
       "price": "12199",
       "image": "/images/yerbas/reiverdePremium.webp",
+      "href": "YerbaReiVerdePremium1kg",
       "description": "Selección especial de hojas. Estacionamiento natural prolongado que otorga un sabor más sofisticado y suave.",
       "stock": 5
     },
@@ -571,6 +564,7 @@
       "name": "Yerba Sara 1kg",
       "price": "15399",
       "image": "/images/yerbas/sara.webp",
+      "href": "YerbaSara1kg",
       "description": "Yerba mate tradicional uruguaya. Sabor clásico, amargor justo y espuma duradera. Una de las marcas con más historia.",
       "stock": 5
     },
@@ -579,6 +573,7 @@
       "name": "Yerba Sara Suave 1kg",
       "price": "15399",
       "image": "/images/yerbas/saraSuave.webp",
+      "href": "YerbaSaraSuave1kg",
       "description": "Variedad suave de Sara. Ideal para quienes se inician en la yerba sin palo o prefieren mates menos agresivos al paladar.",
       "stock": 5
     },
@@ -587,6 +582,7 @@
       "name": "Yerba Canarias Común 1kg",
       "price": "12099",
       "image": "/images/yerbas/Canarias.webp",
+      "href": "YerbaCanariasComun1kg",
       "description": "La yerba número uno de Uruguay. Molienda fina sin palo, sabor intenso y duradero. Ideal para quienes buscan un mate con cuerpo y energía.",
       "stock": 5
     },
@@ -595,6 +591,7 @@
       "name": "Yerba Canarias Té Verde y Jengibre 1kg",
       "price": "13299",
       "image": "/images/yerbas/canarias-te-verde-y-jengibre.png",
+      "href": "YerbaCanariasTeVerdeYJengibre1kg",
       "description": "Exquisita mezcla de Yerba Canarias con Té Verde y Jengibre. Frescura y energía para tu día.",
       "stock": 5
     },
@@ -603,6 +600,7 @@
       "name": "Yerba Canarias Edición Especial 1kg",
       "price": "13299",
       "image": "/images/yerbas/canarias-especial.png",
+      "href": "YerbaCanariasEdicionEspecial1kg",
       "description": "Edición especial de Yerba Canarias con una selección de molienda estacionada con el mayor cuidado.",
       "stock": 5
     },
@@ -611,6 +609,7 @@
       "name": "Yerba Pindare 1kg",
       "price": "8299",
       "image": "/images/yerbas/pindare.png",
+      "href": "YerbaPindare1kg",
       "description": "Yerba mate de excelente calidad, con el clásico sabor de los mates bien cebados.",
       "stock": 5
     },
@@ -619,6 +618,7 @@
       "name": "Yerba Baldo 1kg",
       "price": "10999",
       "image": "/images/yerbas/Baldo.webp",
+      "href": "YerbaBaldo1kg",
       "description": "Yerba mate uruguaya de sabor equilibrado. Molienda tipo PU-1. Menos intensa que Canarias pero con excelente rendimiento.",
       "stock": 5
     },
@@ -627,6 +627,7 @@
       "name": "Yerba Baldo 5kg",
       "price": "48000",
       "image": "/images/yerbas/baldo5kg.webp",
+      "href": "YerbaBaldo5kg",
       "description": "Pack económico familiar o gastronómico de 5kg. La misma calidad Baldo en presentación rendidora.",
       "stock": 5
     }

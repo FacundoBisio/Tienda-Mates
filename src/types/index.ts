@@ -35,6 +35,7 @@ export interface CartContextValue {
   updateQuantity: (id: string, newQuantity: number) => void;
   allProducts: ProductsData | Record<string, never>;
   isLoading: boolean;
+  getAvailableStock: (id: string) => number;
 }
 
 export interface ProductMeta {

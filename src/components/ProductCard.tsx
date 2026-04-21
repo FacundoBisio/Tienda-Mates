@@ -5,11 +5,14 @@ import React, { useMemo, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useCart } from '@/context/Cart';
+import { useWishlist } from '@/hooks/useWishlist';
 import { toast } from 'react-toastify';
 import type { Product } from '@/types';
 
 const ProductCard = React.memo(({ product }: { product: Product }) => {
-  const { addToCart } = useCart();
+  const { addToCart, getAvailableStock } = useCart();
+  const { toggle, isWishlisted } = useWishlist();
+  const wishlisted = isWishlisted(product.id);
 
   const handleAdd = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
@@ -35,7 +38,7 @@ const ProductCard = React.memo(({ product }: { product: Product }) => {
   }, [product.price]);
 
   const productPath = `/producto/${product.href || product.id}`;
-  const isOutOfStock = product.stock <= 0;
+  const isOutOfStock = getAvailableStock(product.id) <= 0;
 
   return (
     <div className="group relative bg-white rounded-2xl overflow-hidden transition-all duration-500 hover:shadow-[0_20px_60px_-10px_rgba(76,103,74,0.18)] flex flex-col h-full">
@@ -52,6 +55,15 @@ const ProductCard = React.memo(({ product }: { product: Product }) => {
             <span className="text-xs font-semibold tracking-widest uppercase text-white bg-black/50 px-3 py-1 rounded-full">Sin stock</span>
           </div>
         )}
+        <button
+          onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggle(product.id); }}
+          aria-label={wishlisted ? 'Quitar de favoritos' : 'Agregar a favoritos'}
+          className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center transition-all hover:bg-white hover:scale-110"
+        >
+          <svg className={`w-4 h-4 transition-colors ${wishlisted ? 'text-red-500 fill-current' : 'text-white/70'}`} fill={wishlisted ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+          </svg>
+        </button>
       </Link>
 
       <div className="p-5 flex flex-col flex-grow">

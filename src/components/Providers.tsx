@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { CartProvider } from '@/context/Cart';
-import { ToastContainer } from 'react-toastify';
 import Header from './Header';
 import AnnouncementBar from './AnnouncementBar';
 
@@ -11,6 +10,10 @@ import AnnouncementBar from './AnnouncementBar';
 const CartSidebar    = dynamic(() => import('./CartSidebar'),   { ssr: false });
 const WhatsAppButton = dynamic(() => import('./WhatsAppButton'), { ssr: false });
 const Footer         = dynamic(() => import('./Footer'),        { ssr: false });
+const ToastContainer = dynamic(
+  () => import('react-toastify').then(m => ({ default: m.ToastContainer })),
+  { ssr: false }
+);
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   const [isCartOpen, setCartOpen] = useState(false);

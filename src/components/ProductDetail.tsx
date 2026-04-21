@@ -53,7 +53,7 @@ const getRelatedProducts = (data: Record<string, unknown>, catKey: string | null
 const ProductDetail = () => {
   const params = useParams();
   const id = params?.id as string;
-  const { allProducts, addToCart } = useCart();
+  const { allProducts, addToCart, getAvailableStock } = useCart();
 
   const { product, categorySlug, categoryLabel, subCategory } = useMemo(
     () => findProductWithMeta(allProducts as Record<string, unknown>, id),
@@ -74,6 +74,18 @@ const ProductDetail = () => {
     );
   };
 
+  const handleShare = async () => {
+    const url = `${typeof window !== 'undefined' ? window.location.origin : 'https://tienda-mates.vercel.app'}/producto/${product?.href || product?.id}`;
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: product?.name, text: `Mirá este producto de FFMates: ${product?.name}`, url });
+      } catch { /* user cancelled */ }
+    } else {
+      await navigator.clipboard.writeText(url);
+      toast('Link copiado al portapapeles', { autoClose: 2000, hideProgressBar: true });
+    }
+  };
+
   if (!product) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-[#FAFAF8] p-4">
@@ -88,7 +100,7 @@ const ProductDetail = () => {
 
   const price = parseFloat(product.price);
   const formattedPrice = isNaN(price) ? '$0' : `$${Number.isInteger(price) ? price.toLocaleString('es-AR') : price.toFixed(2)}`;
-  const isOutOfStock = product.stock <= 0;
+  const isOutOfStock = getAvailableStock(product.id) <= 0;
   const siteUrl = 'https://tienda-mates.vercel.app';
   const structuredData = {
     '@context': 'https://schema.org/',
@@ -186,6 +198,16 @@ const ProductDetail = () => {
               </svg>
               Consultar por WhatsApp
             </a>
+
+            <button
+              onClick={handleShare}
+              className="flex items-center justify-center gap-2 mt-3 w-full py-3.5 rounded-2xl border border-[#E8E3DC] text-sm text-[#555] hover:border-[#4C674A] hover:text-[#4C674A] transition-all"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+              </svg>
+              Compartir producto
+            </button>
 
             <Link
               href={categorySlug ? `/categoria/${categorySlug}` : '/'}

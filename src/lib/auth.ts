@@ -6,7 +6,9 @@ const SESSION_MS = 8 * 60 * 60 * 1000; // 8 h
 const enc = new TextEncoder();
 
 function signingKey(): string {
-  return process.env.ADMIN_SECRET ?? 'fallback';
+  const secret = process.env.ADMIN_SECRET;
+  if (!secret) throw new Error('ADMIN_SECRET env var is not set');
+  return secret;
 }
 
 async function hmacKey(): Promise<CryptoKey> {
