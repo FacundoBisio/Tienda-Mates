@@ -58,6 +58,11 @@ export default async function ProductoPage({ params }: { params: Promise<{ id: s
   const { id } = await params;
   const { product, categorySlug, categoryLabel } = getProduct(id);
 
+  const reviews = product?.reviews ?? [];
+  const ratingAvg = reviews.length
+    ? reviews.reduce((a, r) => a + r.rating, 0) / reviews.length
+    : 0;
+
   const productSchema = product ? {
     '@context': 'https://schema.org',
     '@type': 'Product',
@@ -73,6 +78,22 @@ export default async function ProductoPage({ params }: { params: Promise<{ id: s
       url: `${SITE_URL}/producto/${product.href || product.id}`,
       seller: { '@type': 'Organization', name: 'FFMates' },
     },
+    ...(reviews.length > 0 && {
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: ratingAvg.toFixed(1),
+        reviewCount: reviews.length,
+        bestRating: 5,
+        worstRating: 1,
+      },
+      review: reviews.map(r => ({
+        '@type': 'Review',
+        author: { '@type': 'Person', name: r.author },
+        datePublished: r.date,
+        reviewRating: { '@type': 'Rating', ratingValue: r.rating, bestRating: 5, worstRating: 1 },
+        reviewBody: r.text,
+      })),
+    }),
   } : null;
 
   const breadcrumbSchema = product && categorySlug ? {

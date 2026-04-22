@@ -1,67 +1,149 @@
-# Project Description
-Tienda-Mates is an e-commerce project developed with React.js that simulates an online store for mates and accessories. This project was created to demonstrate modern front-end development skills, including navigation between different views, global state management, and consuming data from an external API.
+# FFMATES — Tienda de Mates Artesanales
 
-Tienda corriendo en: [tienda-mates.vercel.app](https://tienda-mates.vercel.app/)
+E-commerce full-stack de mates artesanales, termos, bombillas y yerbas. Construido con Next.js 15 (App Router), TypeScript, Tailwind y MongoDB Atlas. En producción en **[tienda-mates.vercel.app](https://tienda-mates.vercel.app/)**.
 
-![image](https://github.com/user-attachments/assets/d1abf7ea-0b7f-4606-b1bd-87b383d9f155)
+<!-- SCREENSHOT: Home / Hero -->
+![Home](docs/screenshots/01-home.png)
+
+---
 
 ## Features
-* Home Page: Displays a list of available products.
-* Product Details: Allows you to view detailed information about each item.
-* Shopping Cart: Functionality for adding and managing products in the cart.
-* Dynamic Routes: Fluid navigation between different sections of the application using React Router.
-* Global State Management: Implementation of the React Context API to efficiently manage shopping cart state and user information.
-* External API Consumption: Obtaining simulated product data through an API.
 
-## Technologies Used
-This project was built using the following technologies:
+### Tienda
+- Catálogo dinámico por categorías (mates, termos, bombillas, yerbas, accesorios, combos).
+- Página de detalle por producto con galería, variantes y CTA a WhatsApp.
+- Buscador con filtrado en tiempo real.
+- Carrito persistente (Context API + `localStorage`).
+- Favoritos / wishlist persistidos localmente.
+- Checkout directo por WhatsApp con mensaje pre-armado del pedido.
+- Newsletter vía EmailJS.
 
-* React.js: JavaScript library for building user interfaces.
-* JavaScript: Primary programming language.
-* HTML: Content structure.
-* CSS: Custom styles for visual design.
-* React Router DOM: For managing routes and navigation.
-* React Context API: For managing state at the application level.
+### Panel de administración (`/admin`)
+- Login con JWT en cookie `httpOnly` + middleware que protege `/admin/**` y `/api/admin/**`.
+- CRUD de productos (crear, editar, borrar, cambiar stock y precio).
+- Subida de imágenes.
+- Listado y detalle de órdenes.
 
-## Installing and Running Locally
-Follow these steps to have a working copy of the project on your local machine for development and testing.
+### SEO y performance
+- Metadata dinámica por página, sitemap.xml y robots.txt generados por Next.
+- JSON-LD (`Store` + `FAQPage`) para rich results.
+- Google Analytics + Google AdSense integrados vía `@next/third-parties`.
+- Imágenes optimizadas con `next/image` (AVIF/WebP automáticos).
+- Verificación Google Search Console.
 
-### Prerequisites
-Make sure you have Node.js (which includes npm) installed on your system.
+<!-- SCREENSHOT: Catálogo por categoría -->
+![Categoría](docs/screenshots/02-categoria.png)
 
-# Steps
+<!-- SCREENSHOT: Detalle de producto -->
+![Producto](docs/screenshots/03-producto.png)
 
-1.  **Clone the repository:**
+<!-- SCREENSHOT: Carrito -->
+![Carrito](docs/screenshots/04-carrito.png)
 
-    ```bash
-    git clone [https://github.com/FacundoBisio/Tienda-Mates.git](https://github.com/FacundoBisio/Tienda-Mates.git)
-    ```
+<!-- SCREENSHOT: Admin panel -->
+![Admin](docs/screenshots/05-admin.png)
 
-2.  **Navigate to the project directory:**
+---
 
-    ```bash
-    cd Tienda-Mates
-    ```
+## Stack
 
-3.  **Install dependencies:**
+| Capa | Tecnología |
+|------|-----------|
+| Framework | Next.js 15 (App Router, Server Components) |
+| Lenguaje | TypeScript |
+| Estilos | Tailwind CSS 3 |
+| Base de datos | MongoDB Atlas |
+| Auth | JWT en cookie httpOnly + middleware |
+| Email | EmailJS |
+| Iconos | lucide-react |
+| Notificaciones | react-toastify |
+| Deploy | Vercel |
 
-    ```bash
-    npm install
-    ```
+---
 
-4.  **Start the development server:**
+## Arquitectura
 
-    ```bash
-    npm start
-    ```
+```
+src/
+├── app/
+│   ├── admin/              # Panel admin (protegido por middleware)
+│   ├── api/                # Route handlers (products, orders, auth)
+│   ├── buscar/             # Buscador
+│   ├── categoria/[slug]/   # Páginas de categoría
+│   ├── favoritos/
+│   ├── producto/[id]/      # Detalle de producto
+│   ├── politica-de-privacidad/
+│   ├── layout.tsx          # Metadata global, GA, AdSense
+│   ├── sitemap.ts
+│   └── robots.ts
+├── components/             # Header, Footer, Cart, ProductCard, etc.
+├── context/Cart.tsx        # Estado global del carrito
+├── hooks/                  # useCart, useWishlist
+├── lib/                    # mongodb, auth, productsDb, ordersDb
+├── middleware.ts           # Guard de /admin y /api/admin
+└── types/index.ts
+```
 
-    This will automatically open the application in your default browser at [http://localhost:3000](http://localhost:3000).
+---
 
-# Contact
+## Setup local
 
-* Facundo Matías Bisio Griffa - facubisio433@gmail.com 
-* Linkedin - https://www.linkedin.com/in/facundo-bisio-griffa-25a104247/
+### Requisitos
+- Node.js 18+
+- Cuenta en MongoDB Atlas (o instancia local)
 
-# License
+### Variables de entorno
+Crear `.env.local` en la raíz:
 
-This project is under the MIT License - see the `LICENSE.md` file for more details.
+```env
+MONGODB_URI=mongodb+srv://usuario:pass@cluster.mongodb.net/tienda-mates
+JWT_SECRET=tu-secret-largo-y-random
+ADMIN_USER=admin
+ADMIN_PASSWORD_HASH=$2b$10$...        # bcrypt hash
+NEXT_PUBLIC_EMAILJS_SERVICE_ID=...
+NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=...
+NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=...
+```
+
+### Correr
+
+```bash
+git clone https://github.com/FacundoBisio/Tienda-Mates.git
+cd Tienda-Mates
+npm install
+npm run dev
+```
+
+Abrir [http://localhost:3000](http://localhost:3000).
+
+### Scripts
+- `npm run dev` — servidor de desarrollo
+- `npm run build` — build de producción
+- `npm start` — servir el build
+- `npm run lint` — ESLint
+
+---
+
+## Screenshots
+
+> **Nota**: subí tus screenshots a `docs/screenshots/` con estos nombres y se renderizan automáticamente arriba. Alternativa rápida: arrastrá la imagen a un issue/PR de GitHub y reemplazá la URL del `![...]` por la que te da GitHub (ej. `https://github.com/user-attachments/assets/xxxxx`).
+
+Capturas sugeridas:
+1. `01-home.png` — Hero + "El mate que te define"
+2. `02-categoria.png` — Grid de productos (ej. `/categoria/mates`)
+3. `03-producto.png` — Detalle con galería y CTA WhatsApp
+4. `04-carrito.png` — Sidebar del carrito abierto
+5. `05-admin.png` — Panel admin (lista de productos)
+
+---
+
+## Contacto
+
+- **Facundo Matías Bisio Griffa** — facubisio433@gmail.com
+- [LinkedIn](https://www.linkedin.com/in/facundo-bisio-25a104247/)
+
+---
+
+## Licencia
+
+MIT — ver [LICENSE](./LICENSE).

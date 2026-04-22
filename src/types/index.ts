@@ -1,3 +1,10 @@
+export interface Review {
+  author: string;
+  rating: number;        // 1-5
+  text: string;
+  date: string;          // ISO yyyy-mm-dd
+}
+
 export interface Product {
   id: string;
   name: string;
@@ -8,6 +15,7 @@ export interface Product {
   stock: number;
   category?: string;
   catKey?: string;
+  reviews?: Review[];
 }
 
 export interface CartItem extends Product {
