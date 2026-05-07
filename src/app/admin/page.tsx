@@ -100,6 +100,13 @@ export default function AdminPage() {
   );
 
   useEffect(() => {
+    if (typeof window !== 'undefined' && sessionStorage.getItem('admin_just_logged_in') === '1') {
+      sessionStorage.removeItem('admin_just_logged_in');
+      toast.success('Bienvenido al sistema');
+    }
+  }, []);
+
+  useEffect(() => {
     setLoading(true);
     fetch(`/api/admin/products?page=${page}&limit=20`)
       .then((r) => r.json())

@@ -99,6 +99,10 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
       }
       return [...prev, { ...product, quantity: 1 }];
     });
+    toast.success(`${product.name} añadido al carrito`, {
+      autoClose: 1800,
+      hideProgressBar: true,
+    });
   }, [getAvailableStock]);
 
   const removeFromCart = useCallback((id: string) => {

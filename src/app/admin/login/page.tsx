@@ -7,27 +7,43 @@ import { toast } from 'react-toastify';
 export default function AdminLoginPage() {
   const [password, setPassword] = useState('');
   const [loading, setLoading]   = useState(false);
+  const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; msg: string } | null>(null);
   const router = useRouter();
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     if (!password.trim()) return;
     setLoading(true);
+    setFeedback(null);
 
-    const res = await fetch('/api/admin/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ password }),
-    });
+    try {
+      const res = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password }),
+      });
 
-    if (res.ok) {
-      toast.success('Sesión iniciada');
-      router.push('/admin');
-    } else {
-      const data = await res.json();
-      toast.error(data.error ?? 'Error al iniciar sesión');
+      if (res.ok) {
+        setFeedback({ type: 'success', msg: 'Contraseña correcta' });
+        toast.success('Contraseña correcta');
+        if (typeof window !== 'undefined') {
+          sessionStorage.setItem('admin_just_logged_in', '1');
+        }
+        setTimeout(() => router.push('/admin'), 600);
+        return;
+      }
+
+      const data = await res.json().catch(() => ({}));
+      const msg = data.error ?? 'Contraseña incorrecta';
+      setFeedback({ type: 'error', msg });
+      toast.error(msg);
+    } catch {
+      const msg = 'Error de conexión. Intentá de nuevo.';
+      setFeedback({ type: 'error', msg });
+      toast.error(msg);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   }
 
   return (
@@ -64,6 +80,19 @@ export default function AdminLoginPage() {
               autoFocus
             />
           </div>
+
+          {feedback && (
+            <div
+              role="alert"
+              className={`text-sm rounded-xl px-4 py-3 border ${
+                feedback.type === 'success'
+                  ? 'bg-[#EAF3E8] border-[#4C674A] text-[#2d4a2b]'
+                  : 'bg-[#FBEAEA] border-[#C44] text-[#8B1E1E]'
+              }`}
+            >
+              {feedback.msg}
+            </div>
+          )}
 
           <button
             type="submit"
