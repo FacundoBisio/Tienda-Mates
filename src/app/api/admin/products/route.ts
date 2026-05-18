@@ -1,14 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getAllFlatPaginated, insertProduct } from '@/lib/productsDb';
+import { getAllFlat, insertProduct } from '@/lib/productsDb';
 import type { FlatProduct } from '@/lib/productsDb';
 
 export async function GET(req: NextRequest) {
   try {
-    const { searchParams } = new URL(req.url);
-    const page = Math.max(1, parseInt(searchParams.get('page') ?? '1', 10));
-    const limit = Math.min(50, Math.max(1, parseInt(searchParams.get('limit') ?? '20', 10)));
-    const result = await getAllFlatPaginated(page, limit);
-    return NextResponse.json(result);
+    const products = await getAllFlat();
+    return NextResponse.json({ products, total: products.length });
   } catch {
     return NextResponse.json({ error: 'Error al obtener productos' }, { status: 500 });
   }

@@ -47,9 +47,9 @@ export async function verifyToken(token: string): Promise<boolean> {
   const issuedAt = token.slice(0, dot);
   const sigHex   = token.slice(dot + 1);
 
-  // Check expiry before hitting crypto
+  // Check expiry before hitting crypto (tolerate 5 mins clock skew)
   const age = Date.now() - parseInt(issuedAt, 10);
-  if (isNaN(age) || age < 0 || age > SESSION_MS) return false;
+  if (isNaN(age) || age < -300000 || age > SESSION_MS) return false;
 
   try {
     const key = await hmacKey();

@@ -75,11 +75,20 @@ export default function AdminPage() {
   const [createForm, setCreateForm]   = useState<CreateForm>(EMPTY_CREATE);
   const [createPending, startCreate]  = useTransition();
 
-  // Pagination
-  const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
 
+  const [sortColumn, setSortColumn] = useState<'price' | 'stock' | null>(null);
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
 
+  function handleSort(col: 'price' | 'stock') {
+    if (sortColumn === col) {
+      if (sortDirection === 'asc') setSortDirection('desc');
+      else setSortColumn(null);
+    } else {
+      setSortColumn(col);
+      setSortDirection('asc');
+    }
+  }
 
   const router = useRouter();
 
@@ -98,14 +107,14 @@ export default function AdminPage() {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`/api/admin/products?page=${page}&limit=20`)
+    fetch(`/api/admin/products`)
       .then((r) => r.json())
       .then((data: { products: FlatProduct[]; total: number }) => {
         setProducts(data.products);
         setTotal(data.total);
         setLoading(false);
       });
-  }, [page]);
+  }, []);
 
 
   async function handleLogout() {
@@ -167,6 +176,24 @@ export default function AdminPage() {
     });
   }
 
+  async function handleDelete() {
+    if (!editing) return;
+    if (!window.confirm(`¿Estás seguro de que querés eliminar "${editing.name}"? Esta acción no se puede deshacer.`)) return;
+
+    startTransition(async () => {
+      const res = await fetch(`/api/admin/products/${editing.id}`, { method: 'DELETE' });
+      if (res.ok) {
+        setProducts(prev => prev.filter(p => p.id !== editing.id));
+        setTotal(t => t - 1);
+        toast.success(`${editing.name} eliminado`);
+        setEditing(null);
+      } else {
+        const data = await res.json();
+        toast.error(data.error ?? 'Error al eliminar');
+      }
+    });
+  }
+
   /* ── Create ── */
   function openCreate() {
     setCreateForm(EMPTY_CREATE);
@@ -218,9 +245,20 @@ export default function AdminPage() {
   const categories = ['ALL', ...Object.keys(CATEGORY_LABELS)];
   const filtered = optimisticProducts.filter((p) => {
     const matchCat = filterCat === 'ALL' || p._topKey === filterCat;
-    const matchSearch = p.name.toLowerCase().includes(search.toLowerCase());
+    const s = search.toLowerCase();
+    const matchSearch = p.name.toLowerCase().includes(s) || 
+                        (p._subKey && p._subKey.toLowerCase().includes(s)) ||
+                        (p._topKey && p._topKey.toLowerCase().includes(s));
     return matchCat && matchSearch;
   });
+
+  if (sortColumn) {
+    filtered.sort((a, b) => {
+      const valA = sortColumn === 'price' ? parseFloat(a.price) : a.stock;
+      const valB = sortColumn === 'price' ? parseFloat(b.price) : b.stock;
+      return sortDirection === 'asc' ? valA - valB : valB - valA;
+    });
+  }
 
   return (
     <div className="min-h-screen bg-[#F5F0EA]">
@@ -288,8 +326,12 @@ export default function AdminPage() {
                     <th className="text-left px-5 py-3.5 text-[10px] uppercase tracking-[0.15em] text-[#888] font-semibold w-14"></th>
                     <th className="text-left px-4 py-3.5 text-[10px] uppercase tracking-[0.15em] text-[#888] font-semibold">Producto</th>
                     <th className="text-left px-4 py-3.5 text-[10px] uppercase tracking-[0.15em] text-[#888] font-semibold">Categoría</th>
-                    <th className="text-right px-4 py-3.5 text-[10px] uppercase tracking-[0.15em] text-[#888] font-semibold">Precio</th>
-                    <th className="text-center px-4 py-3.5 text-[10px] uppercase tracking-[0.15em] text-[#888] font-semibold">Stock</th>
+                    <th onClick={() => handleSort('price')} className="text-right px-4 py-3.5 text-[10px] uppercase tracking-[0.15em] text-[#888] font-semibold cursor-pointer hover:text-[#1C1C1C] transition-colors select-none">
+                      Precio {sortColumn === 'price' && (sortDirection === 'asc' ? '↑' : '↓')}
+                    </th>
+                    <th onClick={() => handleSort('stock')} className="text-center px-4 py-3.5 text-[10px] uppercase tracking-[0.15em] text-[#888] font-semibold cursor-pointer hover:text-[#1C1C1C] transition-colors select-none">
+                      Stock {sortColumn === 'stock' && (sortDirection === 'asc' ? '↑' : '↓')}
+                    </th>
                     <th className="px-4 py-3.5 w-20"></th>
                   </tr>
                 </thead>
@@ -330,29 +372,7 @@ export default function AdminPage() {
               </table>
             </div>
           </div>
-          {total > 20 && (
-            <div className="flex items-center justify-between mt-4">
-              <p className="text-xs text-[#888]">
-                Mostrando {Math.min((page - 1) * 20 + 1, total)}–{Math.min(page * 20, total)} de {total}
-              </p>
-              <div className="flex gap-2">
-                <button
-                  onClick={() => setPage(p => Math.max(1, p - 1))}
-                  disabled={page === 1}
-                  className="px-4 py-2 text-[11px] uppercase tracking-widest font-semibold rounded-xl border border-[#E8E3DC] disabled:opacity-40 hover:border-[#3C503A] transition"
-                >
-                  ← Anterior
-                </button>
-                <button
-                  onClick={() => setPage(p => p + 1)}
-                  disabled={page * 20 >= total}
-                  className="px-4 py-2 text-[11px] uppercase tracking-widest font-semibold rounded-xl border border-[#E8E3DC] disabled:opacity-40 hover:border-[#3C503A] transition"
-                >
-                  Siguiente →
-                </button>
-              </div>
-            </div>
-          )}
+
           </>
         )}
       </main>
@@ -387,7 +407,7 @@ export default function AdminPage() {
                 <label className={labelCls}>Imagen</label>
                 <input type="text" value={form.image} onChange={(e) => setForm((f) => ({ ...f, image: e.target.value }))} className={inputCls} placeholder="URL o path" />
                 <label className="mt-2 flex items-center gap-2 cursor-pointer text-[11px] text-[#4C674A] hover:underline tracking-widest uppercase">
-                  <input type="file" accept="image/*" className="hidden" onChange={(e) => handleImageUpload(e, (path) => setForm((f) => ({ ...f, image: path })))} />
+                  <input type="file" accept="image/*,.webp" className="hidden" onChange={(e) => handleImageUpload(e, (path) => setForm((f) => ({ ...f, image: path })))} />
                   Subir imagen desde archivo
                 </label>
               </div>
@@ -397,8 +417,9 @@ export default function AdminPage() {
               </div>
             </div>
             <div className="flex gap-3 mt-6">
+              <button onClick={handleDelete} disabled={isPending} className="flex-1 border border-red-200 text-red-500 text-[11px] tracking-widest uppercase font-semibold rounded-xl py-3 hover:bg-red-50 transition disabled:opacity-60">Eliminar</button>
               <button onClick={() => setEditing(null)} className="flex-1 border border-[#E8E3DC] text-[#555] text-[11px] tracking-widest uppercase font-semibold rounded-xl py-3 hover:bg-[#F5F0EA] transition">Cancelar</button>
-              <button onClick={handleSave} disabled={isPending} className="flex-1 bg-[#3C503A] hover:bg-[#2d4a2b] text-white text-[11px] tracking-widest uppercase font-semibold rounded-xl py-3 transition disabled:opacity-60">
+              <button onClick={handleSave} disabled={isPending} className="flex-[2] bg-[#3C503A] hover:bg-[#2d4a2b] text-white text-[11px] tracking-widest uppercase font-semibold rounded-xl py-3 transition disabled:opacity-60">
                 {isPending ? 'Guardando...' : 'Guardar'}
               </button>
             </div>
@@ -481,7 +502,7 @@ export default function AdminPage() {
                   className={inputCls}
                 />
                 <label className="mt-2 flex items-center gap-2 cursor-pointer text-[11px] text-[#4C674A] hover:underline tracking-widest uppercase">
-                  <input type="file" accept="image/*" className="hidden" onChange={(e) => handleImageUpload(e, (path) => setCreateForm((f) => ({ ...f, image: path })))} />
+                  <input type="file" accept="image/*,.webp" className="hidden" onChange={(e) => handleImageUpload(e, (path) => setCreateForm((f) => ({ ...f, image: path })))} />
                   Subir imagen desde archivo
                 </label>
               </div>

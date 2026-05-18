@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { updateProduct } from '@/lib/productsDb';
+import { updateProduct, deleteProduct } from '@/lib/productsDb';
 
 export async function PUT(
   req: NextRequest,
@@ -21,5 +21,15 @@ export async function PUT(
   const updated = await updateProduct(id, { price, stock, description, image });
   if (!updated) return NextResponse.json({ error: 'Producto no encontrado' }, { status: 404 });
 
+  return NextResponse.json({ ok: true });
+}
+
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params;
+  const deleted = await deleteProduct(id);
+  if (!deleted) return NextResponse.json({ error: 'Producto no encontrado' }, { status: 404 });
   return NextResponse.json({ ok: true });
 }
