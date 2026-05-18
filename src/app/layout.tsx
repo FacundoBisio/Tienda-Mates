@@ -34,12 +34,12 @@ export const metadata: Metadata = {
     siteName: 'FFMATES',
     locale: 'es_AR',
     type: 'website',
-    images: [{ url: '/mate.png', width: 1200, height: 630, alt: 'FFMATES - Tienda de mates artesanales' }],
+    images: [{ url: '/Logo.png', width: 1200, height: 630, alt: 'FFMATES - Tienda de mates artesanales' }],
   },
   twitter: {
     card: 'summary_large_image',
     site: '@ffmates',
-    images: ['/mate.png'],
+    images: ['/Logo.png'],
   },
   icons: {
     icon: '/Logo.png',
