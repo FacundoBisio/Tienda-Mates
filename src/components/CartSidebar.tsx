@@ -11,24 +11,14 @@ const CartSidebar = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
 
   const total = cartItems.reduce((acc, item) => acc + (parseFloat(item.price) || 0) * item.quantity, 0);
 
-  const generarMensajeWhatsApp = async () => {
-    const orderItems = cartItems.map(({ id, name, quantity, price }) => ({ id, name, quantity, price }));
-    try {
-      await fetch('/api/orders', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ items: orderItems, total }),
-      });
-    } catch { /* no bloquear si falla */ }
-
-    const mensaje = cartItems
-      .map((item) => `${item.name} x${item.quantity} - $${(parseFloat(item.price) * item.quantity).toLocaleString('es-AR')}`)
-      .join('\n');
-    const url = `https://wa.me/5493513662570?text=${encodeURIComponent(
-      `Hola! Quiero hacer el siguiente pedido:\n\n${mensaje}\n\nTotal: $${total.toLocaleString('es-AR')}`
-    )}`;
-    window.open(url, '_blank');
-  };
+  // 1. Generamos el texto y la URL nativa aquí mismo, sin usar funciones onClick
+  const mensajeWa = cartItems
+    .map((item) => `${item.name} x${item.quantity} - $${(parseFloat(item.price) * item.quantity).toLocaleString('es-AR')}`)
+    .join('\n');
+    
+  const urlWa = `https://wa.me/5493513662570?text=${encodeURIComponent(
+    `Hola FF.Mates! Quiero hacer el siguiente pedido:\n\n${mensajeWa}\n\nTotal: $${total.toLocaleString('es-AR')}`
+  )}`;
 
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
@@ -92,9 +82,16 @@ const CartSidebar = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
                 <span className="text-sm text-[#888]">Total</span>
                 <span className="text-lg font-semibold text-[#1C1C1C]">${total.toLocaleString('es-AR')}</span>
               </div>
-              <button onClick={() => { generarMensajeWhatsApp(); }} className="w-full bg-[#1C1C1C] text-white py-3.5 rounded-xl text-sm font-medium tracking-wide hover:bg-[#4C674A] transition-colors active:scale-[0.98]">
+              
+              <a 
+                href={urlWa} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="w-full bg-[#1C1C1C] text-white py-3.5 rounded-xl text-sm font-medium tracking-wide hover:bg-[#4C674A] transition-colors active:scale-[0.98] block text-center"
+              >
                 Finalizar por WhatsApp →
-              </button>
+              </a>
+
               <button onClick={clearCart} className="w-full text-xs text-[#888] hover:text-red-400 transition-colors tracking-widest uppercase py-1">
                 Vaciar carrito
               </button>

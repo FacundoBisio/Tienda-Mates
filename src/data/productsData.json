@@ -20,6 +20,15 @@
         "stock": 2
       },
       {
+        "id": "camionero-staged-1",
+        "name": "Camionero Laqueado",
+        "price": "22000",
+        "image": "/images/mates/camioneros/CamioneroLaqueado.webp",
+        "href": "CamioneroLaqueado",
+        "description": "Mate estilo camionero con un acabado laqueado brillante que lo protege y le da un aspecto elegante.",
+        "stock": 2
+      },
+      {
         "id": "camionero-2",
         "name": "Camionero Cincelado premium",
         "price": "25000",
@@ -36,15 +45,6 @@
         "href": "RancheroAlgarrobo",
         "description": "Mate estilo camionero criollo, fabricado con madera de algarrobo seleccionada de pared gruesa y pintado a mano. Incluye base reforzada para mayor estabilidad.",
         "stock": 4
-      },
-      {
-        "id": "camionero-staged-1",
-        "name": "Camionero Laqueado",
-        "price": "22000",
-        "image": "/images/mates/camioneros/CamioneroLaqueado.webp",
-        "href": "CamioneroLaqueado",
-        "description": "Mate estilo camionero con un acabado laqueado brillante que lo protege y le da un aspecto elegante.",
-        "stock": 2
       }
     ],
     "Imperiales": [
@@ -139,21 +139,30 @@
         "stock": 2
       },
       {
-        "id": "imperial-new-10",
-        "name": "Imperial Cincelado",
-        "price": "37500",
-        "image": "/images/mates/imperiales/ImperialCincelado.jpeg",
-        "href": "ImperialCincelado",
-        "description": "Mate Imperial tradicional realzado por una virola profusamente cincelada a mano.",
-        "stock": 2
-      },
-      {
         "id": "imperial-new-15",
         "name": "Imperial Cincelado de Acero Marrón",
         "price": "35400",
         "image": "/images/mates/imperiales/ImperialCinceladoMarron.jpeg",
         "href": "ImperialCinceladoMarron",
         "description": "Mate Imperial clásico en cuero vacuno marrón, con virola artística cincelada.",
+        "stock": 2
+      },
+      {
+        "id": "imperial-staged-1",
+        "name": "Imperial",
+        "price": "35400",
+        "image": "/images/mates/imperiales/Imperial.webp",
+        "href": "Imperial",
+        "description": "Mate Imperial elegante y distinguido, fabricado con materiales de primera calidad.",
+        "stock": 2
+      },
+      {
+        "id": "imperial-new-10",
+        "name": "Imperial Cincelado",
+        "price": "37500",
+        "image": "/images/mates/imperiales/ImperialCincelado.jpeg",
+        "href": "ImperialCincelado",
+        "description": "Mate Imperial tradicional realzado por una virola profusamente cincelada a mano.",
         "stock": 2
       },
       {
@@ -193,30 +202,12 @@
         "stock": 2
       },
       {
-        "id": "imperial-new-17",
-        "name": "Imperial Cuero Crudo",
-        "price": "49500",
-        "image": "/images/mates/imperiales/ImperialCueroCrudo.jpeg",
-        "href": "ImperialCueroCrudo",
-        "description": "Estilo rústico, forrado en puro cuero crudo criollo sin teñir.",
-        "stock": 2
-      },
-      {
         "id": "imperial-new-7",
         "name": "Imperial Base Redonda Negro",
         "price": "41500",
         "image": "/images/mates/imperiales/ImperialBaseRedondaNegro.jpeg",
         "href": "ImperialBaseRedondaNegro",
         "description": "Imperial en cuero negro con base redonda, un diseño imponente y ergonómico.",
-        "stock": 2
-      },
-      {
-        "id": "imperial-new-18",
-        "name": "Imperial Cuero Crudo Cincelado",
-        "price": "49500",
-        "image": "/images/mates/imperiales/ImperialCueroCrudoCincelado.jpeg",
-        "href": "ImperialCueroCrudoCincelado",
-        "description": "La mejor combination: resistencia del cuero crudo con la nobleza de metales cincelados.",
         "stock": 2
       },
       {
@@ -229,12 +220,21 @@
         "stock": 2
       },
       {
-        "id": "imperial-staged-1",
-        "name": "Imperial",
-        "price": "35400",
-        "image": "/images/mates/imperiales/Imperial.webp",
-        "href": "Imperial",
-        "description": "Mate Imperial elegante y distinguido, fabricado con materiales de primera calidad.",
+        "id": "imperial-new-17",
+        "name": "Imperial Cuero Crudo",
+        "price": "49500",
+        "image": "/images/mates/imperiales/ImperialCueroCrudo.jpeg",
+        "href": "ImperialCueroCrudo",
+        "description": "Estilo rústico, forrado en puro cuero crudo criollo sin teñir.",
+        "stock": 2
+      },
+      {
+        "id": "imperial-new-18",
+        "name": "Imperial Cuero Crudo Cincelado",
+        "price": "49500",
+        "image": "/images/mates/imperiales/ImperialCueroCrudoCincelado.jpeg",
+        "href": "ImperialCueroCrudoCincelado",
+        "description": "La mejor combination: resistencia del cuero crudo con la nobleza de metales cincelados.",
         "stock": 2
       }
     ],
@@ -255,6 +255,15 @@
         "image": "/images/mates/torpedos/TorpedoCinceladoAlgarroboRojo.jpeg",
         "href": "TorpedoCinceladoAlgarroboRojo",
         "description": "Torpedo cincelado de madera de algarrobo con acabado rojizo. Destaca por su color cálido.",
+        "stock": 2
+      },
+      {
+        "id": "torpedo-staged-1",
+        "name": "Torpedo",
+        "price": "33000",
+        "image": "/images/mates/torpedos/Torpedo.webp",
+        "href": "Torpedo",
+        "description": "Mate estilo torpedo clásico de alta calidad.",
         "stock": 2
       },
       {
@@ -285,22 +294,22 @@
         "stock": 2
       },
       {
-        "id": "torpedo-new-15",
-        "name": "Torpedo Copa con Bolitas",
-        "price": "45500",
-        "image": "/images/mates/torpedos/TorpedoCopa.jpeg",
-        "href": "TorpedoCopa",
-        "description": "Diseño en forma de copa, logrando una boca ancha que facilita el cebado y aumenta el sabor.",
-        "stock": 2
+        "id": "torpedo-new-13",
+        "name": "Torpedo Cocodrilo Negro",
+        "price": "39999",
+        "image": "/images/mates/torpedos/TorpedoCocodrilloNegro.jpeg",
+        "href": "TorpedoCocodriloNegro",
+        "description": "Impresionante Torpedo forrado en cuero texturado negro con relieve símil piel de cocodrilo.",
+        "stock": 0
       },
       {
-        "id": "torpedo-new-10",
-        "name": "Torpedo Cincelado Premium",
-        "price": "40500",
-        "image": "/images/mates/torpedos/TorpedoCinceladoPremium.jpeg",
-        "href": "TorpedoCinceladoPremium",
-        "description": "La versión premium del Torpedo Cincelado clásico, ofreciendo la más alta calidad en cuero y virola.",
-        "stock": 2
+        "id": "torpedo-new-14",
+        "name": "Torpedo Cocodrilo Rojo",
+        "price": "39999",
+        "image": "/images/mates/torpedos/TorpedoCocodrilloRojo.jpeg",
+        "href": "TorpedoCocodriloRojo",
+        "description": "Torpedo forrado en exclusivo cuero rojizo con relieve estilo cocodrilo. Resalta por su diseño audaz.",
+        "stock": 0
       },
       {
         "id": "torpedo-new-23",
@@ -312,13 +321,13 @@
         "stock": 2
       },
       {
-        "id": "torpedo-new-13",
-        "name": "Torpedo Cocodrilo Negro",
-        "price": "39999",
-        "image": "/images/mates/torpedos/TorpedoCocodrilloNegro.jpeg",
-        "href": "TorpedoCocodriloNegro",
-        "description": "Impresionante Torpedo forrado en cuero texturado negro con relieve símil piel de cocodrilo.",
-        "stock": 0
+        "id": "torpedo-new-10",
+        "name": "Torpedo Cincelado Premium",
+        "price": "40500",
+        "image": "/images/mates/torpedos/TorpedoCinceladoPremium.jpeg",
+        "href": "TorpedoCinceladoPremium",
+        "description": "La versión premium del Torpedo Cincelado clásico, ofreciendo la más alta calidad en cuero y virola.",
+        "stock": 2
       },
       {
         "id": "torpedo-new-20",
@@ -339,21 +348,30 @@
         "stock": 2
       },
       {
-        "id": "torpedo-new-14",
-        "name": "Torpedo Cocodrilo Rojo",
-        "price": "39999",
-        "image": "/images/mates/torpedos/TorpedoCocodrilloRojo.jpeg",
-        "href": "TorpedoCocodriloRojo",
-        "description": "Torpedo forrado en exclusivo cuero rojizo con relieve estilo cocodrilo. Resalta por su diseño audaz.",
-        "stock": 0
+        "id": "torpedo-new-1",
+        "name": "Torpedo Argentina Premium",
+        "price": "40500",
+        "image": "/images/mates/torpedos/TorpedoArgentinaPremium.jpeg",
+        "href": "TorpedoArgentinaPremium",
+        "description": "Mate Torpedo de alta calidad, modelo Argentina Premium. Ideal para el disfrute diario.",
+        "stock": 2
       },
       {
-        "id": "torpedo-new-18",
-        "name": "Torpedo Cuero Crudo Cincelado 3",
-        "price": "52000",
-        "image": "/images/mates/torpedos/TorpedoCueroCrudoCincelado3.jpeg",
-        "href": "TorpedoCueroCrudoCincelado3",
-        "description": "Mate Torpedo confeccionado en cuero natural de alta resistencia y metales labrados.",
+        "id": "torpedo-staged-2",
+        "name": "Torpedo Doble Corona",
+        "price": "40500",
+        "image": "/images/mates/torpedos/TorpedoDobleCorona.webp",
+        "href": "TorpedoDobleCorona",
+        "description": "Mate torpedo modelo exclusivo con virola doble corona cincelada a mano.",
+        "stock": 2
+      },
+      {
+        "id": "torpedo-new-15",
+        "name": "Torpedo Copa con Bolitas",
+        "price": "45500",
+        "image": "/images/mates/torpedos/TorpedoCopa.jpeg",
+        "href": "TorpedoCopa",
+        "description": "Diseño en forma de copa, logrando una boca ancha que facilita el cebado y aumenta el sabor.",
         "stock": 2
       },
       {
@@ -363,15 +381,6 @@
         "image": "/images/mates/torpedos/TorpedoCinceladoConPatitas.jpeg",
         "href": "TorpedoCinceladoConPatitas",
         "description": "Elegante Torpedo cincelado que incluye detalle de patitas en la base.",
-        "stock": 2
-      },
-      {
-        "id": "torpedo-new-1",
-        "name": "Torpedo Argentina Premium",
-        "price": "40500",
-        "image": "/images/mates/torpedos/TorpedoArgentinaPremium.jpeg",
-        "href": "TorpedoArgentinaPremium",
-        "description": "Mate Torpedo de alta calidad, modelo Argentina Premium. Ideal para el disfrute diario.",
         "stock": 2
       },
       {
@@ -402,12 +411,12 @@
         "stock": 2
       },
       {
-        "id": "torpedo-new-22",
-        "name": "Torpedo Nacional Premium",
-        "price": "59999",
-        "image": "/images/mates/torpedos/TorpedoNacionalPremium.jpeg",
-        "href": "TorpedoNacionalPremium",
-        "description": "Calidad de exportación ahora en un Torpedo Nacional, materiales cuidadosamente elegidos.",
+        "id": "torpedo-new-18",
+        "name": "Torpedo Cuero Crudo Cincelado 3",
+        "price": "52000",
+        "image": "/images/mates/torpedos/TorpedoCueroCrudoCincelado3.jpeg",
+        "href": "TorpedoCueroCrudoCincelado3",
+        "description": "Mate Torpedo confeccionado en cuero natural de alta resistencia y metales labrados.",
         "stock": 2
       },
       {
@@ -438,21 +447,12 @@
         "stock": 2
       },
       {
-        "id": "torpedo-staged-1",
-        "name": "Torpedo",
-        "price": "33000",
-        "image": "/images/mates/torpedos/Torpedo.webp",
-        "href": "Torpedo",
-        "description": "Mate estilo torpedo clásico de alta calidad.",
-        "stock": 2
-      },
-      {
-        "id": "torpedo-staged-2",
-        "name": "Torpedo Doble Corona",
-        "price": "40500",
-        "image": "/images/mates/torpedos/TorpedoDobleCorona.webp",
-        "href": "TorpedoDobleCorona",
-        "description": "Mate torpedo modelo exclusivo con virola doble corona cincelada a mano.",
+        "id": "torpedo-new-22",
+        "name": "Torpedo Nacional Premium",
+        "price": "59999",
+        "image": "/images/mates/torpedos/TorpedoNacionalPremium.jpeg",
+        "href": "TorpedoNacionalPremium",
+        "description": "Calidad de exportación ahora en un Torpedo Nacional, materiales cuidadosamente elegidos.",
         "stock": 2
       }
     ]

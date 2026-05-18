@@ -68,10 +68,6 @@ const ProductDetail = () => {
   const handleAdd = () => {
     if (!product || product.stock <= 0) return;
     addToCart({ ...product, category: categoryLabel || 'Varios' });
-    toast(
-      <span className="text-white font-medium text-sm">✓ {product.name} agregado</span>,
-      { className: 'rounded-xl bg-[#3C503A] text-white', icon: false, autoClose: 2000, hideProgressBar: true, closeButton: false }
-    );
   };
 
   const handleShare = async () => {

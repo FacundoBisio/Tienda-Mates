@@ -48,7 +48,8 @@ html {
 /* ── Performance optimisations ───────────────────────────── */
 
 /* Hint the browser to skip layout/paint on off-screen sections */
-section {
+/* .Toastify is excluded because content-visibility:auto breaks position:fixed inside it */
+section:not(.Toastify) {
   content-visibility: auto;
   contain-intrinsic-size: auto 600px;
 }

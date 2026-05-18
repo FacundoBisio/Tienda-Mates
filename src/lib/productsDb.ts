@@ -48,7 +48,10 @@ export function toNested(flat: FlatProduct[]): ProductsData {
       data.MATES[_subKey].push(product as Product);
     } else {
       const key = _topKey as keyof Omit<ProductsData, 'MATES'>;
-      (data[key] as Product[]).push(product as Product);
+      if (!(data as Record<string, any>)[key]) {
+        (data as Record<string, any>)[key] = [];
+      }
+      ((data as Record<string, any>)[key] as Product[]).push(product as Product);
     }
   }
 

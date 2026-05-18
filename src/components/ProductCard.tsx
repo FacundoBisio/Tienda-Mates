@@ -6,7 +6,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useCart } from '@/context/Cart';
 import { useWishlist } from '@/hooks/useWishlist';
-import { toast } from 'react-toastify';
 import type { Product } from '@/types';
 
 const ProductCard = React.memo(({ product }: { product: Product }) => {
@@ -18,16 +17,6 @@ const ProductCard = React.memo(({ product }: { product: Product }) => {
     e.preventDefault();
     e.stopPropagation();
     addToCart({ ...product, category: product.category || 'Varios' });
-    toast(
-      <span className="text-white font-medium text-sm">✓ {product.name} agregado al carrito</span>,
-      {
-        className: 'rounded-xl bg-[#3C503A] text-white',
-        icon: false,
-        autoClose: 2000,
-        hideProgressBar: true,
-        closeButton: false,
-      }
-    );
   }, [addToCart, product]);
 
   const formattedPrice = useMemo(() => {

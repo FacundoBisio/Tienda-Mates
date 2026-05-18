@@ -35,13 +35,6 @@ interface CreateForm {
   _subKey: string;
 }
 
-interface AdminOrder {
-  _id: string;
-  items: { id: string; name: string; quantity: number; price: string }[];
-  total: number;
-  createdAt: string;
-  status: 'pendiente' | 'confirmado';
-}
 
 const CATEGORY_LABELS: Record<string, string> = {
   MATES: 'Mates', TERMOS: 'Termos', YERBAS: 'Yerbas',
@@ -86,10 +79,7 @@ export default function AdminPage() {
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
 
-  // Tabs + Orders
-  const [activeTab, setActiveTab] = useState<'inventario' | 'pedidos'>('inventario');
-  const [orders, setOrders] = useState<AdminOrder[]>([]);
-  const [ordersLoading, setOrdersLoading] = useState(false);
+
 
   const router = useRouter();
 
@@ -117,27 +107,6 @@ export default function AdminPage() {
       });
   }, [page]);
 
-  useEffect(() => {
-    if (activeTab !== 'pedidos') return;
-    setOrdersLoading(true);
-    fetch('/api/admin/orders')
-      .then(r => r.json())
-      .then((data: AdminOrder[]) => { setOrders(data); setOrdersLoading(false); });
-  }, [activeTab]);
-
-  async function handleConfirmOrder(id: string) {
-    const res = await fetch(`/api/admin/orders/${id}`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ status: 'confirmado' }),
-    });
-    if (res.ok) {
-      setOrders(prev => prev.map(o => o._id === id ? { ...o, status: 'confirmado' } : o));
-      toast.success('Pedido confirmado');
-    } else {
-      toast.error('Error al confirmar pedido');
-    }
-  }
 
   async function handleLogout() {
     await fetch('/api/admin/logout', { method: 'POST' });
@@ -268,25 +237,8 @@ export default function AdminPage() {
         </div>
       </header>
 
-      <div className="bg-white border-b border-[#E8E3DC]">
-        <div className="max-w-7xl mx-auto px-4 md:px-8 flex gap-6">
-          {(['inventario', 'pedidos'] as const).map(tab => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`py-3.5 text-[11px] uppercase tracking-widest font-semibold border-b-2 transition-colors capitalize ${
-                activeTab === tab
-                  ? 'border-[#3C503A] text-[#3C503A]'
-                  : 'border-transparent text-[#888] hover:text-[#555]'
-              }`}
-            >
-              {tab}
-            </button>
-          ))}
-        </div>
-      </div>
 
-      {activeTab === 'inventario' && (
+
       <main className="max-w-7xl mx-auto px-4 md:px-8 py-10">
 
         <div className="flex items-end justify-between mb-8">
@@ -404,56 +356,7 @@ export default function AdminPage() {
           </>
         )}
       </main>
-      )}
 
-      {activeTab === 'pedidos' && (
-        <main className="max-w-7xl mx-auto px-4 md:px-8 py-10">
-          <h2 className="text-2xl text-[#1C1C1C] mb-6" style={{ fontFamily: "'DM Serif Display', serif" }}>Pedidos</h2>
-          {ordersLoading ? (
-            <div className="text-center py-20 text-[#aaa] text-sm">Cargando pedidos...</div>
-          ) : orders.length === 0 ? (
-            <div className="text-center py-20 text-[#aaa] text-sm">No hay pedidos todavía.</div>
-          ) : (
-            <div className="space-y-4">
-              {orders.map(order => (
-                <div key={order._id} className="bg-white rounded-2xl border border-[#E8E3DC] p-6">
-                  <div className="flex items-start justify-between gap-4 mb-4">
-                    <div>
-                      <p className="text-xs text-[#888] font-mono">{order._id}</p>
-                      <p className="text-xs text-[#aaa] mt-0.5">{new Date(order.createdAt).toLocaleString('es-AR')}</p>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <span className={`text-xs px-3 py-1 rounded-full font-semibold uppercase tracking-wide ${order.status === 'confirmado' ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'}`}>
-                        {order.status}
-                      </span>
-                      {order.status === 'pendiente' && (
-                        <button
-                          onClick={() => handleConfirmOrder(order._id)}
-                          className="text-[11px] uppercase tracking-widest text-[#4C674A] hover:text-[#3C503A] font-semibold transition"
-                        >
-                          Confirmar
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                  <div className="space-y-1.5 mb-4">
-                    {order.items.map((item, i) => (
-                      <div key={i} className="flex justify-between text-sm">
-                        <span className="text-[#555]">{item.name} <span className="text-[#aaa]">x{item.quantity}</span></span>
-                        <span className="text-[#3C503A] font-medium">${(parseFloat(item.price) * item.quantity).toLocaleString('es-AR')}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="border-t border-[#F0EBE3] pt-3 flex justify-between">
-                    <span className="text-xs text-[#888]">Total</span>
-                    <span className="font-semibold text-[#1C1C1C]">${order.total.toLocaleString('es-AR')}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </main>
-      )}
 
       {/* ── Modal Editar ── */}
       {editing && (

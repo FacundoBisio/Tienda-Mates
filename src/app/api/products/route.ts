@@ -10,7 +10,8 @@ export async function GET() {
     return NextResponse.json(data, {
       headers: { 'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300' },
     });
-  } catch {
+  } catch (err) {
+    console.error('Error fetching products:', err);
     return NextResponse.json({ error: 'Error al obtener productos' }, { status: 500 });
   }
 }
