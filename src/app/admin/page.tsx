@@ -122,11 +122,20 @@ export default function AdminPage() {
     router.push('/admin/login');
   }
 
-  async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>, onSuccess: (path: string) => void) {
+  async function handleImageUpload(
+    e: React.ChangeEvent<HTMLInputElement>, 
+    onSuccess: (path: string) => void,
+    topKey?: string,
+    subKey?: string,
+    productName?: string
+  ) {
     const file = e.target.files?.[0];
     if (!file) return;
     const fd = new FormData();
     fd.append('file', file);
+    if (topKey) fd.append('topKey', topKey);
+    if (subKey) fd.append('subKey', subKey);
+    if (productName) fd.append('productName', productName);
     const res = await fetch('/api/admin/upload', { method: 'POST', body: fd });
     if (res.ok) {
       const data = await res.json();
@@ -190,6 +199,42 @@ export default function AdminPage() {
       } else {
         const data = await res.json();
         toast.error(data.error ?? 'Error al eliminar');
+      }
+    });
+  }
+
+  /* ── Duplicate & Quick Actions ── */
+  function handleDuplicate() {
+    if (!editing) return;
+    const clone = { 
+      id: editing.id + '-copia', 
+      name: editing.name + ' (Copia)',
+      price: form.price,
+      stock: form.stock,
+      description: form.description,
+      image: form.image,
+      _topKey: editing._topKey,
+      _subKey: editing._subKey ?? ''
+    };
+    setEditing(null);
+    setCreateForm(clone as CreateForm);
+    setCreating(true);
+  }
+
+  async function handleQuickStock(p: FlatProduct, newStock: number) {
+    const updated = { ...p, stock: newStock };
+    startTransition(async () => {
+      updateOptimistic(updated);
+      const res = await fetch(`/api/admin/products/${p.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ stock: newStock }),
+      });
+      if (res.ok) {
+        setProducts(prev => prev.map(x => x.id === p.id ? updated : x));
+        toast.success(`Stock actualizado`);
+      } else {
+        toast.error('Error al actualizar stock');
       }
     });
   }
@@ -260,6 +305,8 @@ export default function AdminPage() {
     });
   }
 
+  const outOfStock = products.filter(p => p.stock === 0).length;
+
   return (
     <div className="min-h-screen bg-[#F5F0EA]">
 
@@ -293,6 +340,18 @@ export default function AdminPage() {
             </svg>
             Nuevo producto
           </button>
+        </div>
+
+        {/* Dashboard Metrics */}
+        <div className="grid grid-cols-2 gap-4 mb-8">
+          <div className="bg-white border border-[#E8E3DC] rounded-2xl p-4 shadow-sm">
+            <p className="text-[10px] text-[#888] uppercase tracking-widest font-semibold mb-1">Total Catálogo</p>
+            <p className="text-2xl font-semibold text-[#1C1C1C]">{total}</p>
+          </div>
+          <div className="bg-white border border-[#E8E3DC] rounded-2xl p-4 shadow-sm">
+            <p className="text-[10px] text-[#888] uppercase tracking-widest font-semibold mb-1">Sin Stock</p>
+            <p className="text-2xl font-semibold text-[#1C1C1C]">{outOfStock}</p>
+          </div>
         </div>
 
         {/* Filtros */}
@@ -359,9 +418,20 @@ export default function AdminPage() {
                         </span>
                       </td>
                       <td className="px-4 py-3 text-right">
-                        <button onClick={() => openEdit(p)} className="text-[11px] uppercase tracking-widest text-[#4C674A] hover:text-[#3C503A] font-semibold transition">
-                          Editar
-                        </button>
+                        <div className="flex items-center justify-end gap-3">
+                          {p.stock > 0 ? (
+                            <button onClick={() => handleQuickStock(p, 0)} title="Marcar como agotado" className="text-[11px] uppercase tracking-widest text-[#888] hover:text-red-600 font-semibold transition">
+                              Agotar
+                            </button>
+                          ) : (
+                            <button onClick={() => handleQuickStock(p, 1)} title="Agregar +1 al stock" className="text-[11px] uppercase tracking-widest text-[#888] hover:text-green-600 font-semibold transition">
+                              Reponer
+                            </button>
+                          )}
+                          <button onClick={() => openEdit(p)} className="text-[11px] uppercase tracking-widest text-[#4C674A] hover:text-[#3C503A] font-semibold transition">
+                            Editar
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   ))}
@@ -407,7 +477,7 @@ export default function AdminPage() {
                 <label className={labelCls}>Imagen</label>
                 <input type="text" value={form.image} onChange={(e) => setForm((f) => ({ ...f, image: e.target.value }))} className={inputCls} placeholder="URL o path" />
                 <label className="mt-2 flex items-center gap-2 cursor-pointer text-[11px] text-[#4C674A] hover:underline tracking-widest uppercase">
-                  <input type="file" accept="image/*,.webp" className="hidden" onChange={(e) => handleImageUpload(e, (path) => setForm((f) => ({ ...f, image: path })))} />
+                  <input type="file" accept="image/*,.webp" className="hidden" onChange={(e) => handleImageUpload(e, (path) => setForm((f) => ({ ...f, image: path })), editing._topKey, editing._subKey, editing.name)} />
                   Subir imagen desde archivo
                 </label>
               </div>
@@ -416,10 +486,15 @@ export default function AdminPage() {
                 <textarea rows={3} value={form.description} onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))} className={`${inputCls} resize-none`} />
               </div>
             </div>
-            <div className="flex gap-3 mt-6">
-              <button onClick={handleDelete} disabled={isPending} className="flex-1 border border-red-200 text-red-500 text-[11px] tracking-widest uppercase font-semibold rounded-xl py-3 hover:bg-red-50 transition disabled:opacity-60">Eliminar</button>
+            <div className="flex gap-2 mt-6">
+              <button onClick={handleDelete} disabled={isPending} className="border border-red-200 text-red-500 text-[11px] tracking-widest uppercase font-semibold rounded-xl py-3 px-4 hover:bg-red-50 transition disabled:opacity-60" title="Eliminar">
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+              </button>
+              <button onClick={handleDuplicate} className="flex-1 border border-[#E8E3DC] text-[#555] text-[11px] tracking-widest uppercase font-semibold rounded-xl py-3 hover:bg-[#F5F0EA] transition">Duplicar</button>
               <button onClick={() => setEditing(null)} className="flex-1 border border-[#E8E3DC] text-[#555] text-[11px] tracking-widest uppercase font-semibold rounded-xl py-3 hover:bg-[#F5F0EA] transition">Cancelar</button>
-              <button onClick={handleSave} disabled={isPending} className="flex-[2] bg-[#3C503A] hover:bg-[#2d4a2b] text-white text-[11px] tracking-widest uppercase font-semibold rounded-xl py-3 transition disabled:opacity-60">
+              <button onClick={handleSave} disabled={isPending} className="flex-[1.5] bg-[#3C503A] hover:bg-[#2d4a2b] text-white text-[11px] tracking-widest uppercase font-semibold rounded-xl py-3 transition disabled:opacity-60">
                 {isPending ? 'Guardando...' : 'Guardar'}
               </button>
             </div>
@@ -502,7 +577,7 @@ export default function AdminPage() {
                   className={inputCls}
                 />
                 <label className="mt-2 flex items-center gap-2 cursor-pointer text-[11px] text-[#4C674A] hover:underline tracking-widest uppercase">
-                  <input type="file" accept="image/*,.webp" className="hidden" onChange={(e) => handleImageUpload(e, (path) => setCreateForm((f) => ({ ...f, image: path })))} />
+                  <input type="file" accept="image/*,.webp" className="hidden" onChange={(e) => handleImageUpload(e, (path) => setCreateForm((f) => ({ ...f, image: path })), createForm._topKey, createForm._subKey, createForm.name)} />
                   Subir imagen desde archivo
                 </label>
               </div>
