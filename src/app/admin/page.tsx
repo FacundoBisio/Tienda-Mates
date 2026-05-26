@@ -35,7 +35,6 @@ interface CreateForm {
   _subKey: string;
 }
 
-
 const CATEGORY_LABELS: Record<string, string> = {
   MATES: 'Mates', TERMOS: 'Termos', YERBAS: 'Yerbas',
   BOMBILLAS: 'Bombillas', ACCESORIOS: 'Accesorios', COMBOS: 'Combos',
@@ -48,7 +47,7 @@ function formatPrice(p: string) {
 }
 
 function slugify(name: string) {
-  return name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') + '-' + Date.now().toString(36);
+  return name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
 }
 
 const EMPTY_CREATE: CreateForm = {
@@ -59,21 +58,34 @@ const EMPTY_CREATE: CreateForm = {
 const inputCls = 'w-full border border-[#E8E3DC] rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:border-[#4C674A] focus:ring-1 focus:ring-[#4C674A] transition bg-white';
 const labelCls = 'block text-[10px] tracking-[0.15em] uppercase text-[#888] font-semibold mb-1.5';
 
+/* ─── Función sanitizadora de imágenes para evitar crashes en Next.js ─────────────────────────── */
+const getSafeImageUrl = (path: string) => {
+  if (!path) return '/Logo.png';
+  if (path.startsWith('http')) return path;
+
+  let cleanPath = path.replace(/\\/g, '/');
+  const imagesIndex = cleanPath.indexOf('/images/');
+  if (imagesIndex !== -1) {
+    return cleanPath.substring(imagesIndex);
+  }
+  return cleanPath;
+};
+
 export default function AdminPage() {
-  const [products, setProducts]       = useState<FlatProduct[]>([]);
-  const [loading, setLoading]         = useState(true);
-  const [search, setSearch]           = useState('');
-  const [filterCat, setFilterCat]     = useState('ALL');
+  const [products, setProducts] = useState<FlatProduct[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState('');
+  const [filterCat, setFilterCat] = useState('ALL');
 
   // Edit modal
-  const [editing, setEditing]         = useState<FlatProduct | null>(null);
-  const [form, setForm]               = useState<EditForm>({ price: '', stock: '', description: '', image: '' });
-  const [isPending, startTransition]  = useTransition();
+  const [editing, setEditing] = useState<FlatProduct | null>(null);
+  const [form, setForm] = useState<EditForm>({ price: '', stock: '', description: '', image: '' });
+  const [isPending, startTransition] = useTransition();
 
   // Create modal
-  const [creating, setCreating]       = useState(false);
-  const [createForm, setCreateForm]   = useState<CreateForm>(EMPTY_CREATE);
-  const [createPending, startCreate]  = useTransition();
+  const [creating, setCreating] = useState(false);
+  const [createForm, setCreateForm] = useState<CreateForm>(EMPTY_CREATE);
+  const [createPending, startCreate] = useTransition();
 
   const [total, setTotal] = useState(0);
 
@@ -123,7 +135,7 @@ export default function AdminPage() {
   }
 
   async function handleImageUpload(
-    e: React.ChangeEvent<HTMLInputElement>, 
+    e: React.ChangeEvent<HTMLInputElement>,
     onSuccess: (path: string) => void,
     topKey?: string,
     subKey?: string,
@@ -206,8 +218,8 @@ export default function AdminPage() {
   /* ── Duplicate & Quick Actions ── */
   function handleDuplicate() {
     if (!editing) return;
-    const clone = { 
-      id: editing.id + '-copia', 
+    const clone = {
+      id: slugify(editing.name + ' copia'),
       name: editing.name + ' (Copia)',
       price: form.price,
       stock: form.stock,
@@ -246,9 +258,9 @@ export default function AdminPage() {
   }
 
   function validateCreate(): string | null {
-    if (!createForm.name.trim())        return 'El nombre es requerido.';
-    if (!createForm.id.trim())          return 'El ID es requerido.';
-    if (!createForm.image.trim())       return 'La imagen es requerida.';
+    if (!createForm.name.trim()) return 'El nombre es requerido.';
+    if (!createForm.id.trim()) return 'El ID es requerido.';
+    if (!createForm.image.trim()) return 'La imagen es requerida.';
     if (!createForm.description.trim()) return 'La descripción es requerida.';
     if (isNaN(Number(createForm.price)) || Number(createForm.price) < 0) return 'Precio inválido.';
     if (isNaN(Number(createForm.stock)) || Number(createForm.stock) < 0) return 'Stock inválido.';
@@ -257,7 +269,8 @@ export default function AdminPage() {
   }
 
   function handleNameChange(name: string) {
-    setCreateForm((f) => ({ ...f, name, id: f.id || slugify(name) }));
+    // Siempre auto-genera el ID desde el nombre (el usuario puede editarlo después)
+    setCreateForm((f) => ({ ...f, name, id: slugify(name) }));
   }
 
   async function handleCreate() {
@@ -291,9 +304,9 @@ export default function AdminPage() {
   const filtered = optimisticProducts.filter((p) => {
     const matchCat = filterCat === 'ALL' || p._topKey === filterCat;
     const s = search.toLowerCase();
-    const matchSearch = p.name.toLowerCase().includes(s) || 
-                        (p._subKey && p._subKey.toLowerCase().includes(s)) ||
-                        (p._topKey && p._topKey.toLowerCase().includes(s));
+    const matchSearch = p.name.toLowerCase().includes(s) ||
+      (p._subKey && p._subKey.toLowerCase().includes(s)) ||
+      (p._topKey && p._topKey.toLowerCase().includes(s));
     return matchCat && matchSearch;
   });
 
@@ -377,71 +390,78 @@ export default function AdminPage() {
           <div className="text-center py-20 text-[#aaa] text-sm">Cargando productos...</div>
         ) : (
           <>
-          <div className="bg-white rounded-2xl border border-[#E8E3DC] overflow-hidden shadow-sm">
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-[#E8E3DC] bg-[#FAFAF8]">
-                    <th className="text-left px-5 py-3.5 text-[10px] uppercase tracking-[0.15em] text-[#888] font-semibold w-14"></th>
-                    <th className="text-left px-4 py-3.5 text-[10px] uppercase tracking-[0.15em] text-[#888] font-semibold">Producto</th>
-                    <th className="text-left px-4 py-3.5 text-[10px] uppercase tracking-[0.15em] text-[#888] font-semibold">Categoría</th>
-                    <th onClick={() => handleSort('price')} className="text-right px-4 py-3.5 text-[10px] uppercase tracking-[0.15em] text-[#888] font-semibold cursor-pointer hover:text-[#1C1C1C] transition-colors select-none">
-                      Precio {sortColumn === 'price' && (sortDirection === 'asc' ? '↑' : '↓')}
-                    </th>
-                    <th onClick={() => handleSort('stock')} className="text-center px-4 py-3.5 text-[10px] uppercase tracking-[0.15em] text-[#888] font-semibold cursor-pointer hover:text-[#1C1C1C] transition-colors select-none">
-                      Stock {sortColumn === 'stock' && (sortDirection === 'asc' ? '↑' : '↓')}
-                    </th>
-                    <th className="px-4 py-3.5 w-20"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filtered.map((p, i) => (
-                    <tr key={`${p.id}-${i}`} className="border-b border-[#F0EBE3] last:border-0 hover:bg-[#FAFAF8] transition-colors">
-                      <td className="px-5 py-3">
-                        <div className="relative w-10 h-10 rounded-lg overflow-hidden bg-[#F0EBE3] flex-shrink-0">
-                          <Image src={p.image} alt={p.name} fill className="object-cover" sizes="40px" onError={() => {}} />
-                        </div>
-                      </td>
-                      <td className="px-4 py-3">
-                        <p className="font-medium text-[#1C1C1C] leading-tight">{p.name}</p>
-                        {p.description && <p className="text-[#aaa] text-xs mt-0.5 line-clamp-1">{p.description}</p>}
-                      </td>
-                      <td className="px-4 py-3">
-                        <span className="text-xs bg-[#F0EBE3] text-[#5a4a3a] px-2.5 py-1 rounded-full font-medium">
-                          {CATEGORY_LABELS[p._topKey] ?? p._topKey}{p._subKey ? ` · ${p._subKey}` : ''}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3 text-right font-semibold text-[#3C503A]">{formatPrice(p.price)}</td>
-                      <td className="px-4 py-3 text-center">
-                        <span className={`inline-flex items-center justify-center w-8 h-8 rounded-full text-xs font-bold ${p.stock === 0 ? 'bg-red-100 text-red-600' : p.stock <= 2 ? 'bg-amber-100 text-amber-700' : 'bg-green-100 text-green-700'}`}>
-                          {p.stock}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3 text-right">
-                        <div className="flex items-center justify-end gap-3">
-                          {p.stock > 0 ? (
-                            <button onClick={() => handleQuickStock(p, 0)} title="Marcar como agotado" className="text-[11px] uppercase tracking-widest text-[#888] hover:text-red-600 font-semibold transition">
-                              Agotar
-                            </button>
-                          ) : (
-                            <button onClick={() => handleQuickStock(p, 1)} title="Agregar +1 al stock" className="text-[11px] uppercase tracking-widest text-[#888] hover:text-green-600 font-semibold transition">
-                              Reponer
-                            </button>
-                          )}
-                          <button onClick={() => openEdit(p)} className="text-[11px] uppercase tracking-widest text-[#4C674A] hover:text-[#3C503A] font-semibold transition">
-                            Editar
-                          </button>
-                        </div>
-                      </td>
+            <div className="bg-white rounded-2xl border border-[#E8E3DC] overflow-hidden shadow-sm">
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-[#E8E3DC] bg-[#FAFAF8]">
+                      <th className="text-left px-5 py-3.5 text-[10px] uppercase tracking-[0.15em] text-[#888] font-semibold w-14"></th>
+                      <th className="text-left px-4 py-3.5 text-[10px] uppercase tracking-[0.15em] text-[#888] font-semibold">Producto</th>
+                      <th className="text-left px-4 py-3.5 text-[10px] uppercase tracking-[0.15em] text-[#888] font-semibold">Categoría</th>
+                      <th onClick={() => handleSort('price')} className="text-right px-4 py-3.5 text-[10px] uppercase tracking-[0.15em] text-[#888] font-semibold cursor-pointer hover:text-[#1C1C1C] transition-colors select-none">
+                        Precio {sortColumn === 'price' && (sortDirection === 'asc' ? '↑' : '↓')}
+                      </th>
+                      <th onClick={() => handleSort('stock')} className="text-center px-4 py-3.5 text-[10px] uppercase tracking-[0.15em] text-[#888] font-semibold cursor-pointer hover:text-[#1C1C1C] transition-colors select-none">
+                        Stock {sortColumn === 'stock' && (sortDirection === 'asc' ? '↑' : '↓')}
+                      </th>
+                      <th className="px-4 py-3.5 w-20"></th>
                     </tr>
-                  ))}
-                  {filtered.length === 0 && (
-                    <tr><td colSpan={6} className="text-center py-12 text-[#bbb] text-sm">Sin resultados</td></tr>
-                  )}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {filtered.map((p, i) => (
+                      <tr key={`${p.id}-${i}`} className="border-b border-[#F0EBE3] last:border-0 hover:bg-[#FAFAF8] transition-colors">
+                        <td className="px-5 py-3">
+                          <div className="relative w-10 h-10 rounded-lg overflow-hidden bg-[#F0EBE3] flex-shrink-0">
+                            <Image
+                              src={getSafeImageUrl(p.image)}
+                              alt={p.name}
+                              fill
+                              className="object-cover"
+                              sizes="40px"
+                              onError={(e) => { e.currentTarget.srcset = '/Logo.png'; }}
+                            />
+                          </div>
+                        </td>
+                        <td className="px-4 py-3">
+                          <p className="font-medium text-[#1C1C1C] leading-tight">{p.name}</p>
+                          {p.description && <p className="text-[#aaa] text-xs mt-0.5 line-clamp-1">{p.description}</p>}
+                        </td>
+                        <td className="px-4 py-3">
+                          <span className="text-xs bg-[#F0EBE3] text-[#5a4a3a] px-2.5 py-1 rounded-full font-medium">
+                            {CATEGORY_LABELS[p._topKey] ?? p._topKey}{p._subKey ? ` · ${p._subKey}` : ''}
+                          </span>
+                        </td>
+                        <td className="px-4 py-3 text-right font-semibold text-[#3C503A]">{formatPrice(p.price)}</td>
+                        <td className="px-4 py-3 text-center">
+                          <span className={`inline-flex items-center justify-center w-8 h-8 rounded-full text-xs font-bold ${p.stock === 0 ? 'bg-red-100 text-red-600' : p.stock <= 2 ? 'bg-amber-100 text-amber-700' : 'bg-green-100 text-green-700'}`}>
+                            {p.stock}
+                          </span>
+                        </td>
+                        <td className="px-4 py-3 text-right">
+                          <div className="flex items-center justify-end gap-3">
+                            {p.stock > 0 ? (
+                              <button onClick={() => handleQuickStock(p, 0)} title="Marcar como agotado" className="text-[11px] uppercase tracking-widest text-[#888] hover:text-red-600 font-semibold transition">
+                                Agotar
+                              </button>
+                            ) : (
+                              <button onClick={() => handleQuickStock(p, 1)} title="Agregar +1 al stock" className="text-[11px] uppercase tracking-widest text-[#888] hover:text-green-600 font-semibold transition">
+                                Reponer
+                              </button>
+                            )}
+                            <button onClick={() => openEdit(p)} className="text-[11px] uppercase tracking-widest text-[#4C674A] hover:text-[#3C503A] font-semibold transition">
+                              Editar
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                    {filtered.length === 0 && (
+                      <tr><td colSpan={6} className="text-center py-12 text-[#bbb] text-sm">Sin resultados</td></tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
             </div>
-          </div>
 
           </>
         )}
@@ -455,7 +475,14 @@ export default function AdminPage() {
           <div className="relative bg-white rounded-2xl border border-[#E8E3DC] shadow-2xl w-full max-w-md p-8 z-10 max-h-[90vh] overflow-y-auto">
             <div className="flex items-start gap-4 mb-6">
               <div className="relative w-14 h-14 rounded-xl overflow-hidden bg-[#F0EBE3] flex-shrink-0">
-                <Image src={form.image || editing.image} alt={editing.name} fill className="object-cover" sizes="56px" />
+                <Image
+                  src={getSafeImageUrl(form.image || editing.image)}
+                  alt={editing.name}
+                  fill
+                  className="object-cover"
+                  sizes="56px"
+                  onError={(e) => { e.currentTarget.srcset = '/Logo.png'; }}
+                />
               </div>
               <div>
                 <h3 className="font-semibold text-[#1C1C1C] leading-tight" style={{ fontFamily: "'DM Serif Display', serif" }}>{editing.name}</h3>

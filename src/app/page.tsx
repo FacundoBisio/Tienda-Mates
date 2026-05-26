@@ -36,7 +36,7 @@ const Hero = () => (
       <svg className="absolute inset-0 w-full h-full opacity-[0.04]" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
-            <path d="M 60 0 L 0 0 0 60" fill="none" stroke="white" strokeWidth="0.5"/>
+            <path d="M 60 0 L 0 0 0 60" fill="none" stroke="white" strokeWidth="0.5" />
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill="url(#grid)" />
@@ -91,9 +91,9 @@ const Hero = () => (
 
 // ── Productos Destacados ─────────────────────────────────────────
 const destacados = [
-  { name: 'Imperial Cincelado Con Base',  price: '$41.500', image: '/images/mates/imperiales/ImperialCinceladoConBase.jpeg', href: '/producto/ImperialCinceladoConBase', tag: 'Más vendido' },
-  { name: 'Torpedo Nacional Premium',     price: '$59.999', image: '/images/mates/torpedos/TorpedoNacionalPremium.jpeg',    href: '/producto/TorpedoNacionalPremium',    tag: 'Premium' },
-  { name: 'Ranchero de Algarrobo',        price: '$40.000', image: '/images/mates/camioneros/RancheroAlgarrobo.webp',        href: '/producto/RancheroAlgarrobo',          tag: 'Edición especial' },
+  { name: 'Yerbero Sol Nacional', price: '$15.000', image: '/images/accesorios/yerbero-sol-nacional.webp', href: '/producto/yerbero-sol-nacional', tag: 'Nuevo' },
+  { name: 'Ranchero de Algarrobo', price: '$45.000', image: '/images/mates/camioneros/RancheroAlgarrobo.webp', href: '/producto/ranchero-algarrobo', tag: 'Edición especial' },
+  { name: 'Camionero Algarrobo Virola Invertida', price: '$30.000', image: '/images/mates/camioneros/camionero-algarrobo-virola-invertida.webp', href: '/producto/camionero-algarrobo-virola-invertida', tag: 'Artesanal' },
 ];
 
 const ProductosDestacados = () => (
@@ -133,14 +133,31 @@ const ProductosDestacados = () => (
 // ── Sobre Nosotros ───────────────────────────────────────────────
 const stats = [
   { value: '500+', label: 'Clientes satisfechos' },
-  { value: '60+',  label: 'Modelos únicos' },
-  { value: '4★',   label: 'Valoración promedio' },
+  { value: '60+', label: 'Modelos únicos' },
+  { value: '4★', label: 'Valoración promedio' },
   { value: '24hs', label: 'Tiempo de respuesta' },
 ];
 
 const SobreNosotros = () => (
-  <section id="nosotros" className="py-28 px-6 overflow-hidden" style={{ background: 'linear-gradient(160deg, #f8f6f2 0%, #eef2ec 60%, #f8f6f2 100%)' }}>
-    <div className="max-w-7xl mx-auto">
+  <section id="nosotros" className="relative py-28 px-6 overflow-hidden bg-white">
+    {/* Imagen en el lado derecho con difuminado hacia la izquierda */}
+    <div className="hidden lg:block absolute right-0 top-0 h-full w-1/2"
+      style={{
+        background: 'url(/feria-frente.png) center/cover no-repeat',
+        maskImage: 'linear-gradient(to left, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 60%, transparent 100%)',
+        WebkitMaskImage: 'linear-gradient(to left, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 60%, transparent 100%)',
+      }}
+    />
+    {/* Variante para mobile/tablet: imagen arriba, más sutil */}
+    <div className="block lg:hidden absolute top-0 left-0 w-full h-1/2 opacity-20"
+      style={{
+        background: 'url(/nosotros-feria.jpg) top center/cover no-repeat',
+        maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, transparent 100%)',
+        WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, transparent 100%)',
+      }}
+    />
+
+    <div className="relative z-10 max-w-7xl mx-auto">
       <div className="max-w-2xl mb-14">
         <p className="text-xs tracking-[0.25em] uppercase text-[#4C674A] font-semibold mb-4">Nuestra historia</p>
         <h2 className="text-4xl md:text-5xl font-normal text-[#1C1C1C] leading-tight" style={{ fontFamily: "'DM Serif Display', serif" }}>
@@ -151,7 +168,7 @@ const SobreNosotros = () => (
         </p>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16 p-6 rounded-3xl bg-white border border-[#E8E3DC]">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16 p-6 rounded-3xl bg-white/80 backdrop-blur-md border border-[#E8E3DC] shadow-sm">
         {stats.map((s) => (
           <div key={s.label} className="text-center py-2">
             <p className="text-3xl md:text-4xl font-normal text-[#3C503A] mb-1" style={{ fontFamily: "'DM Serif Display', serif" }}>{s.value}</p>
@@ -162,11 +179,15 @@ const SobreNosotros = () => (
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {([
-          { num: '01', title: 'Calidad Artesanal', desc: 'Cada pieza es única, trabajada a mano con calabaza brasileña seleccionada y cuero vacuno legítimo. Sin producción en serie.', accent: '#4C674A', bg: '#f0f5ef', Icon: CraftIcon },
-          { num: '02', title: 'Envíos a Todo el País', desc: 'Recibí tu pedido en la puerta. Embalamos con cuidado para que llegue perfecto, sin importar dónde estés en Argentina.', accent: '#3C503A', bg: '#eaf0e9', Icon: TruckIcon },
-          { num: '03', title: 'Atención Personalizada', desc: 'Te asesoramos por WhatsApp para que elijas el mate ideal. ¿Buscás un regalo especial? Consultanos y lo pensamos juntos.', accent: '#2d4a2b', bg: '#e4ede3', Icon: ChatIcon },
+          { num: '01', title: 'Calidad Artesanal', desc: 'Cada pieza es única, trabajada a mano con calabaza brasileña seleccionada y cuero vacuno legítimo. Sin producción en serie.', accent: '#4C674A', bg: 'rgba(240,245,239,0.9)', Icon: CraftIcon },
+          { num: '02', title: 'Envíos a Todo el País', desc: 'Recibí tu pedido en la puerta. Embalamos con cuidado para que llegue perfecto, sin importar dónde estés en Argentina.', accent: '#3C503A', bg: 'rgba(234,240,233,0.9)', Icon: TruckIcon },
+          { num: '03', title: 'Atención Personalizada', desc: 'Te asesoramos por WhatsApp para que elijas el mate ideal. ¿Buscás un regalo especial? Consultanos y lo pensamos juntos.', accent: '#2d4a2b', bg: 'rgba(228,237,227,0.9)', Icon: ChatIcon },
         ] as const).map((item) => (
-          <div key={item.num} className="relative rounded-3xl p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg overflow-hidden" style={{ backgroundColor: item.bg }}>
+          <div
+            key={item.num}
+            className="relative rounded-3xl p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg overflow-hidden backdrop-blur-sm"
+            style={{ backgroundColor: item.bg }}
+          >
             <span className="absolute -top-4 -right-2 text-[120px] font-bold leading-none select-none pointer-events-none" style={{ color: item.accent, opacity: 0.06 }}>{item.num}</span>
             <item.Icon className="w-7 h-7 mb-5" style={{ color: item.accent }} />
             <p className="text-xs text-[#BBBBB0] font-mono mb-3">{item.num}</p>
