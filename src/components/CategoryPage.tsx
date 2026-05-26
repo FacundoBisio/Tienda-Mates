@@ -10,12 +10,12 @@ import { CategoryIcon } from './Icons';
 import type { Product } from '@/types';
 
 const categoryMeta: Record<string, { key: string; label: string; desc: string }> = {
-  mates:      { key: 'MATES',      label: 'Mates Artesanales',   desc: 'Cada pieza es única, trabajada a mano con materiales de primera calidad.' },
-  termos:     { key: 'TERMOS',     label: 'Termos',               desc: 'Mantené el agua caliente por 24 horas. Diseño y funcionalidad en uno.'    },
-  yerbas:     { key: 'YERBAS',     label: 'Yerbas Seleccionadas', desc: 'Las mejores yerbas uruguayas y argentinas, seleccionadas para vos.'       },
-  bombillas:  { key: 'BOMBILLAS',  label: 'Bombillas',            desc: 'Desde las más simples hasta las más trabajadas en alpaca cincelada.'       },
-  accesorios: { key: 'ACCESORIOS', label: 'Accesorios',           desc: 'Materas, mochilas y sets completos para llevar tu ritual a donde vayas.'  },
-  combos:     { key: 'COMBOS',     label: 'Combos Especiales',    desc: 'Paquetes pensados para regalar o para empezar con todo lo necesario.'    },
+  mates: { key: 'MATES', label: 'Mates Artesanales', desc: 'Cada pieza es única, trabajada a mano con materiales de primera calidad.' },
+  termos: { key: 'TERMOS', label: 'Termos', desc: 'Mantené el agua caliente por 24 horas. Diseño y funcionalidad en uno.' },
+  yerbas: { key: 'YERBAS', label: 'Yerbas Seleccionadas', desc: 'Las mejores yerbas uruguayas y argentinas, seleccionadas para vos.' },
+  bombillas: { key: 'BOMBILLAS', label: 'Bombillas', desc: 'Desde las más simples hasta las más trabajadas en alpaca cincelada.' },
+  accesorios: { key: 'ACCESORIOS', label: 'Accesorios', desc: 'Materas, mochilas y sets completos para llevar tu ritual a donde vayas.' },
+  combos: { key: 'COMBOS', label: 'Combos Especiales', desc: 'Paquetes pensados para regalar o para empezar con todo lo necesario.' },
 };
 
 // Pre-compute "other categories" links once (they never change)
@@ -32,7 +32,7 @@ const CategoryPage = () => {
   const cartCtx = useContext(CartContext);
   const allProducts = cartCtx?.allProducts ?? {};
   const [selectedSub, setSelectedSub] = useState<string | null>(null);
-  const [sortBy, setSortBy] = useState('price-desc');
+  const [sortBy, setSortBy] = useState('price-asc');
 
   const meta = categoryMeta[cat?.toLowerCase()];
 
@@ -74,8 +74,8 @@ const CategoryPage = () => {
     if (!meta) return [];
     let list: Product[] = hasSubs
       ? (!selectedSub
-          ? Object.values(rawData as Record<string, Product[]>).flat()
-          : (rawData as Record<string, Product[]>)[selectedSub] || [])
+        ? Object.values(rawData as Record<string, Product[]>).flat()
+        : (rawData as Record<string, Product[]>)[selectedSub] || [])
       : (Array.isArray(rawData) ? rawData as Product[] : []);
 
     // Dedup
@@ -88,7 +88,7 @@ const CategoryPage = () => {
 
     // Sort
     const sorted = [...list];
-    if (sortBy === 'price-asc')  sorted.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+    if (sortBy === 'price-asc') sorted.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
     if (sortBy === 'price-desc') sorted.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
     return sorted;
   }, [meta, hasSubs, rawData, selectedSub, sortBy]);
@@ -125,9 +125,8 @@ const CategoryPage = () => {
             <div className="flex flex-wrap gap-2">
               <button
                 onClick={() => setSelectedSub(null)}
-                className={`px-4 py-1.5 rounded-full text-xs font-medium tracking-wide transition-all ${
-                  !selectedSub ? 'bg-[#1C1C1C] text-white' : 'bg-white border border-[#E8E3DC] text-[#555] hover:border-[#4C674A]'
-                }`}
+                className={`px-4 py-1.5 rounded-full text-xs font-medium tracking-wide transition-all ${!selectedSub ? 'bg-[#1C1C1C] text-white' : 'bg-white border border-[#E8E3DC] text-[#555] hover:border-[#4C674A]'
+                  }`}
               >
                 Todos
               </button>
@@ -135,9 +134,8 @@ const CategoryPage = () => {
                 <button
                   key={sub}
                   onClick={() => setSelectedSub(sub)}
-                  className={`px-4 py-1.5 rounded-full text-xs font-medium tracking-wide transition-all ${
-                    selectedSub === sub ? 'bg-[#4C674A] text-white' : 'bg-white border border-[#E8E3DC] text-[#555] hover:border-[#4C674A]'
-                  }`}
+                  className={`px-4 py-1.5 rounded-full text-xs font-medium tracking-wide transition-all ${selectedSub === sub ? 'bg-[#4C674A] text-white' : 'bg-white border border-[#E8E3DC] text-[#555] hover:border-[#4C674A]'
+                    }`}
                 >
                   {sub}
                 </button>
