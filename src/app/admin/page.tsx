@@ -472,7 +472,9 @@ export default function AdminPage() {
       {editing && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setEditing(null)} />
-          <div className="relative bg-white rounded-2xl border border-[#E8E3DC] shadow-2xl w-full max-w-md p-8 z-10 max-h-[90vh] overflow-y-auto">
+          <div className="relative bg-white rounded-2xl border border-[#E8E3DC] shadow-2xl w-full max-w-md p-8 z-10 max-h-[90vh] overflow-y-auto" onKeyDown={(e) => {
+            if (e.key === 'Enter' && (e.target as HTMLElement).tagName !== 'TEXTAREA') { e.preventDefault(); handleSave(); }
+          }}>
             <div className="flex items-start gap-4 mb-6">
               <div className="relative w-14 h-14 rounded-xl overflow-hidden bg-[#F0EBE3] flex-shrink-0">
                 <Image
@@ -533,7 +535,9 @@ export default function AdminPage() {
       {creating && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setCreating(false)} />
-          <div className="relative bg-white rounded-2xl border border-[#E8E3DC] shadow-2xl w-full max-w-md p-8 z-10 max-h-[90vh] overflow-y-auto">
+          <div className="relative bg-white rounded-2xl border border-[#E8E3DC] shadow-2xl w-full max-w-md p-8 z-10 max-h-[90vh] overflow-y-auto" onKeyDown={(e) => {
+            if (e.key === 'Enter' && (e.target as HTMLElement).tagName !== 'TEXTAREA') { e.preventDefault(); handleCreate(); }
+          }}>
 
             <h3 className="text-xl text-[#1C1C1C] mb-6" style={{ fontFamily: "'DM Serif Display', serif" }}>Nuevo producto</h3>
 
