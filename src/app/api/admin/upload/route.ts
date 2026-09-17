@@ -21,10 +21,20 @@ export async function POST(req: NextRequest) {
 
   const ext = file.name.split('.').pop() ?? 'jpg';
   
-  let baseName = `img-${Date.now()}`;
+  // Extraemos el nombre original sin la extensión
+  const originalName = file.name.split('.').slice(0, -1).join('.') || 'imagen';
+  
+  // Limpiamos el nombre original por defecto
+  let baseName = originalName.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+
+  // Si nos enviaron el nombre del producto, lo preferimos para el nombre de la imagen
   if (productName && productName.trim()) {
     baseName = productName.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
   }
+  
+  // Evitar nombres vacíos
+  if (!baseName) baseName = 'imagen';
+
   const filename = `${baseName}.${ext}`;
 
   let subFolder = '';
@@ -35,11 +45,11 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  const uploadDir = path.join(process.cwd(), 'public', 'imagenes', ...subFolder.split('/'));
+  const uploadDir = path.join(process.cwd(), 'public', 'images', ...subFolder.split('/'));
   await mkdir(uploadDir, { recursive: true });
   const buffer = Buffer.from(await file.arrayBuffer());
   await writeFile(path.join(uploadDir, filename), buffer);
 
-  const finalPath = subFolder ? `/imagenes/${subFolder}/${filename}` : `/imagenes/${filename}`;
+  const finalPath = subFolder ? `/images/${subFolder}/${filename}` : `/images/${filename}`;
   return NextResponse.json({ path: finalPath }, { status: 201 });
 }

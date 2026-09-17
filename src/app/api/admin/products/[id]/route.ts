@@ -18,7 +18,14 @@ export async function PUT(
   if (stock !== undefined && (typeof stock !== 'number' || stock < 0))
     return NextResponse.json({ error: 'Stock inválido' }, { status: 400 });
 
-  const updated = await updateProduct(id, { price, stock, description, image });
+  // Sólo enviamos a la DB los campos que realmente fueron definidos en el body
+  const fieldsToUpdate: Partial<{ price: string; stock: number; description: string; image: string }> = {};
+  if (price !== undefined) fieldsToUpdate.price = price;
+  if (stock !== undefined) fieldsToUpdate.stock = stock;
+  if (description !== undefined) fieldsToUpdate.description = description;
+  if (image !== undefined) fieldsToUpdate.image = image;
+
+  const updated = await updateProduct(id, fieldsToUpdate);
   if (!updated) return NextResponse.json({ error: 'Producto no encontrado' }, { status: 404 });
 
   return NextResponse.json({ ok: true });
