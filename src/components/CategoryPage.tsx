@@ -32,7 +32,9 @@ const CategoryPage = () => {
   const cartCtx = useContext(CartContext);
   const allProducts = cartCtx?.allProducts ?? {};
   const [selectedSub, setSelectedSub] = useState<string | null>(null);
-  const [sortBy, setSortBy] = useState('price-desc');
+  const [sortBy, setSortBy] = useState('price-asc');
+  const [minPrice, setMinPrice] = useState<number | ''>('');
+  const [maxPrice, setMaxPrice] = useState<number | ''>('');
 
   const meta = categoryMeta[cat?.toLowerCase()];
 
@@ -86,12 +88,20 @@ const CategoryPage = () => {
       return true;
     });
 
+    // Price Filter
+    if (minPrice !== '') {
+      list = list.filter(p => parseFloat(p.price) >= Number(minPrice));
+    }
+    if (maxPrice !== '') {
+      list = list.filter(p => parseFloat(p.price) <= Number(maxPrice));
+    }
+
     // Sort
     const sorted = [...list];
     if (sortBy === 'price-asc')  sorted.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
     if (sortBy === 'price-desc') sorted.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
     return sorted;
-  }, [meta, hasSubs, rawData, selectedSub, sortBy]);
+  }, [meta, hasSubs, rawData, selectedSub, sortBy, minPrice, maxPrice]);
 
   if (!meta) return null;
 
@@ -121,37 +131,59 @@ const CategoryPage = () => {
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 py-12">
         <div className="flex flex-col sm:flex-row gap-4 mb-10 items-start sm:items-center justify-between">
-          {hasSubs && (
-            <div className="flex flex-wrap gap-2">
-              <button
-                onClick={() => setSelectedSub(null)}
-                className={`px-4 py-1.5 rounded-full text-xs font-medium tracking-wide transition-all ${
-                  !selectedSub ? 'bg-[#1C1C1C] text-white' : 'bg-white border border-[#E8E3DC] text-[#555] hover:border-[#4C674A]'
-                }`}
-              >
-                Todos
-              </button>
-              {subs.map((sub) => (
+          <div className="flex flex-col sm:flex-row gap-4 flex-1">
+            {hasSubs && (
+              <div className="flex flex-wrap gap-2">
                 <button
-                  key={sub}
-                  onClick={() => setSelectedSub(sub)}
+                  onClick={() => setSelectedSub(null)}
                   className={`px-4 py-1.5 rounded-full text-xs font-medium tracking-wide transition-all ${
-                    selectedSub === sub ? 'bg-[#4C674A] text-white' : 'bg-white border border-[#E8E3DC] text-[#555] hover:border-[#4C674A]'
+                    !selectedSub ? 'bg-[#1C1C1C] text-white' : 'bg-white border border-[#E8E3DC] text-[#555] hover:border-[#4C674A]'
                   }`}
                 >
-                  {sub}
+                  Todos
                 </button>
-              ))}
+                {subs.map((sub) => (
+                  <button
+                    key={sub}
+                    onClick={() => setSelectedSub(sub)}
+                    className={`px-4 py-1.5 rounded-full text-xs font-medium tracking-wide transition-all ${
+                      selectedSub === sub ? 'bg-[#4C674A] text-white' : 'bg-white border border-[#E8E3DC] text-[#555] hover:border-[#4C674A]'
+                    }`}
+                  >
+                    {sub}
+                  </button>
+                ))}
+              </div>
+            )}
+            
+            {/* Price Filter */}
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-[#888] font-medium hidden sm:block">Precio:</span>
+              <input 
+                type="number" 
+                placeholder="Mín ($)" 
+                value={minPrice} 
+                onChange={e => setMinPrice(e.target.value ? Number(e.target.value) : '')} 
+                className="w-24 px-3 py-1.5 text-sm bg-white border border-[#E8E3DC] rounded-xl focus:outline-none focus:border-[#4C674A] placeholder:text-[#BBB]" 
+              />
+              <span className="text-sm text-[#888]">-</span>
+              <input 
+                type="number" 
+                placeholder="Máx ($)" 
+                value={maxPrice} 
+                onChange={e => setMaxPrice(e.target.value ? Number(e.target.value) : '')} 
+                className="w-24 px-3 py-1.5 text-sm bg-white border border-[#E8E3DC] rounded-xl focus:outline-none focus:border-[#4C674A] placeholder:text-[#BBB]" 
+              />
             </div>
-          )}
+          </div>
 
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
-            className="ml-auto px-4 py-2 bg-white border border-[#E8E3DC] rounded-xl text-sm text-[#555] focus:outline-none focus:border-[#4C674A] cursor-pointer"
+            className="w-full sm:w-auto px-4 py-2 bg-white border border-[#E8E3DC] rounded-xl text-sm text-[#555] focus:outline-none focus:border-[#4C674A] cursor-pointer"
           >
-            <option value="price-desc">Precio: mayor a menor</option>
             <option value="price-asc">Precio: menor a mayor</option>
+            <option value="price-desc">Precio: mayor a menor</option>
           </select>
         </div>
 

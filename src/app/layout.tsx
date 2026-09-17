@@ -34,12 +34,12 @@ export const metadata: Metadata = {
     siteName: 'FFMATES',
     locale: 'es_AR',
     type: 'website',
-    images: [{ url: '/Logo.png', width: 1200, height: 630, alt: 'FFMATES - Tienda de mates artesanales' }],
+    images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'FFMATES - Tienda de mates artesanales' }],
   },
   twitter: {
     card: 'summary_large_image',
     site: '@ffmates',
-    images: ['/Logo.png'],
+    images: ['/og-image.jpg'],
   },
   icons: {
     icon: '/Logo.png',
@@ -64,7 +64,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <GoogleAnalytics gaId="G-6BXVVQHB38" />
         {fbPixelId && (
           <>
-            <Script id="fb-pixel" strategy="afterInteractive">
+            <Script id="fb-pixel" strategy="lazyOnload">
               {`
                 !function(f,b,e,v,n,t,s)
                 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?

@@ -4,6 +4,12 @@ import seedData from '@/data/productsData.json';
 import type { ProductsData } from '@/types';
 
 export async function GET() {
+  if (!process.env.MONGODB_URI) {
+    return NextResponse.json(seedData as unknown as ProductsData, {
+      headers: { 'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300' },
+    });
+  }
+
   try {
     await seedIfEmpty(flattenNested(seedData as unknown as ProductsData));
     const data = await getAllNested();
@@ -11,7 +17,9 @@ export async function GET() {
       headers: { 'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300' },
     });
   } catch (err) {
-    console.error('Error fetching products:', err);
-    return NextResponse.json({ error: 'Error al obtener productos' }, { status: 500 });
+    console.warn('DB Fetch failed, falling back to local JSON data');
+    return NextResponse.json(seedData as unknown as ProductsData, {
+      headers: { 'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300' },
+    });
   }
 }

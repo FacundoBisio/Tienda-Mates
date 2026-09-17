@@ -2,10 +2,12 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import Accordion from '@/components/Accordion';
-import ProductSection from '@/components/ProductSection';
+import dynamic from 'next/dynamic';
 import { CraftIcon, TruckIcon, ChatIcon } from '@/components/Icons';
 import type { Metadata } from 'next';
+
+const ProductSection = dynamic(() => import('@/components/ProductSection'));
+const Accordion = dynamic(() => import('@/components/Accordion'));
 
 export const metadata: Metadata = {
   title: 'FFMATES | Tienda de Mates Artesanales en Argentina',
@@ -44,19 +46,21 @@ const Hero = () => (
       {/* Desktop: mitad derecha, fade hacia la izquierda */}
       <div className="hidden md:block absolute right-0 top-0 h-full w-1/2 opacity-25"
         style={{
-          background: 'url(/images/mates/imperiales/ImperialConBase.jpeg) center/cover no-repeat',
           maskImage: 'linear-gradient(to left, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 60%, transparent 100%)',
           WebkitMaskImage: 'linear-gradient(to left, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 60%, transparent 100%)',
         }}
-      />
+      >
+        <Image src="/images/mates/imperiales/ImperialConBase.jpeg" alt="Mate Imperial" fill style={{ objectFit: 'cover', objectPosition: 'center' }} priority />
+      </div>
       {/* Mobile: pantalla completa, fade arriba y abajo para no tapar el texto */}
       <div className="block md:hidden absolute inset-0 opacity-[0.18]"
         style={{
-          background: 'url(/images/mates/imperiales/ImperialConBase.jpeg) center/cover no-repeat',
           maskImage: 'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 25%, rgba(0,0,0,0.7) 75%, transparent 100%)',
           WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 25%, rgba(0,0,0,0.7) 75%, transparent 100%)',
         }}
-      />
+      >
+        <Image src="/images/mates/imperiales/ImperialConBase.jpeg" alt="Mate Imperial" fill style={{ objectFit: 'cover', objectPosition: 'center' }} priority />
+      </div>
     </div>
 
     <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full">
@@ -70,7 +74,7 @@ const Hero = () => (
         <p className="hidden md:block text-white/65 text-lg leading-relaxed mb-10 max-w-md delay-300">
           Piezas únicas hechas a mano. Cada mate cuenta una historia. ¿Cuál va a ser la tuya?
         </p>
-        <div className="flex flex-wrap gap-4 delay-400">
+        <div className="flex flex-wrap gap-4 delay-400 mt-2">
           <Link href="/categoria/mates" className="px-8 py-3.5 bg-white text-[#2d4a2b] rounded-full text-sm font-semibold tracking-wide hover:bg-[#a8c5a5] transition-all duration-300">
             Explorar mates
           </Link>
