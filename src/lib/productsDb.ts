@@ -11,6 +11,7 @@ const COL  = 'products';
 
 async function col() {
   const client = await clientPromise;
+  if (!client) throw new Error('No MongoDB client available');
   return client.db(DB).collection<FlatProduct>(COL);
 }
 
